@@ -1,0 +1,275 @@
+<extend name="Public:base"/>
+<block name="leftcolumn">
+   <div class="panel panel-info">
+	   <div class="panel-heading">
+	      <h3 class="panel-title">
+	         巡塘记录
+	      </h3>
+	   </div>
+	   <div class="panel-body">
+	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addPatrolModal">添加</button><br><br>
+	   	<table class="table table-bordered table-striped col-sm-12" >
+		     <thead>
+		        <tr>
+		           <th>池塘</th>	
+		           <th>鱼苗</th>
+		           <th>网箱</th>
+		           <th>数量</th>
+		           <th>重量</th>
+		           <th>死亡原因</th>
+		           <th>死亡日期</th>
+		           <th>备注</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="patrol" id="patrol">	
+			        <tr>
+			           <td>{$patrol.patrol_pool_id}</td>
+			           <td>{$patrol.patrol_fry_id}</td>
+			           <td>{$patrol.patrol_cage_id}</td>
+			           <td>{$patrol.patrol_number}</td>
+			           <td>{$patrol.patrol_weight}</td>
+			           <td>{$patrol.patrol_death_reason}</td>
+			           <td>{$patrol.patrol_death_date}</td>
+			           <td>{$patrol.patrol_remark}</td>
+		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyPatrolModal" value="{$patrol.patrol_id}" onclick="patrolChange(this)">修改</button></td>
+			        </tr>
+			    </volist> 
+		     </tbody>
+ 		 </table>
+	   </div>
+	     <div class="panel-footer">
+	     	<ul class="pagination">
+			 {$page}
+		    </ul>
+	     </div>
+	</div>
+	<!-- patrolModal -->
+<div class="modal fade" id="addPatrolModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新巡塘信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Safe/adds', array('name'=>'patrol'))}" id="addPatrol_form" role="form" method="post">
+		            	
+		            	<div class="form-group">
+		            		<label for="">池塘</label>
+		            		<select class="form-control" name="medication_pool_id" id="medication_pool_id">
+		            			<option value="0">请选择池塘</option>
+		            			<volist name="pool_data" id="p">
+		            				<option value="{$p.pool_id}">{$p.pool_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">鱼苗</label>
+		            		<select class="form-control" name="patrol_fry_id" >
+		            			<option value="0">请选择鱼苗</option>
+		            			<volist name="fry" id="fr">
+		            				<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+                        
+		            	<div class="form-group">
+		            		<label for="">网箱</label>
+			            		<select class="form-control" name="patrol_cage_id" >
+			            			<option value="0">请选择网箱</option>
+			            			<volist name="cage" id="ca">
+			            				<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
+			            			</volist>
+			            		</select>
+		            	</div> 
+		            
+		            	<div class="form-group">
+		            		<label for="">数量</label>
+		            		<input type="text" class="form-control" value="" name="patrol_number" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">重量</label>
+		            		<input type="text" class="form-control" value="" name="patrol_weight" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">死亡原因</label>
+		            		<input type="text" class="form-control" value="" name="patrol_death_reason" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">死亡日期</label>
+		            		<input type="date" class="form-control" value="" name="patrol_death_date" >
+		            	</div>
+		            	
+		            	<div class="form-group">
+		            		<label for="">备注</label>
+		            	    <textarea class="form-control" value="" name="patrol_remark"></textarea>
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addPatrolBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+
+<!-- ModifyfryModal -->
+<div class="modal fade" id="modifyPatrolModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               修改巡塘信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Safe/modify', array('name'=>'patrol'))}" id="modifyPatrol_form" role="form" method="post">
+		            	
+		            	<div class="form-group">
+		            		<label for="">池塘</label>
+		            		<select class="form-control" name="medication_pool_id" id="medication_pool_id">
+		            			<option value="0">请选择池塘</option>
+		            			<volist name="pool_data" id="pp">
+		            				<option value="{$pp.pool_id}">{$pp.pool_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">鱼苗</label>
+		            		<select class="form-control" value=""name="patrol_fry_id" id="patrol_fry_id">
+		            			<option value="0">请选择鱼苗</option>
+		            			<volist name="fry" id="f">
+		            				<option value="{$f.fry_id}">{$f.fry_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">网箱</label>
+		            		<select class="form-control" value=""name="patrol_cage_id" id="patrol_cage_id">
+		            			<option value="0">请选择网箱</option>
+		            			<volist name="cage" id="c">
+		            				<option value="{$c.cage_id}">{$c.cage_rowname}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">数量</label>
+		            		<input type="text" class="form-control" value="" name="patrol_number" id="patrol_number">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">重量</label>
+		            		<input type="text" class="form-control" value="" name="patrol_weight" id="patrol_weight">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">死亡原因</label>
+		            		<input type="text" class="form-control" value="" name="patrol_death_reason" id="patrol_death_reason">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">死亡日期</label>
+		            		<input type="date" class="form-control" value="" name="patrol_death_date" id="patrol_death_date">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">备注</label>
+		            		<textarea class="form-control" value="" name="patrol_remark" id="patrol_remark"> </textarea>
+		            	</div>
+		            	
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                <div class="form-group hidden">
+		            		<input type="text" class="form-control" value="" name="patrol_id" id="patrol_id" >
+		            	</div>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifyPatrolBtn" class="btn btn-primary">
+		               提交修改
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+</block>
+<block name="rightcolumn"> 
+  <h1><strong>养殖管理</strong></h1>
+   	  <ul class="nav nav-pills nav-stacked">
+   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'stocking'))}">放养管理</a></li>
+   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'feeding'))}">投饲管理</a></li>
+   	  	<li class="active"><a href="{:U('Home/Safe/cultivation', array('name' => 'patrol'))}">巡塘管理</a></li>
+   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'medication'))}">用药管理</a></li>
+   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'indicator'))}">养殖指标管理</a></li>
+   	  	<li><a href="#">病害管理</a></li>
+   	  	<li><a href="#">自动获取数据采集指标</a></li>
+   	  </ul>
+</block>
+<block name="script"> 
+	<script>
+	function patrolChange(obj) { 
+	       
+			var val = $(obj).attr('value');
+	        var url = "{:U('Home/Safe/getChoose/name/Patrol/val/"+val+"')}";
+	        $.get(url, function(data, status){
+
+	        	$('#patrol_id').val(data['patrol_id']);
+	        	// $('#patrol_fry_id').val(data['patrol_fry_id']);
+	        	// $('#patrol_cage_id').val(data['patrol_cage_id']);
+	        	$('#patrol_number').val(data['patrol_number']);
+	        	$('#patrol_weight').val(data['patrol_weight']);
+	        	$('#patrol_death_reason').val(data['patrol_death_reason']);
+	        	$('#patrol_death_date').val(data['patrol_death_date']);
+	        	$('#patrol_remark').val(data['patrol_remark']);
+	        });
+	}
+	$(document).ready(function(){
+
+	      $('#addPatrolBtn').click(function(){
+	             var action = $('#addPatrol_form').attr('action');
+	             var Formattr = $('#addPatrol_form').serialize();
+	             $.post(action, Formattr, function(data,status) {
+	                 if(data.code == 1) {
+	                    alert( data.msg);
+	                    setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'potrol'))}\"",200);
+	                 }else{
+	                 	alert(data.msg);
+	                 }
+	             });
+	        });
+	      $('#modifyPatrolBtn').click(function(){
+
+	        	 var action= $('#modifyPatrol_form').attr('action');
+	        	 var Formattr=$('#modifyPatrol_form').serialize();
+		         //console.log(Formattr);
+	             $.post(action, Formattr,function(data,status) {
+	                 
+	                 if(status == "success") {
+	                    alert( "修改成功！");
+	                 }else{
+	                 	alert("修改失败！");
+	                 }
+	                 setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'patrol'))}\"",200);
+	             });
+	        });
+	});
+	</script>
+</block>

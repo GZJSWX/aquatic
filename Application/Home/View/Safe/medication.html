@@ -1,0 +1,272 @@
+<extend name="Public:base"/>
+<block name="leftcolumn">
+   <div class="panel panel-info">
+	   <div class="panel-heading">
+	      <h3 class="panel-title">
+	         用药记录
+	      </h3>
+	   </div>
+	   <div class="panel-body">
+	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addMedicationModal">添加</button><br><br>
+	   	<table class="table table-bordered table-striped col-sm-12" >
+		     <thead>
+		        <tr>
+		           <th>池塘</th>
+		           <th>药品</th>
+		           <th>使用剂量</th>
+	           	   <th>网箱</th>
+              	   <th>用药时间</th>
+		           <th>用药理由</th>
+		           <th>用药方式</th>
+		           <th>注意事项</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="medication" id="medication">	
+			        <tr>
+			           <td>{$medication.medication_pool_id}</td>
+			           <td>{$medication.medication_medicine_id}</td>
+			           <td>{$medication.medication_amount}</td>
+			           <td>{$medication.medication_cage_id}</td>
+			           <td>{$medication.medication_time}</td>
+			           <td>{$medication.medication_reason}</td>
+			           <td>{$medication.medication_pattern}</td>
+			           <td>{$medication.medication_precautions}</td>
+		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyMedicationModal" value="{$medication.medication_id}" onclick="medicationChange(this)">修改</button></td>
+			        </tr>
+			    </volist> 
+			  
+		     </tbody>
+ 		 </table>
+	   </div>
+	     <div class="panel-footer">
+	     	<ul class="pagination">
+			 {$page}
+		    </ul>
+	     </div>
+	</div>
+	<!-- medicationModal -->
+<div class="modal fade" id="addMedicationModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新用药信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Safe/adds', array('name' => 'medication'))}" id="addMedication_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">池塘</label>
+		            		<select class="form-control" name="medication_pool_id" >
+		            			<option value="0">请选择池塘</option>
+		            			<volist name="pool_data" id="pp">
+		            				<option value="{$pp.pool_id}">{$pp.pool_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">药品</label>
+		            		<select class="form-control" name="medication_medicine_id" >
+		            			<option value="0">请选择药品</option>
+		            			<volist name="medicine" id="m">
+		            				<option value="{$m.medicine_id}">{$m.medicine_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">所用剂量</label>
+		            		<input type="text" class="form-control" value="" name="medication_amount" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">网箱</label>
+		            		<select class="form-control" name="medication_cage_id" >
+		            			<option value="0">请选择网箱</option>
+		            			<volist name="cage" id="ca">
+		            				<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
+		            			</volist>
+		            		</select>			            	
+		            	</div> 
+		            	<div class="form-group">
+		            		<label for="">用药时间</label>
+		            		<input type="date" class="form-control" value="" name="medication_time" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">用药理由</label>
+		            		<input type="text" class="form-control" value="" name="medication_reason" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">用药方式</label>
+		            		<input type="text" class="form-control" value="" name="medication_pattern" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">注意事项</label>
+		            		<input type="text" class="form-control" value="" name="medication_precautions" >
+		            	</div>
+		            	
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addMedicationBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+
+<!-- ModifyfryModal -->
+<div class="modal fade" id="modifyMedicationModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               修改用药信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Safe/modify', array('name' => 'Medication'))}" id="modifyMedication_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">池塘</label>
+		            		<select class="form-control" name="medication_pool_id" id="medication_pool_id">
+		            			<option value="0">请选择池塘</option>
+		            			<volist name="pool_data" id="p">
+		            				<option value="{$p.pool_id}">{$p.pool_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">药品</label>
+		            		<select class="form-control" name="medication_medicine_id" id="medication_medicine_id">
+		            			<option value="0">请选择药品</option>
+		            			<volist name="medicine" id="m">
+		            				<option value="{$m.medicine_id}">{$m.medicine_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">所用剂量</label>
+		            		<input type="text" class="form-control" value="" name="medication_amount" id="medication_amount">
+		            	</div>
+                        
+		            	<div class="form-group">
+		            		<label for="">网箱</label>
+			            		<select class="form-control" name="medication_cage_id" id="medication_cage_id">
+			            			<option value="0">请选择网箱</option>
+			            			<volist name="cage" id="ca">
+			            				<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
+			            			</volist>
+			                </select>
+		            	</div> 
+		            	<div class="form-group">
+		            		<label for="">用药时间</label>
+		            		<input type="date" class="form-control" value="" name="medication_time" id="medication_time">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">用药理由</label>
+		            		<input type="text" class="form-control" value="" name="medication_reason" id="medication_reason">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">用药方式</label>
+		            		<input type="text" class="form-control" value="" name="medication_pattern" id="medication_pattern">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">注意事项</label>
+		            		<input type="text" class="form-control" value="" name="medication_precautions" id="medication_precautions">
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                <div class="form-group hidden">
+		            		<input type="text" class="form-control" value="" name="medication_id" id="medication_id" >
+		            	</div>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifyMedicationBtn" class="btn btn-primary">
+		               提交修改
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+</block>
+<block name="rightcolumn"> 
+  <h1><strong>养殖管理</strong></h1>
+   	  <ul class="nav nav-pills nav-stacked">
+   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'stocking'))}">放养管理</a></li>
+   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'feeding'))}">投饲管理</a></li>
+   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'patrol'))}">巡塘管理</a></li>
+   	  	<li class="active"><a href="{:U('Home/Safe/cultivation', array('name' => 'medication'))}">用药管理</a></li>
+   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'indicator'))}">养殖指标管理</a></li>
+   	  	<li><a href="#">病害管理</a></li>
+   	  	<li><a href="#">自动获取数据采集指标</a></li>
+   	  </ul>
+</block>
+<block name="script"> 
+	<script>
+	function medicationChange(obj) { 
+	       
+			var val = $(obj).attr('value');
+	        var url = "{:U('Home/Safe/getChoose/name/Medication/val/"+val+"')}";
+	        $.get(url, function(data, status){
+
+	        	$('#medication_id').val(data['medication_id']);
+	        	// $('#medication_fry_id').val(data['medication_fry_id']);
+	        	// $('#medication_cage_id').val(data['medication_cage_id']);
+	        	$('#medication_amount').val(data['medication_amount']);
+	        	$('#medication_time').val(data['medication_time']);
+	        	$('#medication_reason').val(data['medication_reason']);
+	        	$('#medication_pattern').val(data['medication_pattern']);
+	        	$('#medication_precautions').val(data['medication_precautions']);
+	        });
+	}
+	$(document).ready(function(){
+
+	      $('#addMedicationBtn').click(function(){
+	             var action = $('#addMedication_form').attr('action');
+	             var Formattr = $('#addMedication_form').serialize();
+	             $.post(action, Formattr, function(data,status) {
+	                 if(data.code == 1) {
+	                    alert(data.msg);
+	                    setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'medication'))}\"",200);
+	                 }else{
+	                 	alert(data.msg);
+	                 }
+	             });
+	        });
+	      $('#modifyMedicationBtn').click(function(){
+
+	        	 var action= $('#modifyMedication_form').attr('action');
+	        	 var Formattr=$('#modifyMedication_form').serialize();
+		         console.log(Formattr);
+	             $.post(action, Formattr,function(data,status) {
+	                 
+	                 if(status == "success") {
+	                    alert( "修改成功！");
+	                 }else{
+	                 	alert("修改失败！");
+	                 }
+	                 setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'medication'))}\"",200);
+	             });
+	        });
+	});
+	</script>
+</block>

@@ -1,0 +1,71 @@
+<include file="Public:header"/>
+  <div class="container">
+  	  <div class="row">
+      	<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addFeedModal">添加饲料</button>
+		<table class="table table-bordered table-striped col-sm-12" >
+	     <caption>饲料信息:</caption>
+		     <thead>
+		        <tr>	        	
+		           <th>饲料名称</th>
+		           <th>饲料规格</th>
+		           <th>操作</th>
+		           
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	  <volist name="feed" id="feed">
+			        <tr>
+			           <td>{$feed.feed_name}</td>
+			           <td>{$feed.feed_specifications}</td>
+			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedModal" id="modifyButton" value="{$feed.feed_id}" onclick="feedChange(this)">修改</button></td>
+			        </tr>
+			      </volist>  
+		     </tbody>
+ 		 </table>
+	</div><hr>
+	 <div class="row">
+      	<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addFryModal">添加鱼苗</button>
+		<table class="table table-bordered table-striped col-sm-12" >
+	     <caption>鱼苗信息:</caption>
+		     <thead>
+		        <tr>	        	
+		           <th>名称</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="fry" id="fry">
+			        <tr>
+			           <td>{$fry.fry_name}</td>
+			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFryModal" id="modifyButton" value="{$fry.fry_id}" onclick="fryChange(this)">修改</button></td>
+			        </tr>
+			    </volist>
+		     </tbody>
+ 		 </table>
+	</div><hr>
+	<div class="row">
+      	<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addMedicineModal">添加药品</button>
+		<table class="table table-bordered table-striped col-sm-12" >
+	     <caption>药品信息:</caption>
+		     <thead>
+		        <tr>	        	
+		           <th>名称</th>
+		           <th>用途</th>
+		           <th>注意事项</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="medicine" id="medicine">
+			        <tr>
+			           <td>{$medicine.medicine_name}</td>
+			           <td>{$medicine.medicine_use}</td>
+			           <td>{$medicine.medicine_precautions}</td>
+			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyMedicineModal" id="modifyButton" value="{$medicine.medicine_id}" onclick="medicineChange(this)">修改</button></td>
+			        </tr>
+			    </volist>
+		     </tbody>
+ 		 </table>
+	 </div><hr>
+  </div>
+<include file="Public:footer"/>

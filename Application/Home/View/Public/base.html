@@ -1,0 +1,89 @@
+<!DOCTYPE>
+<html>
+   <head>
+   	   <meta charset="utf8">
+   	   <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+       <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/sticky-footer-navbar.css">
+       <script type="application/javascript" src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+       <script type="application/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
+   	   <title>水产品质量溯源系统</title>
+   </head>
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle" data-toggle="collapse" 
+		         data-target="#navbar">
+		         <span class="sr-only">切换导航</span>
+		         <span class="icon-bar"></span>
+		         <span class="icon-bar"></span>
+		         <span class="icon-bar"></span>
+		      </button>
+	          <a class="navbar-brand" href="{:U('Home/Index/iindex')}">水产品质量溯源系统</a>
+	        </div>
+	        <div id="navbar" class="collapse navbar-collapse" >
+	          <ul class="nav navbar-nav">
+	            <li class="dropdown">
+	            	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+	            	   <ul class="dropdown-menu">
+		                <li><a href="{:U('Home/User/showMe',array('role'=> '3'))}">个人信息</a></li>
+		                <li ><a href="{:U('Home/Index/logout')}" style="color:red">退出</a></li>	
+		              </ul>
+	            </li> 
+
+	            <li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">功能列表 <span class="caret"></span></a>
+	              <ul class="dropdown-menu">
+	                <li><a href="{:U('Home/Safe/index')}">养殖基本信息</a></li>
+					<li><a href="{:U('Home/Safe/cultivation', array('name'=>'stocking'))}">养殖管理</a></li>
+	                <li><a href="{:U('Home/Sale/sale', array('name'=>'record'))}">出塘管理</a></li>
+	                               
+	              </ul>
+	            </li>
+	              <li><a href="{:U('Home/Wechat/index')}">自动化投料管理</a></li>
+	              <li><a href="{:U('Home/Wechat/auto_medication')}">自动化用药管理</a></li>
+	              <li><a href="{:U('Home/Wechat/auto_patrol')}">自动化巡塘管理</a></li>
+	          </ul>
+	        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    
+    <div class="container">
+    	<div class="row">
+    		<div class="col-sm-9">
+    		  <block name="leftcolumn">
+                  <h1>leftcolumn</h1>
+			  </block>
+    		</div>
+
+	       <div class="col-sm-3">
+	       	  <block name="rightcolumn">
+		       	  <h1><strong>导航元素</strong></h1>
+				   	  <ul class="nav nav-pills nav-stacked">
+				   	  	<li class="active"><a href="">功能一</a></li>
+				   	  	<li><a href="">功能二</a></li>
+				   	  	<li><a href="">功能三</a></li>
+				   	  	<li><a href="">功能四</a></li>
+				   	  </ul>
+		      </block>
+	       </div>
+	    </div> <!-- row -->
+    	
+   </div> <!-- container -->
+
+   <block name="footer">
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted"><center>Copyright by 华南农业大学</center></p>
+      </div>
+    </footer>
+   </block> 
+  </body>
+</html>
+<block name="script">
+	
+</block>
+
+

@@ -1,0 +1,227 @@
+ <extend name="Public:base"/>
+<block name="leftcolumn">
+
+<div class="panel panel-info">
+       <div class="panel-heading">
+          <h3 class="panel-title">
+             巡塘管理
+          </h3>
+       </div>
+
+       <div class="panel-body">
+            <div class="form-group text-center">
+               <button class="btn btn-info btn-lg" id="address">获取位置</button>
+            </div>
+            <div class="form-group">
+                <label for="">经度</label>
+                <input type="text" id="latitude" class="form-control"> 
+            </div>
+             <div class="form-group">
+                <label for="">纬度</label>
+                <input type="text" id="longitude" class="form-control">   
+            </div>
+            <div class="form-group">
+                <label for="">位置精度</label>
+                <input type="text" id="accuracy" class="form-control">   
+            </div><hr>
+            <div class="form-group">
+                <button class="btn btn-default" id="patrol_pool">池塘扫描</button>
+                <input type="text"id="patrol_pool_name" class="form-control">  
+              </div> 
+            <div class="form-group text-center">
+                 <button class="btn btn-info btn-lg" id="patrol_picture">池塘拍照</button>
+            </div>
+            <div class="form-group text-center">
+                <div id="patrol_img"></div>
+            </div><hr>
+            <div class="form-group">
+                  <label for="">网箱</label>
+                    <select class="form-control" id="patrol_cage_id" >
+                      <option value="0">请选择网箱</option>
+                      <volist name="cage" id="caa">
+                        <option value="{$caa.cage_id}">{$caa.cage_rowname}</option>
+                      </volist>
+                    </select>
+            </div>
+
+            <div class="form-group">
+              <label for="">鱼苗</label>
+              <select class="form-control" value=""name="patrol_fry_id" id="patrol_fry_id">
+                <option value="0">请选择鱼苗</option>
+                <volist name="fry" id="f">
+                  <option value="{$f.fry_id}">{$f.fry_name}</option>
+                </volist>
+              </select>
+          </div>
+      
+          <div class="form-group">
+            <label for="">数量</label>
+            <input type="text" class="form-control" value="" name="patrol_number" id="patrol_number">
+          </div>
+          <div class="form-group">
+            <label for="">重量</label>
+            <input type="text" class="form-control" value="" name="patrol_weight" id="patrol_weight">
+          </div>
+          <div class="form-group">
+            <label for="">死亡原因</label>
+            <input type="text" class="form-control" value="" name="patrol_death_reason" id="patrol_death_reason">
+          </div>
+          <div class="form-group">
+            <label for="">死亡日期</label>
+            <input type="date" class="form-control" value="" name="patrol_death_date" id="patrol_death_date">
+          </div>
+          <div class="form-group">
+            <label for="">备注</label>
+            <textarea class="form-control" value="" name="patrol_remark" id="patrol_remark"> </textarea>
+          </div>
+         
+        <label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+        <div class="form-group hidden">
+                    <input type="text" class="form-control" value="" name="patrol_pool_id" id="patrol_pool_id" >
+                  </div>
+                  <div class="form-group hidden">
+                      <input type="text" class="form-control" value="" name="patrol_pool_img" id="patrol_pool_img">
+                    </div>
+        <div class="form-group">
+           <button id="patrol_submit" class="btn btn-primary">提交</button>
+        </div>
+       </div>
+           
+</div>
+
+</block>
+<block name="rightcolumn">
+  
+</block>
+<block name="script">
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    wx.config({
+        debug: false,
+        appId: '{$signPackage["appId"]}',
+        timestamp: '{$signPackage["timestamp"]}',
+        nonceStr: '{$signPackage["nonceStr"]}',
+        signature: '{$signPackage["signature"]}',
+        jsApiList: [
+            'checkJsApi',
+            'scanQRCode',
+            'uploadImage',
+            'getLocation',
+            'chooseImage' 
+        ]
+    });
+    wx.ready(function () {
+
+        $("#patrol_pool").click(function() { 
+
+          wx.scanQRCode({ // 默认为0，扫描结果由微信处理，1则直接返回扫描结果 
+                needResult : 1,
+                desc : 'scanQRCode desc',
+                success : function(res) { //扫码后获取结果参数赋值给Input var
+                 url = res.resultStr; //商品条形码，取","后面的
+                
+                  var n = url.split(",");
+                  $('#patrol_pool_id').val(n[0]);
+                  $('#patrol_pool_name').val(n[1]);
+                }
+            });
+        });
+
+        $("#address").click(function() { 
+
+             wx.getLocation({
+              type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+              success: function (res) {
+                  var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                  var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                  var speed = res.speed; // 速度，以米/每秒计
+                  var accuracy = res.accuracy; // 位置精度
+                  $('#latitude').val(latitude);
+                  $('#longitude').val(longitude);
+                  $('#accuracy').val(accuracy);
+              }
+            });
+        });
+        var images = {
+          localId: [],
+          serverId: []
+        };
+        $("#patrol_picture").click(function() { 
+            
+             wx.chooseImage({
+                count: 1, // 默认9
+                sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    images.localId = res.localIds; 
+                    // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                    $.each( res.localIds, function(i, n){
+                            $("#patrol_img").append('<img  width="250" height="250" src="'+n+'" /> <br />');
+                    });
+                     if (images.localId.length == 0) {
+                      alert('请先使用 chooseImage 接口选择图片');
+                      return;
+                    }
+                    var i = 0, length = images.localId.length;
+                    images.serverId = [];
+                    function upload() {
+                      wx.uploadImage({
+                        localId: images.localId[i],
+                        success: function (res) {
+                          i++;
+                          images.serverId.push(res.serverId);
+                          if (i < length) {
+                            upload();
+                          }
+                         var url = "{:U('Home/Wechat/savePic/serverId/"+ res.serverId +"')}";
+                            //拍照逻辑问题
+                            $.get(url, function(data){
+                                
+                                if(data['status'])
+                                 alert('图片已保存');
+                                else 
+                                  alert('图片上传失败');
+                                $('#patrol_pool_img').val(data['pool_img']);
+                            },'json');
+                        },
+                        fail: function (res) {
+                          alert(JSON.stringify(res));
+                        }
+                      });
+                    }
+                    upload();
+                }
+            });
+        });
+        
+        $("#patrol_submit").click(function(){
+            var url = "{:U('Home/Wechat/patrol_submit')}";
+            $.post(url, 
+                  {
+                    patrol_pool_id:$('#patrol_pool_id').val(),
+                    patrol_fry_id:$('#patrol_fry_id').val(),
+                    patrol_number:$('#patrol_number').val(),
+                    patrol_weight:$('#patrol_weight').val(),
+                    patrol_death_reason:$('#patrol_death_reason').val(),
+                    patrol_death_date:$('#patrol_death_date').val(),
+                    patrol_remark:$('#patrol_remark').val(),
+                    patrol_pool_img:$('#patrol_pool_img').val(),   
+                    patrol_death_date:$('#patrol_death_date').val(),      
+                    latitude:$('#latitude').val(),
+                    longitude:$('#longitude').val(),
+                    accuracy:$('#accuracy').val(),
+                    patrol_cage_id:$('#patrol_cage_id').val()
+                  },
+                  function(data) {
+                      if(data['status']) 
+                        alert('提交成功');
+                      else alert('上传失败');
+                  }
+              );
+             setTimeout("window.location.href=\"{:U('Home/Wechat/index')}\"", 300);
+        });
+
+     });
+</script>
+</block>

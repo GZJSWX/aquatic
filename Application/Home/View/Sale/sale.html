@@ -1,0 +1,286 @@
+<extend name="Public:base"/>
+<block name="leftcolumn">
+   <div class="panel panel-info">
+	   <div class="panel-heading">
+	      <h3 class="panel-title">
+	         出塘记录
+	      </h3>
+	   </div>
+	   <div class="panel-body">
+	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addSaleModal">添加</button><br><br>
+	   	<table class="table table-bordered table-striped col-sm-12">
+		     <thead>
+		        <tr>
+		           <th>销售编号</th>
+		           <th>出塘编号</th>
+		           <th>客户名称</th>
+		           <th>客户电话号码</th>
+		           <th>鱼品种</th>
+		           <th>数量</th> 
+		           <th>重量</th>
+		           <th>单价</th>
+		           <th>销售金额</th>
+		           <th>备注</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="sale" id="sale">	
+			        <tr>
+			           <td>{$sale.sale_id}</td>
+			           <td>{$sale.sale_record_id}</td>
+			           <td>{$sale.sale_client_name}</td>
+			           <td>{$sale.sale_client_tel}</td>
+			           <td>{$sale.sale_fry_id}</td>
+			           <td>{$sale.sale_number}</td>
+			           <td>{$sale.sale_weight}</td>
+			           <td>{$sale.sale_univalent}</td>
+			           <td>{$sale.sale_sales}</td>
+			           <td>{$sale.sale_remark}</td>
+		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifySaleModal" value="{$sale.sale_id}" onclick="saleChange(this)">修改</button></td>
+			        </tr>
+			    </volist> 
+			  
+		     </tbody>
+ 		 </table>
+	   </div>
+	     <div class="panel-footer">
+	     	<ul class="pagination">
+			 {$page}
+		    </ul>
+	     </div>
+	</div>
+
+	<!-- saleModal -->
+<div class="modal fade" id="addSaleModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新销售信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Sale/adds', array('name' => 'sale'))}" id="addSale_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">销售编号</label>
+		            		<input type="text" class="form-control" value="" name="sale_id" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">出塘编号</label>
+		            		<select class="form-control" name="sale_record_id">
+		            			<option value="0">请选择出塘编号</option>
+		            			<volist name="record_data" id="r">
+		            				<option value="{$r.record_id}">{$r.record_id}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">客户名称</label>
+		            		<input type="text" class="form-control" value="" name="sale_client_name" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">客户电话号码</label>
+		            		<input type="text" class="form-control" value="" name="sale_client_tel" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">鱼苗</label>
+		            		<select class="form-control" name="sale_fry_id" >
+		            			<option value="0">请选择鱼苗</option>
+		            			<volist name="fry" id="fr">
+		            				<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+                      
+		            	<div class="form-group">
+		            		<label for="">数量</label>
+		            		<input type="text" class="form-control" value="" name="sale_number" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">重量</label>
+		            		<input type="text" class="form-control" value="" name="sale_weight" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">单价</label>
+		            		<input type="text" class="form-control" value="" name="sale_univalent" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">销售金额</label>
+		            		<input type="text" class="form-control" value="" name="sale_sales" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">备注</label>
+		            	    <textarea class="form-control" value="" name="sale_remark"></textarea>
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		            	
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addSaleBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+
+<!-- ModifyfryModal -->
+<div class="modal fade" id="modifySaleModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               修改销售信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Sale/modify',array('name'=>'sale'))}" id="modifySale_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">销售编号</label>
+		            		<input type="text" class="form-control" value="" name="sale_id" id="sale_id">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">出塘编号</label>
+		            		<select class="form-control" name="sale_record_id" id="sale_record_id">
+		            			<option value="0">请选择出塘编号</option>
+		            			<volist name="record_data" id="rr">
+		            				<option value="{$rr.record_id}">{$rr.record_id}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">客户名称</label>
+		            		<input type="text" class="form-control" value="" name="sale_client_name" id="sale_client_name">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">客户电话号码</label>
+		            		<input type="text" class="form-control" value="" name="sale_client_tel" id="sale_client_tel">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">鱼苗</label>
+		            		<select class="form-control" name="sale_fry_id" id="sale_fry_id" >
+		            			<option value="0">请选择鱼苗</option>
+		            			<volist name="fry" id="fr">
+		            				<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+                      
+		            	<div class="form-group">
+		            		<label for="">数量</label>
+		            		<input type="text" class="form-control" value="" name="sale_number" id="sale_number">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">重量</label>
+		            		<input type="text" class="form-control" value="" name="sale_weight" id="sale_weight">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">单价</label>
+		            		<input type="text" class="form-control" value="" name="sale_univalent" id="sale_univalent">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">销售金额</label>
+		            		<input type="text" class="form-control" value="" name="sale_sales" id="sale_sales">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">备注</label>
+		            	    <textarea class="form-control" value="" name="sale_remark" id="sale_remark"></textarea>
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                <div class="form-group hidden">
+		            		<input type="text" class="form-control" value="" name="sale_id" id="modify_sale_id" >
+		            	</div>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifySaleBtn" class="btn btn-primary">
+		               提交修改
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+</block>
+<block name="rightcolumn"> 
+  <h1><strong>出塘管理</strong></h1>
+   	  <ul class="nav nav-pills nav-stacked">
+   	  	<li><a href="{:U('Home/Sale/sale', array('name' => 'record'))}">出塘记录</a></li>
+   	  	<li class="active"><a href="{:U('Home/Sale/sale', array('name' => 'sale'))}">销售管理</a></li>
+   	  	<li><a href="{:U('Home/Sale/sale', array('name' => 'trace'))}">追溯信息维护</a></li>
+   	  </ul>
+</block>
+<block name="script"> 
+	<script>
+	function saleChange(obj) { 
+	       
+			var val = $(obj).attr('value');
+	        var url = "{:U('Home/Safe/getChoose/name/sale/val/"+val+"')}";
+	        $.get(url, function(data, status){
+              
+	        	$('#sale_id').val(data['sale_id']);
+	        	$('#modify_sale_id').val(data['sale_id']);
+	        	$('#sale_record_id').val(data['sale_record_id']);
+	        	$('#sale_client_name').val(data['sale_client_name']);
+	        	$('#sale_client_tel').val(data['sale_client_tel']);
+	        	// $('#sale_fry_id').val(data['sale_fry_id']);
+	        	// $('#sale_cage_id').val(data['sale_cage_id']);
+	        	$('#sale_number').val(data['sale_number']);
+	        	$('#sale_weight').val(data['sale_weight']);
+	        	$('#sale_univalent').val(data['sale_univalent']);
+	        	$('#sale_sales').val(data['sale_sales']);
+	        	$('#sale_remark').val(data['sale_remark']);
+	        });
+	}
+	$(document).ready(function(){
+
+	      $('#addSaleBtn').click(function(){
+	             var action = $('#addSale_form').attr('action');
+	             var Formattr = $('#addSale_form').serialize();
+	              
+	             $.post(action, Formattr, function(data,status) {
+	             	 
+	                 if(status == "success") {
+	                    alert( "添加成功！");
+	                 }else{
+	                 	alert("添加失败！");
+	                 }
+	                 setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'sale'))}\"",200);
+	             });
+	        });
+	      $('#modifySaleBtn').click(function(){
+
+	        	 var action= $('#modifySale_form').attr('action');
+	        	 var Formattr=$('#modifySale_form').serialize();
+		        // console.log(Formattr);
+	             $.post(action, Formattr,function(data,status) {
+	                 
+	                 if(status == "success") {
+	                    alert( "修改成功！");
+	                 }else{
+	                 	alert("修改失败！");
+	                 }
+	                 setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'sale'))}\"",200);
+	             });
+	        });
+	});
+	</script>
+</block>

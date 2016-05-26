@@ -1,0 +1,382 @@
+<extend name="Public:base"/>
+<block name="leftcolumn">
+   <div class="panel panel-info">
+	   <div class="panel-heading">
+	      <h3 class="panel-title">
+	         出塘记录
+	      </h3>
+	   </div>
+	   <div class="panel-body">
+	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addRecordModal">添加</button><br><br>
+	   	<table class="table table-bordered table-striped col-sm-12">
+		     <thead>
+		        <tr>
+		           <th>出塘编号</th>
+		           <th>出塘类型</th>
+		           <th>出塘日期</th>
+		           <th>养殖批次</th>
+		           <th>鱼品种</th>
+		           <if condition = "$this_pool['pool_model'] eq '网箱'">
+	           	   	 <th>网箱</th>
+             	   </if>
+		           <th>数量</th> 
+		           <th>重量</th>
+		           <th>转入池塘</th>
+		           <th>转入网箱</th>
+		           <th>转入数量</th>
+		           <th>转入重量</th>
+		           <th>备注</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="record" id="record">	
+			        <tr>
+			           <td>{$record.record_id}</td>
+			           <td>{$record.record_type}</td>
+			           <td>{$record.record_time}</td>
+			           <td>{$record.record_batch}</td>
+			           <td>{$record.record_fry_id}</td>
+			           <td>{$record.record_cage_id}</td>
+			           <td>{$record.record_number}</td>
+			           <td>{$record.record_weight}</td>
+			           <td>{$record.record_transfer_pool_id}</td>
+			           <td>{$record.record_transfer_cage_id}</td>
+			           <td>{$record.record_transfer_number}</td>
+			           <td>{$record.record_transfer_weight}</td>
+			           <td>{$record.record_remark}</td>
+		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyRecordModal" value="{$record.record_id}" onclick="recordChange(this)">修改</button></td>
+			        </tr>
+			    </volist> 
+			  
+		     </tbody>
+ 		 </table>
+	   </div>
+	     <div class="panel-footer">
+	     	<ul class="pagination">
+			 {$page}
+		    </ul>
+	     </div>
+	</div>
+
+	<!-- recordModal -->
+<div class="modal fade" id="addRecordModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新出塘信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Sale/adds', array('name' => 'record'))}" id="addRecord_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">出塘类型</label>
+		            		<select class="form-control"name="record_type" id="record_type">
+		            			<option value="0">请选择出塘类型</option>
+		            			<option value="销售">销售</option>
+		            			<option value="转塘">转塘</option>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">出塘编号</label>
+		            		<input type="text" class="form-control" value="" name="record_id" >
+		            	</div>
+		            	
+		            	<div class="form-group">
+		            		<label for="">养殖批次</label>
+		            		<input type="text" class="form-control" value="" name="record_batch" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">鱼苗</label>
+		            		<select class="form-control" name="record_fry_id" >
+		            			<option value="0">请选择鱼苗</option>
+		            			<volist name="fry" id="fr">
+		            				<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+                        <if condition = "$this_pool['pool_model'] eq '网箱'">
+			            	<div class="form-group">
+			            		<label for="">网箱</label>
+				            		<select class="form-control" name="record_cage_id" >
+				            			<option value="0">请选择网箱</option>
+				            			<volist name="cage" id="ca">
+				            				<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
+				            			</volist>
+				            		</select>
+			            	    </else>
+			            	</div> 
+		            	</if>
+		            	<div class="form-group">
+		            		<label for="">数量</label>
+		            		<input type="text" class="form-control" value="" name="record_number" id="number">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">重量</label>
+		            		<input type="text" class="form-control" value="" name="record_weight" id="weight">
+		            	</div>
+
+		            	<div class="form-group">
+		            		<label for="">转入池塘</label>
+		            		<select class="form-control"name="record_transfer_pool_id" id="pool" >
+		            			<option value="0">请选择池塘</option>
+		            			<volist name="pool" id="p">
+		            				<option value="{$p.pool_id}">{$p.pool_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">转入网箱</label>
+		            		<select class="form-control"name="record_transfer_cage_id" id="cage">
+		            			<option value="0">请选择网箱</option>
+
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">转入数量</label>
+		            		<input type="text" class="form-control" value="" name="record_transfer_number" id="transfer_number">	
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">装入重量</label>
+		            		<input type="text" class="form-control" value="" name="record_transfer_weight" id="transfer_weight">
+		            	</div>
+
+		            	<div class="form-group">
+		            		<label for="">出塘日期</label>
+		            		<input type="date" class="form-control" value="" name="record_time" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">备注</label>
+		            	    <textarea class="form-control" value="" name="record_remark"></textarea>
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		            	
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addRecordBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+
+<!-- ModifyfryModal -->
+<div class="modal fade" id="modifyRecordModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               修改出塘信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Sale/modify',array('name'=>'record'))}" id="modifyRecord_form" role="form" method="post">
+		            	
+		            	<div class="form-group">
+		            		<label for="">养殖批次</label>
+		            		<input type="text" class="form-control" value="" name="record_batch" id="record_batch">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">鱼苗</label>
+		            		<select class="form-control" name="record_fry_id" id="record_fry_id">
+		            			<option value="0">请选择鱼苗</option>
+		            			<volist name="fry" id="fr">
+		            				<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+                        <if condition = "$this_pool['pool_model'] eq '网箱'">
+			            	<div class="form-group">
+			            		<label for="">网箱</label>
+				            		<select class="form-control" name="record_cage_id" id="record_cage_id">
+				            			<option value="0">请选择网箱</option>
+				            			<volist name="cage" id="ca">
+				            				<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
+				            			</volist>
+				            		</select>
+			            	    </else>
+			            	</div> 
+		            	</if>
+		            	<div class="form-group">
+		            		<label for="">数量</label>
+		            		<input type="text" class="form-control" value="" name="record_number" id="record_number">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">重量</label>
+		            		<input type="text" class="form-control" value="" name="record_weight" id="record_weight">
+		            	</div>
+
+		            	<div class="form-group">
+		            		<label for="">转入池塘</label>
+		            		<select class="form-control"name="record_transfer_pool_id" id="record_transfer_pool_id" >
+		            			<option value="0">请选择池塘</option>
+		            			<volist name="pool" id="p">
+		            				<option value="{$p.pool_id}">{$p.pool_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">转入网箱</label>
+		            		<select class="form-control"name="record_transfer_cage_id" id="record_transfer_cage_id">
+		            			<option value="0">请选择网箱</option>
+
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">转入数量</label>
+		            		<input type="text" class="form-control" value="" name="record_transfer_number" id="record_transfer_number">	
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">装入重量</label>
+		            		<input type="text" class="form-control" value="" name="record_transfer_weight" id="record_transfer_weight">
+		            	</div>
+
+		            	<div class="form-group">
+		            		<label for="">出塘日期</label>
+		            		<input type="date" class="form-control" value="" name="record_time" id="record_time">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">备注</label>
+		            	    <textarea class="form-control" value="" name="record_remark" id="record_remark"></textarea>
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                <div class="form-group hidden">
+		            		<input type="text" class="form-control" value="" name="record_id" id="record_id" >
+		            	</div>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifyRecordBtn" class="btn btn-primary">
+		               提交修改
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+</block>
+<block name="rightcolumn"> 
+  <h1><strong>出塘管理</strong></h1>
+   	  <ul class="nav nav-pills nav-stacked">
+   	  	<li class="active"><a href="{:U('Home/Sale/sale', array('name' => 'record'))}">出塘记录</a></li>
+   	  	<li><a href="{:U('Home/Sale/sale', array('name' => 'sale'))}">销售管理</a></li>
+   	  	<li><a href="{:U('Home/Sale/sale', array('name' => 'trace'))}">追溯信息维护</a></li>
+   	  </ul>
+</block>
+<block name="script"> 
+	<script>
+	function recordChange(obj) { 
+	       
+			var val = $(obj).attr('value');
+	        var url = "{:U('Home/Safe/getChoose/name/record/val/"+val+"')}";
+	        $.get(url, function(data, status){
+ 
+	        	$('#record_id').val(data['record_id']);
+	        	// alert(data['record_id']);
+	        	$('#record_type').val(data['record_type']);
+	        	$('#record_time').val(data['record_time']);
+	        	$('#record_batch').val(data['record_batch']);
+	        	// $('#record_fry_id').val(data['record_fry_id']);
+	        	// $('#record_cage_id').val(data['record_cage_id']);
+	        	$('#record_number').val(data['record_number']);
+	        	$('#record_weight').val(data['record_weight']);
+	        	$('#record_transfer_weight').val(data['record_transfer_weight']);
+	        	$('#record_transfer_number').val(data['record_transfer_number']);
+	        	$('#record_finish_time').val(data['record_finish_time']);
+	        	$('#record_remark').val(data['record_remark']);
+	        });
+
+
+	}
+	$(document).ready(function(){
+          
+     
+          $('#pool').change(function(){
+               var val = $(this).val();
+               var action = "{:U('Home/Sale/transfer/val/"+val+"')}";
+               $.get(action, function(data){
+               	   $("#cage").html("").append("<option value='0'> 请选择网箱</option>");
+                   $.each(data, function(i, item){
+                        $('#cage').append("<option value="+item.cage_id+">"+item.cage_rowname+"</option>");
+                   });
+               });
+          });
+          $('#record_transfer_pool_id').change(function(){
+               var val = $(this).val();
+               var action = "{:U('Home/Sale/transfer/val/"+val+"')}";
+               $.get(action, function(data){
+               	   $("#record_transfer_cage_id").html("").append("<option value='0'> 请选择网箱</option>");
+                   $.each(data, function(i, item){
+                        $('#record_transfer_cage_id').append("<option value="+item.cage_id+">"+item.cage_rowname+"</option>");
+                   });
+               });
+          });
+          $('#record_type').change(function(){
+                var val = $(this).val();
+                if(val == '销售') {
+                   $('#transfer_number').attr('readOnly','readOnly');
+                   $('#transfer_weight').attr('readOnly','readOnly');
+                   $('#pool').attr('disabled','disabled');
+                   $('#cage').attr('disabled','disabled');
+                   $('#number').removeAttr('readOnly','readOnly');
+                   $('#weight').removeAttr('readOnly','readOnly');
+                }else{
+                   $('#number').attr('readOnly','readOnly');
+                   $('#weight').attr('readOnly','readOnly');
+                   $('#transfer_number').removeAttr('readOnly','readOnly');
+                   $('#transfer_weight').removeAttr('readOnly','readOnly');
+                   $('#pool').removeAttr('disabled','disabled');
+                   $('#cage').removeAttr('disabled','disabled');
+                }
+          });
+	      $('#addRecordBtn').click(function(){
+	             var action = $('#addRecord_form').attr('action');
+	             var Formattr = $('#addRecord_form').serialize();
+	              
+	             $.post(action, Formattr, function(data,status) {
+	             	 
+	                 if(status == "success") {
+	                    alert( "添加成功！");
+	                 }else{
+	                 	alert("添加失败！");
+	                 }
+	                 setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'record'))}\"",200);
+	             });
+	        });
+	      $('#modifyRecordBtn').click(function(){
+
+	        	 var action= $('#modifyRecord_form').attr('action');
+	        	 var Formattr=$('#modifyRecord_form').serialize();
+		         console.log(Formattr);
+	             $.post(action, Formattr,function(data,status) {
+	                 
+	                 if(status == "success") {
+	                    alert( "修改成功！");
+	                 }else{
+	                 	alert("修改失败！");
+	                 }
+	                 setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'record'))}\"",200);
+	             });
+	       });
+	});
+	</script>
+</block>

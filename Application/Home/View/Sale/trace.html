@@ -1,0 +1,276 @@
+<extend name="Public:base"/>
+<block name="leftcolumn">
+   <div class="panel panel-info">
+	   <div class="panel-heading">
+	      <h3 class="panel-title">
+	         出塘记录
+	      </h3>
+	   </div>
+	   <div class="panel-body">
+	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addTraceModal">添加</button><br><br>
+	   	<table class="table table-bordered table-striped col-sm-12">
+		     <thead>
+		        <tr>
+		           <th>销售编号</th>
+		           <th>鱼品种</th>
+		           <th>水质是否达标</th>
+		           <th>用药是否达标</th>
+		           <th>生产开始日期</th>
+		           <th>销售出塘日期</th>
+		           <th>客户名称</th>
+		           <th>基地联系人</th>
+		           <th>基地联系电话</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="trace" id="trace">	
+			        <tr>
+			           <td>{$trace.trace_sale_id}</td>
+			           <td>{$trace.trace_fry_id}</td>
+			           <td>{$trace.trace_is_water}</td>
+			           <td>{$trace.trace_is_medicine}</td>
+			           <td>{$trace.trace_start_time}</td>
+			           <td>{$trace.trace_finish_time}</td>
+			           <td>{$trace.trace_client_name}</td>
+			           <td>{$trace.trace_basename}</td>
+			           <td>{$trace.trace_tel}</td>
+		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyTraceModal" value="{$trace.trace_id}" onclick="traceChange(this)">修改</button></td>
+			        </tr>
+			    </volist> 
+			  
+		     </tbody>
+ 		 </table>
+	   </div>
+	     <div class="panel-footer">
+	     	<ul class="pagination">
+			 {$page}
+		    </ul>
+	     </div>
+	</div>
+
+	<!-- traceModal -->
+<div class="modal fade" id="addTraceModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新追溯信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Sale/adds', array('name' => 'trace'))}" id="addTrace_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">销售编号</label>
+		            		<select class="form-control" name="trace_sale_id">
+		            			<option value="0">请选择销售编号</option>
+		            			<volist name="sale_data" id="s">
+		            				<option value="{$s.sale_id}">{$s.sale_id}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">鱼苗</label>
+		            		<select class="form-control" name="trace_fry_id" >
+		            			<option value="0">请选择鱼苗</option>
+		            			<volist name="fry" id="fr">
+		            				<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+                        
+		            	<div class="form-group">
+		            		<label for="">水质是否达标</label>
+		            		<input type="text" class="form-control" value="" name="trace_is_water" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">用药是否达标</label>
+		            		<input type="text" class="form-control" value="" name="trace_is_medicine" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">生产开始日期</label>
+		            		<input type="date" class="form-control" value="" name="trace_start_time" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">销售出塘日期</label>
+		            		<input type="date" class="form-control" value="" name="trace_finish_time" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">客户名称</label>
+		            		<input type="text" class="form-control" value="" name="trace_client_name" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">基地联系人</label>
+		            		<input type="text" class="form-control" value="" name="trace_basename" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">基地联系电话</label>
+		            		<input type="text" class="form-control" value="" name="trace_tel" >
+		            	</div>
+		            	
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		            	
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addTraceBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+
+<!-- ModifyfryModal -->
+<div class="modal fade" id="modifyTraceModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               修改追溯信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Home/Sale/modify',array('name'=>'trace'))}" id="modifyTrace_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">销售编号</label>
+		            		<select class="form-control" name="trace_sale_id" id="trace_sale_id">
+		            			<option value="0">请选择销售编号</option>
+		            			<volist name="sale_data" id="ss">
+		            				<option value="{$ss.sale_id}">{$ss.sale_id}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">鱼苗</label>
+		            		<select class="form-control" name="trace_fry_id" id="trace_fry_id">
+		            			<option value="0">请选择鱼苗</option>
+		            			<volist name="fry" id="fr">
+		            				<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+		            			</volist>
+		            		</select>
+		            	</div>
+                        
+		            	<div class="form-group">
+		            		<label for="">水质是否达标</label>
+		            		<input type="text" class="form-control" value="" name="trace_is_water" id="trace_is_water">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">用药是否达标</label>
+		            		<input type="text" class="form-control" value="" name="trace_is_medicine" id="trace_is_medicine">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">生产开始日期</label>
+		            		<input type="date" class="form-control" value="" name="trace_start_time" id="trace_start_time">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">销售出塘日期</label>
+		            		<input type="date" class="form-control" value="" name="trace_finish_time" id="trace_finish_time">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">客户名称</label>
+		            		<input type="text" class="form-control" value="" name="trace_client_name" id="trace_client_name">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">基地联系人</label>
+		            		<input type="text" class="form-control" value="" name="trace_basename" id="trace_basename">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">基地联系电话</label>
+		            		<input type="text" class="form-control" value="" name="trace_tel" id="trace_tel">
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                <div class="form-group hidden">
+		            		<input type="text" class="form-control" value="" name="trace_id" id="trace_id" >
+		            	</div>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifyTraceBtn" class="btn btn-primary">
+		               提交修改
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+</block>
+<block name="rightcolumn"> 
+  <h1><strong>出塘管理</strong></h1>
+   	  <ul class="nav nav-pills nav-stacked">
+   	  	<li><a href="{:U('Home/Sale/sale', array('name' => 'record'))}">出塘记录</a></li>
+   	  	<li><a href="{:U('Home/Sale/sale', array('name' => 'sale'))}">销售管理</a></li>
+   	  	<li class="active"><a href="{:U('Home/Sale/sale', array('name' => 'trace'))}">追溯信息维护</a></li>
+   	  </ul>
+</block>
+<block name="script"> 
+	<script>
+	function traceChange(obj) { 
+	       
+			var val = $(obj).attr('value');
+	        var url = "{:U('Home/Safe/getChoose/name/trace/val/"+val+"')}";
+	        $.get(url, function(data, status){
+
+	        	$('#trace_id').val(data['trace_id']);
+	        	$('#trace_sale_id').val(data['trace_sale_id']);
+	        	$('#trace_is_water').val(data['trace_is_water']);
+	        	// $('#trace_fry_id').val(data['trace_fry_id']);
+	        	// $('#trace_cage_id').val(data['trace_cage_id']);
+	        	$('#trace_is_medicine').val(data['trace_is_medicine']);
+	        	$('#trace_start_time').val(data['trace_start_time']);
+	        	$('#trace_finish_time').val(data['trace_finish_time']);
+	        	$('#trace_basename').val(data['trace_basename']);
+	        	$('#trace_tel').val(data['trace_tel']);
+	        	$('#trace_client_name').val(data['trace_client_name']);
+	        });
+	}
+	$(document).ready(function(){
+
+	      $('#addTraceBtn').click(function(){
+	             var action = $('#addTrace_form').attr('action');
+	             var Formattr = $('#addTrace_form').serialize();
+	              
+	             $.post(action, Formattr, function(data,status) {
+	             	 
+	                 if(status == "success") {
+	                    alert( "添加成功！");
+	                 }else{
+	                 	alert("添加失败！");
+	                 }
+	                 setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'trace'))}\"",200);
+	             });
+	        });
+	      $('#modifyTraceBtn').click(function(){
+
+	        	 var action= $('#modifyTrace_form').attr('action');
+	        	 var Formattr=$('#modifyTrace_form').serialize();
+		        // console.log(Formattr);
+	             $.post(action, Formattr,function(data,status) {
+	                 
+	                 if(status == "success") {
+	                    alert( "修改成功！");
+	                 }else{
+	                 	alert("修改失败！");
+	                 }
+	                 setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'trace'))}\"",200);
+	             });
+	        });
+	});
+	</script>
+</block>

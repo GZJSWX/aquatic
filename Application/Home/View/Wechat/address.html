@@ -1,0 +1,61 @@
+ <extend name="Public:base"/>
+<block name="leftcolumn">
+
+<div class="panel panel-info">
+       <div class="panel-heading">
+          <h3 class="panel-title">
+             地理位置
+          </h3>
+       </div>
+       <div class="panel-body">
+              <div class="form-group">
+                <button class="btn btn-primary" id="address">获取地理位置</button>
+              </div>
+              
+              <button id="submit" class="btn btn-primary">提交</button>
+       </div>
+
+</div>
+</block>
+<block name="rightcolumn"> 
+  <h1><strong>自动化</strong></h1>
+      <ul class="nav nav-pills nav-stacked">
+        <li ><a href="{:U('Home/Safe/test', array('name'=>'qrcode'))}">二维码</a></li>
+        <li class="active"><a href="{:U('Home/Safe/test', array('name'=> 'address'))}">地理位置</a></li>
+        <li><a href="{:U('Home/Safe/test', array('name' => 'picture'))}">拍照</a></li>
+      </ul>
+</block>
+<block name="script">
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    wx.config({
+        debug: false,
+        appId: '{$signPackage["appId"]}',
+        timestamp: '{$signPackage["timestamp"]}',
+        nonceStr: '{$signPackage["nonceStr"]}',
+        signature: '{$signPackage["signature"]}',
+        jsApiList: [
+            'checkJsApi',
+            'getLocation'
+        ]
+    });
+    wx.ready(function () {
+
+        $("#address").click(function() { 
+
+             wx.getLocation({
+              type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+              success: function (res) {
+                  var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                  var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                  var speed = res.speed; // 速度，以米/每秒计
+                  var accuracy = res.accuracy; // 位置精度
+                  alert(latitude);
+              }
+            });
+        });
+        
+     });
+</script>
+</block>

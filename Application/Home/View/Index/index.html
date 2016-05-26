@@ -1,0 +1,45 @@
+<!DOCTYPE>
+<html>
+   <head>
+       <meta charset="utf8">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+       <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/signin.css">
+
+       <script type="application/javascript" src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+       <script type="application/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
+       
+       <title>水产品质量溯源系统</title>
+   </head>
+<body>
+    <div class="container">
+       <div class = "row">
+          <form action="{:U('Home/Index/login')}"class="form-signin" method="post">
+            <h2 class="form-signin-heading">请登录</h2>
+            <label for="inputEmail" class="sr-only">用户名</label>
+            <input type="text" id="member_username" class="form-control" placeholder="用户名" name="member_username" >
+            <label for="inputPassword" class="sr-only">密码</label>
+            <input type="password" id="inputPassword" class="form-control" name="member_password"placeholder="密码" required>
+             
+                <label for=""class="radio-inline">
+                 <input type="radio" name="user" value="3" checked> 普通用户
+               </label>
+     
+               <label for=""  class="radio-inline">
+                 <input type="radio" name="user" value="2"> 基础管理员
+               </label>
+      
+               <label for=""  class="radio-inline">
+                 <input type="radio" name="user" value="1"> 系统管理员
+               </label>
+               <br><br>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button> 
+             </div>
+          </form>
+    </div> <!-- /container -->
+  </body>
+</html>
+
+
+
+   

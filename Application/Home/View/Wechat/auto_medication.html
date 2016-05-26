@@ -1,0 +1,141 @@
+ <extend name="Public:base"/>
+<block name="leftcolumn">
+
+<div class="panel panel-info">
+       <div class="panel-heading">
+          <h3 class="panel-title">
+             用药管理
+          </h3>
+       </div>
+       <div class="panel-body">
+
+              <div class="form-group">
+                <button class="btn btn-default" id="medication_medicine">药品扫描</button>
+                <input type="text" id="medication_medicine_name" class="form-control"> 
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-default" id="medication_pool">池塘扫描</button>
+                <input type="text"id="medication_pool_name" class="form-control">  
+              </div> 
+             
+                  <div class="form-group">
+                    <label for="">所用剂量</label>
+                    <input type="text" class="form-control" value="" name="medication_amount" id="medication_amount">
+                  </div>
+                        
+                  <div class="form-group">
+                    <label for="">网箱</label>
+                      <select class="form-control" name="medication_cage_id" id="medication_cage_id">
+                        <option value="0">请选择网箱</option>
+                        <volist name="cage" id="c">
+                          <option value="{$c.cage_id}">{$c.cage_rowname}</option>
+                        </volist>
+                      </select>
+                  </div> 
+                  <!-- <div class="form-group">
+                    <label for="">用药时间</label>
+                    <input type="date" class="form-control" value="" name="medication_time" id="medication_time">
+                  </div> -->
+                  <div class="form-group">
+                    <label for="">用药理由</label>
+                    <input type="text" class="form-control" value="" name="medication_reason" id="medication_reason">
+                  </div>
+                  <div class="form-group">
+                    <label for="">用药方式</label>
+                    <input type="text" class="form-control" value="" name="medication_pattern" id="medication_pattern">
+                  </div>
+                  <div class="form-group">
+                    <label for="">注意事项</label>
+                    <input type="text" class="form-control" value="" name="medication_precautions" id="medication_precautions">
+                  </div>
+                  <label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+                  <div class="form-group hidden">
+                    <input type="text" class="form-control" value="" name="medication_medicine_id" id="medication_medicine_id" >
+                  </div>
+                   <div class="form-group hidden">
+                    <input type="text" class="form-control" value="" name="medication_pool_id" id="medication_pool_id" >
+                  </div>
+                  <div class="form-group">
+                     <button id="medication_submit" class="btn btn-primary">提交</button>
+                  </div>
+       </div>
+</div>
+
+</block>
+<block name="rightcolumn">
+  
+</block>
+<block name="script">
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    wx.config({
+        debug: false,
+        appId: '{$signPackage["appId"]}',
+        timestamp: '{$signPackage["timestamp"]}',
+        nonceStr: '{$signPackage["nonceStr"]}',
+        signature: '{$signPackage["signature"]}',
+        jsApiList: [
+            'checkJsApi',
+            'scanQRCode',
+            'uploadImage',
+            'getLocation',
+            'chooseImage' 
+        ]
+    });
+    wx.ready(function () {
+
+         $("#medication_pool").click(function() { 
+
+          wx.scanQRCode({ // 默认为0，扫描结果由微信处理，1则直接返回扫描结果 
+                needResult : 1,
+                desc : 'scanQRCode desc',
+                success : function(res) { //扫码后获取结果参数赋值给Input var
+                 url = res.resultStr; //商品条形码，取","后面的
+                
+                  var n = url.split(",");
+                  $('#medication_pool_id').val(n[0]);
+                  $('#medication_pool_name').val(n[1]);
+                }
+            });
+        });
+        $("#medication_medicine").click(function() { 
+
+          wx.scanQRCode({ // 默认为0，扫描结果由微信处理，1则直接返回扫描结果 
+                needResult : 1,
+                desc : 'scanQRCode desc',
+                success : function(res) { //扫码后获取结果参数赋值给Input var
+                 url = res.resultStr; //商品条形码，取","后面的
+                  var n = url.split(",");
+                  $('#medication_medicine_id').val(n[0]);
+                  $('#medication_medicine_name').val(n[1]);
+                }
+            });
+        });
+        $("#medication_submit").click(function(){
+            var url = "{:U('Home/Wechat/medication_submit')}";
+            $.post(url, 
+                  {
+                    medication_pool_id:$('#medication_pool_id').val(),
+                    medication_medicine_id:$('#medication_medicine_id').val(),
+                    medication_amount:$('#medication_amount').val(),
+                    medication_medicine_name:$('#medication_feed_name').val(),
+                    medication_cage_id:$('#medication_cage_id').val(),
+                    medication_reason:$('#medication_reason').val(),
+                    medication_pattern:$('#medication_pattern').val(),
+                    medication_precautions:$('#medication_precautions').val()
+                  },
+                  function(data) {
+                      if(data['status']) 
+                        alert('提交成功');
+                      else alert('提交失败');
+                  }
+              );
+             setTimeout("window.location.href=\"{:U('Home/Wechat/index')}\"", 300);
+        });
+
+      
+     });
+</script>
+</block>

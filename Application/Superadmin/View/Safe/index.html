@@ -1,0 +1,656 @@
+<include file="Public:header"/>
+<div class="container">
+	
+	<div class="row">
+		<!-- <a href=""><button class="btn btn-success">  修改基地信息</button></a> -->
+		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addBaseModal">       添加基地
+		</button>
+		<table class="table table-bordered table-striped col-sm-12" >
+	     <caption>基地基本信息:</caption>
+		     <thead>
+		        <tr>
+		           <th>基地编号</th>
+		           <th>基地名称</th>
+		           <th>地理位置</th>
+		           <th>水质来源</th>
+		           <th>基地规模</th>
+		           <th>联系人</th>
+		           <th>联系电话</th>
+                   <th>经纬度列表</th>
+		           <th>创建时间</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="base_data" id="vo">
+			        <tr>
+			           <td>{$vo.base_id}</td>
+			           <td>{$vo['base_name']}</td>
+			           <td>{$vo['base_addr']}</td>
+			           <td>{$vo['base_source_water']}</td>
+	                   <td>{$vo['base_scale']}</td>
+			           <td>{$vo['base_contacts']}</td>
+			           <td>{$vo['base_tel']}</td>
+			           <td>{$vo['base_coordinate']}</td>
+			           <td>{$vo['base_time']}</td>
+			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyBaseModal" id="modifyButton" value="{$vo.base_id}" onclick="baseChange(this)">修改</button></td>
+			        </tr>
+		        </volist>
+		     </tbody>
+ 		 </table>
+	</div><hr>
+	 <div class="row">
+      	<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addFeedModal">添加饲料</button>
+		<table class="table table-bordered table-striped col-sm-12" >
+	     <caption>饲料信息:</caption>
+		     <thead>
+		        <tr>	        	
+		           <th>饲料名称</th>
+		           <th>饲料规格</th>
+		           <th>操作</th>
+		           
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	  <volist name="feed" id="feed">
+			        <tr>
+			           <td>{$feed.feed_name}</td>
+			           <td>{$feed.feed_specifications}</td>
+			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedModal" id="modifyButton" value="{$feed.feed_id}" onclick="feedChange(this)">修改</button></td>
+			        </tr>
+			      </volist>  
+		     </tbody>
+ 		 </table>
+	</div><hr>
+	 <div class="row">
+      	<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addFryModal">添加鱼苗</button>
+		<table class="table table-bordered table-striped col-sm-12" >
+	     <caption>鱼苗信息:</caption>
+		     <thead>
+		        <tr>	        	
+		           <th>名称</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="fry" id="fry">
+			        <tr>
+			           <td>{$fry.fry_name}</td>
+			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFryModal" id="modifyButton" value="{$fry.fry_id}" onclick="fryChange(this)">修改</button></td>
+			        </tr>
+			    </volist>
+		     </tbody>
+ 		 </table>
+	</div><hr>
+	<div class="row">
+      	<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addMedicineModal">添加药品</button>
+		<table class="table table-bordered table-striped col-sm-12" >
+	     <caption>药品信息:</caption>
+		     <thead>
+		        <tr>	        	
+		           <th>名称</th>
+		           <th>用途</th>
+		           <th>注意事项</th>
+		           <th>操作</th>
+		        </tr>
+		     </thead>
+		     <tbody>
+		     	<volist name="medicine" id="medicine">
+			        <tr>
+			           <td>{$medicine.medicine_name}</td>
+			           <td>{$medicine.medicine_use}</td>
+			           <td>{$medicine.medicine_precautions}</td>
+			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyMedicineModal" id="modifyButton" value="{$medicine.medicine_id}" onclick="medicineChange(this)">修改</button></td>
+			        </tr>
+			    </volist>
+		     </tbody>
+ 		 </table>
+	</div><hr>
+	
+</div>
+<!-- modifybase模态框（Modal） -->
+<div class="modal fade" id="modifyBaseModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               信息修改
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Superadmin/Safe/modifyBase')}" id="modifyBase_form"role="form" method="post">
+		            	
+		            	<div class="form-group">
+		            		<label for="">基地编号</label>
+		            		<input type="text" class="form-control" value="" name="base_id" id="base_id" readonly>
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">基地名称</label>
+		            		<input type="text" class="form-control" value="" name="base_name" id="base_name">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">地理位置</label>
+		            		<input type="text" class="form-control" value="{$base_data['base_addr']}" name="base_addr" id="base_addr">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">水质来源</label>
+		            		<input type="text" class="form-control" value="{$base_data['base_source_water']}" name="base_source_water" id="base_source_water">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">基地规模</label>
+		            		<input type="text" class="form-control" value="{$base_data['base_scale']}" name="base_scale" id="base_scale">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">联系人</label>
+		            		<input type="text" class="form-control" value="{$base_data['base_contacts']}" name="base_contacts" id="base_contacts">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">联系电话</label>
+		            		<input type="text" class="form-control" value="{$base_data['base_tel']}" name="base_tel" id="base_tel">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">经纬度列表</label>
+		            		<input type="text" class="form-control" value="{$base_data[
+		            		'base_coordinate']}" name="base_coordinate" id="base_coordinate">
+		            	</div>
+                        <label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifyBaseBtn" class="btn btn-primary">
+		               提交更改
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+
+<!-- addpool模态框（Modal） -->
+<div class="modal fade" id="addBaseModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新基地信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Superadmin/Safe/addBase')}" id="addBase_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">基地名称</label>
+		            		<input type="text" class="form-control" value="" name="base_name" id="base_name">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">地理位置</label>
+		            		<input type="text" class="form-control" value="" name="base_addr" id="base_addr">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">水质来源</label>
+		            		<input type="text" class="form-control" value="" name="base_source_water" id="base_source_water">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">基地规模</label>
+		            		<input type="text" class="form-control" value="" name="base_scale" id="base_scale">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">联系人</label>
+		            		<input type="text" class="form-control" value="" name="base_contacts" id="base_contacts">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">联系电话</label>
+		            		<input type="text" class="form-control" value="" name="base_tel" id="base_tel">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">经纬度列表</label>
+		            		<input type="text" class="form-control" value="" name="base_coordinate" id="base_coordinate">
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addBaseBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+<!-- feedModal -->
+<div class="modal fade" id="addFeedModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新饲料信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Superadmin/Safe/addFeed')}" id="addFeed_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">饲料名称</label>
+		            		<input type="text" class="form-control" value="" name="feed_name" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">饲料规格</label>
+		            		<input type="text" class="form-control" value="" name="feed_specifications">
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addFeedBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+
+<!-- ModifyfeedModal -->
+<div class="modal fade" id="modifyFeedModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               修改饲料信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Superadmin/Safe/modifyFeed')}" id="modifyFeed_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">饲料名称</label>
+		            		<input type="text" class="form-control" value="" name="feed_name" id="feed_name">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">饲料规格</label>
+		            		<input type="text" class="form-control" value="" name="feed_specifications" id="feed_specifications">
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                <div class="form-group hidden">
+		            		<input type="text" class="form-control" value="" name="feed_id" id="feed_id" >
+		            	</div>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifyFeedBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+
+<!-- fryModal -->
+<div class="modal fade" id="addFryModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新鱼苗信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Superadmin/Safe/addFry')}" id="addFry_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">鱼苗名称</label>
+		            		<input type="text" class="form-control" value="" name="fry_name" >
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addFryBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+
+<!-- ModifyfryModal -->
+<div class="modal fade" id="modifyFryModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               修改鱼苗信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Superadmin/Safe/modifyFry')}" id="modifyFry_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">鱼苗名称</label>
+		            		<input type="text" class="form-control" value="" name="fry_name" id="fry_name">
+		            	</div>
+		            	
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                <div class="form-group hidden">
+		            		<input type="text" class="form-control" value="" name="fry_id" id="fry_id" >
+		            	</div>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifyFryBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+<!-- medicineModal -->
+<div class="modal fade" id="addMedicineModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               新药品信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Superadmin/Safe/addMedicine')}" id="addMedicine_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">药品名称</label>
+		            		<input type="text" class="form-control" value="" name="medicine_name" >
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">用途</label>
+		            		<input type="text" class="form-control" value="" name="medicine_use">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">注意事项</label>
+		            		<textarea class="form-control" value="" name="medicine_precautions">
+		            		</textarea>
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="addMedicineBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+</div>
+
+<!-- ModifymedicineModal -->
+<div class="modal fade" id="modifyMedicineModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-header">
+		            <button type="button" class="close" 
+		               data-dismiss="modal" aria-hidden="true">
+		                  &times;
+		            </button>
+		            <h4 class="modal-title" id="myModalLabel">
+		               修改药品信息
+		            </h4>
+		         </div>
+		         <div class="modal-body">
+		            <form action="{:U('Superadmin/Safe/modifyMedicine')}" id="modifyMedicine_form" role="form" method="post">
+		            	<div class="form-group">
+		            		<label for="">药品名称</label>
+		            		<input type="text" class="form-control" value="" name="medicine_name" id="medicine_name">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">用途</label>
+		            		<input type="text" class="form-control" value="" name="medicine_use" id="medicine_use">
+		            	</div>
+		            	<div class="form-group">
+		            		<label for="">注意事项</label>
+		            		<textarea class="form-control" value="" name="medicine_precautions" id="medicine_precautions"> </textarea>
+		            	</div>
+		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+		                <div class="form-group hidden">
+		            		<input type="text" class="form-control" value="" name="medicine_id" id="medicine_id" >
+		            	</div>
+		            </form>
+		         </div>
+		         <div class="modal-footer">
+		            <button type="button" class="btn btn-default" 
+		               data-dismiss="modal">关闭
+		            </button>
+		            <button type="button"  id="modifyMedicineBtn" class="btn btn-primary">
+		               提交
+		            </button>
+		         </div>
+		      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+</div>
+<include file="Public:footer"/>
+<script>
+    function baseChange(obj) { 
+       
+		var val = $(obj).attr('value');
+        var url = "{:U('Superadmin/Safe/getChooseBase/val/"+val+"')}";
+        $.get(url, function(data, status){
+            $('#base_id').val(data['base_id']);
+            $('#base_name').val(data['base_name']);
+            $('#base_addr').val(data['base_addr']);
+            $('#base_source_water').val(data['base_source_water']);
+            $('#base_scale').val(data['base_scale']);
+            $('#base_contacts').val(data['base_contacts']);
+            $('#base_tel').val(data['base_tel']);
+            $('#base_coordinate').val(data['base_coordinate']);
+
+        });
+    } 
+    function feedChange(obj) { 
+       
+		var val = $(obj).attr('value');
+        var url = "{:U('Superadmin/Safe/getChooseFeed/val/"+val+"')}";
+        $.get(url, function(data, status){
+        	$('#feed_id').val(data['feed_id']);
+            $('#feed_name').val(data['feed_name']);
+            $('#feed_specifications').val(data['feed_specifications']);
+        });
+    } 
+    function fryChange(obj) { 
+       
+		var val = $(obj).attr('value');
+        var url = "{:U('Superadmin/Safe/getChooseFry/val/"+val+"')}";
+        $.get(url, function(data, status){
+        	$('#fry_id').val(data['fry_id']);
+            $('#fry_name').val(data['fry_name']);
+        });
+    } 
+    function medicineChange(obj) { 
+       
+		var val = $(obj).attr('value');
+        var url = "{:U('Superadmin/Safe/getChooseMedicine/val/"+val+"')}";
+        $.get(url, function(data, status){
+            $('#medicine_id').val(data['medicine_id']);
+            $('#medicine_name').val(data['medicine_name']);
+            $('#medicine_use').val(data['medicine_use']);
+            $('#medicine_precautions').val(data['medicine_precautions']);
+        });
+    } 
+	$(document).ready(function(){
+        $('#addBaseBtn').click(function(){
+
+        	 var action= $('#addBase_form').attr('action');
+        	 var Formattr=$('#addBase_form').serialize();
+             $.post(action, Formattr,function(data,status) {
+                 
+                 if(status == "success") {
+                    alert( "添加成功！");
+                 }else{
+                 	alert("添加失败！");
+                 }
+                 setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",500);
+             });
+        });
+        $('#addFeedBtn').click(function(){
+
+        	 var action= $('#addFeed_form').attr('action');
+        	 var Formattr=$('#addFeed_form').serialize();
+             $.post(action, Formattr,function(data,status) {
+                 
+                 if(status == "success") {
+                    alert( "添加成功！");
+                 }else{
+                 	alert("添加失败！");
+                 }
+                 setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",500);
+             });
+        });
+        $('#addFryBtn').click(function(){
+
+        	 var action= $('#addFry_form').attr('action');
+        	 var Formattr=$('#addFry_form').serialize();
+             $.post(action, Formattr,function(data,status) {
+                 
+                 if(status == "success") {
+                    alert( "添加成功！");
+                 }else{
+                 	alert("添加失败！");
+                 }
+                 setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",500);
+             });
+        });
+        $('#addMedicineBtn').click(function(){
+
+        	 var action= $('#addMedicine_form').attr('action');
+        	 var Formattr=$('#addMedicine_form').serialize();
+             $.post(action, Formattr,function(data,status) {
+                 
+                 if(status == "success") {
+                    alert( "添加成功！");
+                 }else{
+                 	alert("添加失败！");
+                 }
+                 setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",500);
+             });
+        });
+
+        $('#modifyBaseBtn').click(function(){
+
+        	 var action= $('#modifyBase_form').attr('action');
+        	 var Formattr=$('#modifyBase_form').serialize();
+	         console.log(Formattr);
+             $.post(action, Formattr,function(data,status) {
+                 
+                 if(status == "success") {
+                    alert( "修改成功！");
+                 }else{
+                 	alert("修改失败！");
+                 }
+                 setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",200);
+             });
+        });
+        $('#modifyFeedBtn').click(function(){
+
+        	 var action= $('#modifyFeed_form').attr('action');
+        	 var Formattr=$('#modifyFeed_form').serialize();
+	         console.log(Formattr);
+             $.post(action, Formattr,function(data,status) {
+                 
+                 if(status == "success") {
+                    alert( "修改成功！");
+                 }else{
+                 	alert("修改失败！");
+                 }
+                 setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",200);
+             });
+        });
+        $('#modifyFryBtn').click(function(){
+
+        	 var action= $('#modifyFry_form').attr('action');
+        	 var Formattr=$('#modifyFry_form').serialize();
+	         console.log(Formattr);
+             $.post(action, Formattr,function(data,status) {
+                 
+                 if(status == "success") {
+                    alert( "修改成功！");
+                 }else{
+                 	alert("修改失败！");
+                 }
+                 setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",200);
+             });
+        });
+        $('#modifyMedicineBtn').click(function(){
+
+        	 var action= $('#modifyMedicine_form').attr('action');
+        	 var Formattr=$('#modifyMedicine_form').serialize();
+	         console.log(Formattr);
+             $.post(action, Formattr,function(data,status) {
+                 
+                 if(status == "success") {
+                    alert( "修改成功！");
+                 }else{
+                 	alert("修改失败！");
+                 }
+                 setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",200);
+             });
+        });
+
+
+	});
+
+</script>
+      
+   
+

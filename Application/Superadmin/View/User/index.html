@@ -1,0 +1,83 @@
+<include file="Public:header"/>
+ <div class="container">
+ 	<div class="row">
+ 		<div class="col-sm-6">
+ <form  name="shenbao_form"  class="form-horizontal" role="form" method="post" onsubmit="return checkSubmitShenBao()" action="{:U('Superadmin/User/adminRegister')}">
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">基础管理员注册</legend>
+      </div>
+         <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">账号</label>
+            <div class="col-sm-7">
+               <input type="text" class="form-control" id="firstname"  name="member_username" 
+                  >
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">密码</label>
+            <div class="col-sm-7">
+               <input type="password" class="form-control" id="firstname" name="member_password"  
+                  >
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">确认密码</label>
+            <div class="col-sm-7">
+               <input type="password" class="form-control" id="firstname" name="member_apassword"  
+                  >
+            </div>
+         </div>
+
+        <div class="form-group">
+          <label for="name" class="col-sm-2 control-label">所属基地</label>
+            <div class="col-sm-7">
+              <select  id="member_base_id" name="member_base_id" class="form-control" >
+                <option value="0" selected="selected">请选择基地</option>
+                <volist name="base_data" id="vo">
+                     <option value= "{$vo.base_id}">{$vo.base_name}</option>
+                </volist>
+              </select>
+            </div>
+        </div>
+         <div class="form-group"> 
+          <label for="name" class="col-sm-2 control-label">权限选择</label>
+            <div class="col-sm-7">
+              <select  id="quanxian" name="quanxian" tip="区域类型" class="form-control" >
+                <option value="0" selected="selected">请选择权限</option>
+                <volist name="base_data" id="vo">
+                     <option value= "{$vo.base_id}">{$vo.base_name}</option>
+                </volist>
+
+              </select>
+            </div>
+        </div>
+        
+
+         <div class="form-group">
+         </div>
+
+    <div class="control-group">
+
+          <!-- Button -->
+          <div class="controls col-sm-12 text-right" style="padding:0px;margin:0px">
+            <!-- <button class="btn btn-success">提交</button> -->
+            <input type="submit" id="submit" class="btn btn-success" value="提交"/>
+          </div>
+    </div>
+
+          
+  	  </fieldset>
+	  </form>
+   	 </div> <!-- col-sm-6 -->
+   	 <!-- 用户注册 -->
+   	
+	</div><!-- row -->
+
+</div><!-- /container -->
+<include file="Public:footer"/>
+<script>
+	function checkSubmitShenBao() {
+		return 1;
+	}
+</script>

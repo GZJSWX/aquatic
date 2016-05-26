@@ -1,0 +1,85 @@
+<extend name="Public:base"/>
+<block name="leftcolumn">
+ 	<div class="row">
+ 		
+       <form  name="shenbao_form"  class="form-horizontal" role="form" method="post" onsubmit="return checkSubmitShenBao()" action="{:U('Baseadmin/User/adminRegister')}">
+          <fieldset>
+            <div id="legend" class="">
+              <legend class="">普通用户注册</legend>
+            </div>
+               <div class="form-group">
+                  <label for="firstname" class="col-sm-2 control-label">账号</label>
+                  <div class="col-sm-7">
+                     <input type="text" class="form-control" id="firstname"  name="member_username" 
+                        >
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="firstname" class="col-sm-2 control-label">密码</label>
+                  <div class="col-sm-7">
+                     <input type="password" class="form-control" id="firstname" name="member_password"  
+                        >
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="firstname" class="col-sm-2 control-label">确认密码</label>
+                  <div class="col-sm-7">
+                     <input type="password" class="form-control" id="firstname" name="member_apassword"  
+                        >
+                  </div>
+               </div>
+
+             <!--  <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">所属池塘</label>
+                  <div class="col-sm-7">
+                    <select  id="member_pool_id" name="member_pool_id" class="form-control" >
+                      <option value="0" selected="selected">请选择池塘</option>
+                      <volist name="pool_data" id="vo">
+                           <option value= "{$vo.pool_id}">{$vo.pool_name}</option>
+                      </volist>
+                    </select>
+                  </div>
+              </div> -->
+               <div class="form-group"> 
+                <label for="name" class="col-sm-2 control-label">权限选择</label>
+                  <div class="col-sm-7">
+                    <select  id="quanxian" name="quanxian" tip="区域类型" class="form-control" >
+                      <option value="0" selected="selected">请选择权限</option>
+                      <volist name="pool_data" id="vo">
+                           <option value= "{$vo.pool_id}">{$vo.pool_name}</option>
+                      </volist>
+
+                    </select>
+                  </div>
+              </div>
+              
+
+               <div class="form-group">
+               </div>
+
+          <div class="control-group">
+
+                <!-- Button -->
+                <div class="controls col-sm-12 text-right" style="padding:0px;margin:0px">
+                  <!-- <button class="btn btn-success">提交</button> -->
+                  <input type="submit" id="submit" class="btn btn-success" value="提交"/>
+                </div>
+          </div>
+
+          
+  	  </fieldset>
+	  </form>
+   	 <!-- 用户注册 -->
+   	
+	</div><!-- row -->
+
+</block>
+<block name="rightcolumn">
+</block>
+<block name="script">
+<script>
+  	function checkSubmitShenBao() {
+  		return 1;
+  	}
+</script>
+</block>
