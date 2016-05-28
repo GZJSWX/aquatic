@@ -60,7 +60,10 @@
 			           <td>{$feed.feed_name}</td>
                         <td>{$feed.feed_code}</td>
 			           <td>{$feed.feed_specifications}</td>
-			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedModal" id="modifyButton" value="{$feed.feed_id}" onclick="feedChange(this)">修改</button></td>
+			           <td>
+			           <button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedModal" id="modifyButton" value="{$feed.feed_id}" onclick="feedChange(this)">修改</button>
+					   <a href="{:U('Safe/feedQr',array('name'=>$feed['feed_name']))}" class="btn btn-success" data-toggle="modal">二维码</a>
+			           </td>
 			        </tr>
 			      </volist>  
 		     </tbody>
@@ -108,7 +111,10 @@
                         <td>{$medicine.medicine_code}</td>
 			           <td>{$medicine.medicine_use}</td>
 			           <td>{$medicine.medicine_precautions}</td>
-			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyMedicineModal" id="modifyButton" value="{$medicine.medicine_id}" onclick="medicineChange(this)">修改</button></td>
+			           <td>
+			           <button class="btn btn-danger" data-toggle="modal" data-target="#modifyMedicineModal" id="modifyButton" value="{$medicine.medicine_id}" onclick="medicineChange(this)">修改</button>
+			           <a href="{:U('Safe/medicineQr',array('name'=>$medicine['medicine_name'],'use'=>$medicine['medicine_use']))}" class="btn btn-success" data-toggle="modal" id="modifyButton" value="{$feed.feed_id}">二维码</a>
+			           </td>
 			        </tr>
 			    </volist>
 		     </tbody>

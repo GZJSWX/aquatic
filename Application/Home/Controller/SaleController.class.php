@@ -85,4 +85,36 @@ class SaleController extends Controller {
         $data = D('cage')->transfer();
         $this->ajaxReturn($data);
      }
+
+     public function traceQr(){
+        if (IS_GET) {
+            //dump($_GET);exit();
+            $name = I('get.name',null);
+            $producers = '海大';
+            $weight = '1KG';
+            $time = date(Ymd);
+            $traceCode = '01969209520720171115120810011066011022';
+            $data = "扫描结果\n No:".$traceCode."\n 名称:".$name."\n 养殖商:".$producers."\n 捕捞时间:".$time."\n 产品重量:".$weight."\n 溯源链接:http://hdsy.scau.edu.cn/sy.php?no=".$traceCode;
+            //dump($data);exit();
+            $this->qr($data);
+        }else{
+            $this->error('生成二维码失败，请重试！');
+        }
+     }
+
+     private function qr($data)
+      {
+            vendor("phpqrcode.phpqrcode");
+            // 纠错级别：L、M、Q、H
+            $level = 'L';
+            // 点的大小：1到10,用于手机端4就可以了
+            $size = 4;
+            // 下面注释了把二维码图片保存到本地的代码,如果要保存图片,用$fileName替换第二个参数false
+            //$path = "images/";
+            // 生成的文件名
+            //$fileName = $path.$size.'.png';
+            $QRcode = new \QRcode();
+            $QRcode::png($data, false, $level, $size);
+
+      }
 }
