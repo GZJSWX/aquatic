@@ -22,7 +22,6 @@
 	                   <td>{$base_data['base_scale']}</td>
 			           <td>{$base_data['base_contacts']}</td>
 			           <td>{$base_data['base_tel']}</td>
-			           
 			        </tr>
 			     </tbody>
 	 		 </table>
@@ -74,6 +73,8 @@
 			           <th>网箱排编号</th>
 			           <th>网箱排名称</th>
 			           <th>网箱数量</th>
+                        <th>网箱编码</th>
+                        <th>网箱排编码</th>
 			           <th>操作</th>
 			        </tr>
 			     </thead>
@@ -83,6 +84,8 @@
 				           <td>{$cage.cage_rowid}</td>
 				           <td>{$cage.cage_rowname}</td>
 				           <td>{$cage.cage_number}</td>
+                            <td>{$cage.cage_code}</td>
+                            <td>{$cage.cage_row_code}</td>
 			               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyCageModal" id="modifyCageButton" value="{$cage.cage_id}" onclick="cageChange(this)">修改</button></td>
 				        </tr>
 				    </volist>    
@@ -173,11 +176,15 @@
 		         </div>
 		         <div class="modal-body">
 		            <form action="{:U('Home/Safe/modify', array('name' => 'Cage'))}" id="modifyCage_form"role="form" method="post">
-		            	
-		            	<div class="form-group">
-		            		<label for="">排编号</label>
-		            		<input type="text" class="form-control" value="{$cage.cage_rowid}" name="cage_rowid" id="cage_rowid">
-		            	</div>
+
+                        <div class="form-group">
+                            <label for="">网箱编码</label>
+                            <input type="text" class="form-control" value="{$cage.cage_code}" name="cage_code" id="cage_code">
+                        </div>
+                        <div class="form-group">
+                            <label for="">排编码</label>
+                            <input type="text" class="form-control" value="{$cage.cage_row_code}" name="cage_row_code" id="cage_row_code">
+                        </div>
 		                <div class="form-group">
 		            		<label for="">排名称</label>
 		            		<input type="text" class="form-control" value="{$cage.cage_rowname}" name="cage_rowname" id="cage_rowname">
@@ -219,7 +226,15 @@
 		         </div>
 		         <div class="modal-body">
 		            <form action="{:U('Home/Safe/adds', array('name' => 'cage'))}" id="addCage_form"role="form" method="post">
-		            	
+
+                        <div class="form-group">
+                            <label for="">网箱编码</label>
+                            <input type="text" class="form-control" value="" name="cage_code" id="cage_code">
+                        </div>
+                        <div class="form-group">
+                            <label for="">排编码</label>
+                            <input type="text" class="form-control" value="" name="cage_row_code" id="cage_row_code">
+                        </div>
 		            	<div class="form-group">
 		            		<label for="">排编号</label>
 		            		<input type="text" class="form-control" value="" name="cage_rowid" id="cage_rowid">
@@ -277,6 +292,8 @@
 	        $.get(url, function(data, status){
 	        	
 	        	$('#cage_id').val(data['cage_id']);
+                $('#cage_code').val(data['cage_code']);
+                $('#cage_row_code').val(data['cage_row_code']);
 	        	$('#cage_rowid').val(data['cage_rowid']);
 	        	$('#cage_rowName').val(data['cage_rowname']);
 	        	$('#cage_number').val(data['cage_number']);
