@@ -18,6 +18,8 @@
 		           <th>重量</th>
 		           <th>死亡原因</th>
 		           <th>死亡日期</th>
+					<th>经纬度</th>
+					<th>图片</th>
 		           <th>备注</th>
 		           <th>操作</th>
 		        </tr>
@@ -32,6 +34,8 @@
 			           <td>{$patrol.patrol_weight}</td>
 			           <td>{$patrol.patrol_death_reason}</td>
 			           <td>{$patrol.patrol_death_date}</td>
+						<td>{$patrol.patrol_coordinate}</td>
+						<td><img src="{$patrol.patrol_pool_img}" alt="" width="180px"></td>
 			           <td>{$patrol.patrol_remark}</td>
 		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyPatrolModal" value="{$patrol.patrol_id}" onclick="patrolChange(this)">修改</button></td>
 			        </tr>

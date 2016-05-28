@@ -11,6 +11,7 @@
 		     <thead>
 		        <tr>
 		           <th>池塘编号</th>
+					<th>池塘编码</th>
 		           <th>池塘名称</th>
 		           <th>所属基地</th>
 		           <th>池塘位置</th>
@@ -27,6 +28,7 @@
 		     	<volist name="pool_data" id="vo">
 			        <tr>
 			           <td>{$vo.pool_id}</td>
+						<td>{$vo.pool_code}</td>
 			           <td>{$vo.pool_name}</td>
 			           <td>{$vo.pool_base_id}</td>
 			           <td>{$vo.pool_addr}</td>
@@ -57,11 +59,15 @@
 		            </h4>
 		         </div>
 		         <div class="modal-body">
-		            <form action="{:U('Home/Safe/modifyPool')}" id="modify_form"role="form" method="post">
+		            <form action="{:U('Home/Safe/modify/name/pool')}" id="modify_form"role="form" method="post">
 		                <div class="form-group">
 		            		<label for="">池塘名称</label>
 		            		<input type="text" class="form-control" value="" name="pool_name" id="pool_name">
 		            	</div>
+						<div class="form-group">
+							<label for="">池塘编码</label>
+							<input type="text" class="form-control" value="" name="pool_code" id="pool_code">
+						</div>
 		            	<div class="form-group">
 		            		<label for="">池塘位置</label>
 		            		<input type="text" class="form-control" value="" name="pool_addr" id="pool_addr">
@@ -130,6 +136,10 @@
 		            		<label for="">池塘编号</label>
 		            		<input type="text" class="form-control" value="" name="pool_id" >
 		            	</div>
+						<div class="form-group">
+							<label for="">池塘编码</label>
+							<input type="text" class="form-control" value="" name="pool_code" >
+						</div>
 		            	<div class="form-group">
 		            		<label for="">池塘名称</label>
 		            		<input type="text" class="form-control" value="" name="pool_name" id="pool_name">
@@ -189,6 +199,7 @@
         var url = "{:U('Home/Safe/getChoose/name/pool/val/"+val+"')}";
         $.get(url, function(data, status){
         	$('#pool_id').val(data['pool_id']);
+            $('#pool_code').val(data['pool_code']);
             $('#pool_name').val(data['pool_name']);
             $('#pool_base_id').val(data['pool_base_id']);
             $('#pool_addr').val(data['pool_addr']);

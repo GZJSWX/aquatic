@@ -46,19 +46,21 @@
 		        </tr>
 		     </thead>
 		     <tbody>
-			        <tr>
-			           <td>{$pool_data.pool_name}</td>
-			           <td>{$pool_data.pool_addr}</td>
-			           <td>{$pool_data.pool_coordinate}</td>
-			           <td>{$pool_data.pool_area}</td>
-			           <td>{$pool_data.pool_depth}</td>
-			           <td>{$pool_data.pool_equipment}</td>
-			           <td>
-				          <button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="对应网箱信息如下">{$pool_data.pool_model}</button>
-			           </td>
-			          
-			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyPoolModal" id="modifyButton" value="{$pool_data.pool_id}" onclick="change(this)">修改</button></td>
-			        </tr>
+				 <volist name="pool_data" id="pool_data">
+					 <tr>
+						 <td>{$pool_data.pool_name}</td>
+						 <td>{$pool_data.pool_addr}</td>
+						 <td>{$pool_data.pool_coordinate}</td>
+						 <td>{$pool_data.pool_area}</td>
+						 <td>{$pool_data.pool_depth}</td>
+						 <td>{$pool_data.pool_equipment}</td>
+						 <td>
+							 <button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="对应网箱信息如下">{$pool_data.pool_model}</button>
+						 </td>
+
+						 <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyPoolModal" id="modifyButton" value="{$pool_data.pool_id}" onclick="change(this)">修改</button></td>
+					 </tr>
+				 </volist>
 		     </tbody>
  		 </table>
 	</div><hr>

@@ -8,25 +8,28 @@
 	   </div>
 	   <div class="panel-body">
 	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addFeedingModal">添加</button><br><br>
-	   	<table class="table table-bordered table-striped col-sm-12" >
-		     <thead>
-		        <tr>
-		           <th>池塘</th>
-		           <th>网箱</th>
-		           <th>饲料</th>
-		           <th>投料数量</th>
-		           <th>投料时间</th>
-		           <th>操作</th>
-		        </tr>
-		     </thead>
+		   <table class="table table-bordered table-striped col-sm-12" >
+			   <thead>
+			  	 <tr>
+				   <th>池塘</th>
+				   <th>网箱</th>
+				   <th>饲料</th>
+				   <th>投料数量</th>
+				   <th>投料时间</th>
+					 <th>图片</th>
+				   <th>操作</th>
+			  	 </tr>
+			   </thead>
 		     <tbody>
+
 		     	<volist name="feeding" id="feeding">
 			        <tr>
 			           <td>{$feeding.feeding_pool_id}</td>
 			           <td>{$feeding.feeding_cage_id}</td>
 			           <td>{$feeding.feeding_feed_id}</td>
 			           <td>{$feeding.feeding_number}</td>
-			           <td>{$feeding.feeding_time}</td>
+			           <td><img src="{$feeding.feeding_pool_img}" alt="" width="180px"></td>
+						<td><button class="btn btn-primary">显示图片</button></td>
 		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedingModal" value="{$feeding.feeding_id}" onclick="feedingChange(this)">修改</button></td>
 			        </tr>
 			    </volist> 
