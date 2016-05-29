@@ -48,6 +48,33 @@ class MemberModel extends Model{
       }
       return $data;
     }
+    public function getChoose(){
+
+        if(IS_GET) {
+            $params = I('get.val');
+            $choosePool = $this->where("member_id = $params")->find();
+            return $choosePool;
+        }else {
+            echo 'getChoosePool wrong';
+        }
+    }
+    public function modify(){
+
+        if(IS_POST) {
+            $data = I('post.');
+            $id = $data['member_id'];
+            $member=$this->where("member_id = $id")->select();
+            $member['member_password']=$data['member_password'];
+            $member['member_permission']=$data['member_permission'];
+            $member['member_pool_id']=$data['member_pool_id'];
+            if(!($this->where("member_id = $id")->save($member))) {
+                echo 'modifyMemberinfo_save wrong';
+            }
+        }else {
+            echo 'modifyMemberInfowrong';
+        }
+
+    }
 
 
 }
