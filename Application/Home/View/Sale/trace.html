@@ -37,7 +37,7 @@
 			           <td>{$trace.trace_tel}</td>
 		               <td>
 		               <button class="btn btn-danger" data-toggle="modal" data-target="#modifyTraceModal" value="{$trace.trace_id}" onclick="traceChange(this)">修改</button>
-		               <a href="{:U('Sale/traceQr',array('kind'=>$trace['trace_fry_id']))}" class="btn btn-success">二维码</a>
+		               <a href="{:U('Sale/showQr',array('kind'=>$trace['trace_fry_id']))}" class="btn btn-success">二维码</a>
 		               </td>
 			        </tr>
 			    </volist> 

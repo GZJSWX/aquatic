@@ -86,7 +86,7 @@ class SaleController extends Controller {
         $this->ajaxReturn($data);
      }
 
-     public function traceQr(){
+     private function traceQr(){
         if (IS_GET) {
             //dump($_GET);exit();
             $name = I('get.name',null);
@@ -106,15 +106,21 @@ class SaleController extends Controller {
       {
             vendor("phpqrcode.phpqrcode");
             // 纠错级别：L、M、Q、H
-            $level = 'L';
+            //$level = 'L';
             // 点的大小：1到10,用于手机端4就可以了
-            $size = 4;
+            //$size = 5;
             // 下面注释了把二维码图片保存到本地的代码,如果要保存图片,用$fileName替换第二个参数false
             //$path = "images/";
             // 生成的文件名
             //$fileName = $path.$size.'.png';
             $QRcode = new \QRcode();
-            $QRcode::png($data, false, $level, $size);
-
+            $QRcode::png($data, false);
+            //echo '<div align="center"><img src="http://hwlbz.scau.edu.cn/aquaticproduct/index.php/Home/Sale/traceQr/kind/%E9%B2%AB%E9%B1%BC.html" height="290" width="290"></div>';
       }
+
+    public function showQr(){
+        $this->traceQr();
+        $this->display();
+    }
+
 }
