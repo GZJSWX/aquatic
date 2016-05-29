@@ -86,14 +86,15 @@ class SaleController extends Controller {
         $this->ajaxReturn($data);
      }
 
-     private function traceQr(){
+     public function traceQr(){
         if (IS_GET) {
             //dump($_GET);exit();
             $name = I('get.name',null);
-            $producers = '海大';
-            $weight = '1KG';
-            $time = date(Ymd);
-            $traceCode = '01969209520720171115120810011066011022';
+            $producers = I('get.producers',null);
+            $weight = I('get.weight',null);
+            $time = I('get.time',null);
+            $traceCode = I('get.traceCode',null);
+
             $data = "扫描结果\n No:".$traceCode."\n 名称:".$name."\n 养殖商:".$producers."\n 捕捞时间:".$time."\n 产品重量:".$weight."\n 溯源链接:http://hdsy.scau.edu.cn/sy.php?no=".$traceCode;
             //dump($data);exit();
             $this->qr($data);
@@ -118,9 +119,18 @@ class SaleController extends Controller {
             //echo '<div align="center"><img src="http://hwlbz.scau.edu.cn/aquaticproduct/index.php/Home/Sale/traceQr/kind/%E9%B2%AB%E9%B1%BC.html" height="290" width="290"></div>';
       }
 
-    public function showQr(){
-        $this->traceQr();
-        $this->display();
+    public function showTraceQr(){
+        if(IS_GET){
+            $data['name'] = I('get.name',null);
+            $data['producers'] = '海大';
+            $data['weight'] = '1KG';
+            $data['time'] = date(Ymd);
+            $data['traceCode'] = '01969209520720171115120810011066011022';
+            $this->assign('data',$data);
+            $this->display();
+        }else{
+            $this->error('生成二维码失败，请重试！');
+        }
     }
 
 }
