@@ -140,8 +140,10 @@
                             //拍照逻辑问题
                             $.get(url, function(data){
                                 
-                                if(data['status'])
-                                 alert('图片已保存');
+                                if(data['status']) {
+                                    alert('图片已保存');
+                                    alert(data['pool_img']);
+                                }
                                 else 
                                   alert('图片上传失败');
                                 $('#feeding_pool_img').val(data['pool_img']);

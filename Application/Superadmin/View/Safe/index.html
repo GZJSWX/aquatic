@@ -10,6 +10,7 @@
 		     <thead>
 		        <tr>
 		           <th>基地编号</th>
+					<th>基地编码</th>
 		           <th>基地名称</th>
 		           <th>地理位置</th>
 		           <th>水质来源</th>
@@ -25,6 +26,7 @@
 		     	<volist name="base_data" id="vo">
 			        <tr>
 			           <td>{$vo.base_id}</td>
+                        <td>{$vo.base_code}</td>
 			           <td>{$vo['base_name']}</td>
 			           <td>{$vo['base_addr']}</td>
 			           <td>{$vo['base_source_water']}</td>
@@ -46,6 +48,7 @@
 		     <thead>
 		        <tr>	        	
 		           <th>饲料名称</th>
+                    <th>饲料编码</th>
 		           <th>饲料规格</th>
 		           <th>操作</th>
 		           
@@ -55,6 +58,7 @@
 		     	  <volist name="feed" id="feed">
 			        <tr>
 			           <td>{$feed.feed_name}</td>
+                        <td>{$feed.feed_code}</td>
 			           <td>{$feed.feed_specifications}</td>
 			           <td>
 			           <button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedModal" id="modifyButton" value="{$feed.feed_id}" onclick="feedChange(this)">修改</button>
@@ -72,6 +76,7 @@
 		     <thead>
 		        <tr>	        	
 		           <th>名称</th>
+                    <th>鱼苗编码</th>
 		           <th>操作</th>
 		        </tr>
 		     </thead>
@@ -79,6 +84,7 @@
 		     	<volist name="fry" id="fry">
 			        <tr>
 			           <td>{$fry.fry_name}</td>
+                        <td>{$fry.fry_code}</td>
 			           <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFryModal" id="modifyButton" value="{$fry.fry_id}" onclick="fryChange(this)">修改</button></td>
 			        </tr>
 			    </volist>
@@ -92,6 +98,7 @@
 		     <thead>
 		        <tr>	        	
 		           <th>名称</th>
+                    <th>药品编码</th>
 		           <th>用途</th>
 		           <th>注意事项</th>
 		           <th>操作</th>
@@ -101,6 +108,7 @@
 		     	<volist name="medicine" id="medicine">
 			        <tr>
 			           <td>{$medicine.medicine_name}</td>
+                        <td>{$medicine.medicine_code}</td>
 			           <td>{$medicine.medicine_use}</td>
 			           <td>{$medicine.medicine_precautions}</td>
 			           <td>
@@ -135,6 +143,10 @@
 		            		<label for="">基地编号</label>
 		            		<input type="text" class="form-control" value="" name="base_id" id="base_id" readonly>
 		            	</div>
+                        <div class="form-group">
+                            <label for="">基地编码</label>
+                            <input type="text" class="form-control" value="" name="base_code" id="base_code">
+                        </div>
 		            	<div class="form-group">
 		            		<label for="">基地名称</label>
 		            		<input type="text" class="form-control" value="" name="base_name" id="base_name">
@@ -199,6 +211,10 @@
 		            		<label for="">基地名称</label>
 		            		<input type="text" class="form-control" value="" name="base_name" id="base_name">
 		            	</div>
+                        <div class="form-group">
+                            <label for="">基地编码</label>
+                            <input type="text" class="form-control" value="" name="base_code" id="base_code">
+                        </div>
 		            	<div class="form-group">
 		            		<label for="">地理位置</label>
 		            		<input type="text" class="form-control" value="" name="base_addr" id="base_addr">
@@ -259,6 +275,10 @@
 		            		<label for="">饲料名称</label>
 		            		<input type="text" class="form-control" value="" name="feed_name" >
 		            	</div>
+                        <div class="form-group">
+                            <label for="">饲料编码</label>
+                            <input type="text" class="form-control" value="" name="feed_code" >
+                        </div>
 		            	<div class="form-group">
 		            		<label for="">饲料规格</label>
 		            		<input type="text" class="form-control" value="" name="feed_specifications">
@@ -300,6 +320,10 @@
 		            		<label for="">饲料名称</label>
 		            		<input type="text" class="form-control" value="" name="feed_name" id="feed_name">
 		            	</div>
+                        <div class="form-group">
+                            <label for="">饲料编码</label>
+                            <input type="text" class="form-control" value="" name="feed_code" id="feed_code">
+                        </div>
 		            	<div class="form-group">
 		            		<label for="">饲料规格</label>
 		            		<input type="text" class="form-control" value="" name="feed_specifications" id="feed_specifications">
@@ -342,6 +366,10 @@
 		            		<label for="">鱼苗名称</label>
 		            		<input type="text" class="form-control" value="" name="fry_name" >
 		            	</div>
+                        <div class="form-group">
+                            <label for="">鱼苗编码</label>
+                            <input type="text" class="form-control" value="" name="fry_code" >
+                        </div>
 		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
 		            </form>
 		         </div>
@@ -378,7 +406,10 @@
 		            		<label for="">鱼苗名称</label>
 		            		<input type="text" class="form-control" value="" name="fry_name" id="fry_name">
 		            	</div>
-		            	
+                        <div class="form-group">
+                            <label for="">鱼苗编码</label>
+                            <input type="text" class="form-control" value="" name="fry_code" id="fry_code">
+                        </div>
 		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
 		                <div class="form-group hidden">
 		            		<input type="text" class="form-control" value="" name="fry_id" id="fry_id" >
@@ -416,6 +447,10 @@
 		            		<label for="">药品名称</label>
 		            		<input type="text" class="form-control" value="" name="medicine_name" >
 		            	</div>
+                        <div class="form-group">
+                            <label for="">药品编码</label>
+                            <input type="text" class="form-control" value="" name="medicine_code" >
+                        </div>
 		            	<div class="form-group">
 		            		<label for="">用途</label>
 		            		<input type="text" class="form-control" value="" name="medicine_use">
@@ -461,6 +496,10 @@
 		            		<label for="">药品名称</label>
 		            		<input type="text" class="form-control" value="" name="medicine_name" id="medicine_name">
 		            	</div>
+                        <div class="form-group">
+                            <label for="">药品编码</label>
+                            <input type="text" class="form-control" value="" name="medicine_code" id="medicine_code">
+                        </div>
 		            	<div class="form-group">
 		            		<label for="">用途</label>
 		            		<input type="text" class="form-control" value="" name="medicine_use" id="medicine_use">
@@ -494,6 +533,7 @@
         var url = "{:U('Superadmin/Safe/getChooseBase/val/"+val+"')}";
         $.get(url, function(data, status){
             $('#base_id').val(data['base_id']);
+            $('#base_code').val(data['base_code']);
             $('#base_name').val(data['base_name']);
             $('#base_addr').val(data['base_addr']);
             $('#base_source_water').val(data['base_source_water']);
@@ -511,6 +551,7 @@
         $.get(url, function(data, status){
         	$('#feed_id').val(data['feed_id']);
             $('#feed_name').val(data['feed_name']);
+            $('#feed_code').val(data['feed_code']);
             $('#feed_specifications').val(data['feed_specifications']);
         });
     } 
@@ -520,6 +561,7 @@
         var url = "{:U('Superadmin/Safe/getChooseFry/val/"+val+"')}";
         $.get(url, function(data, status){
         	$('#fry_id').val(data['fry_id']);
+            $('#fry_code').val(data['fry_code']);
             $('#fry_name').val(data['fry_name']);
         });
     } 
@@ -529,6 +571,7 @@
         var url = "{:U('Superadmin/Safe/getChooseMedicine/val/"+val+"')}";
         $.get(url, function(data, status){
             $('#medicine_id').val(data['medicine_id']);
+            $('#medicine_code').val(data['medicine_code']);
             $('#medicine_name').val(data['medicine_name']);
             $('#medicine_use').val(data['medicine_use']);
             $('#medicine_precautions').val(data['medicine_precautions']);

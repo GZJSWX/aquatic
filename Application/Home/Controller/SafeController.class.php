@@ -40,6 +40,7 @@ class SafeController extends Controller {
          
        	$this->assign("base_data", $this->base['data']);
        	$this->assign('time', $this->base['time']);
+         
         $this->assign("pool_data", $this->pool);   
         $this->assign('cage',$this->cage);
        	$this->display();
