@@ -2,3 +2,4 @@ Application/Runtime
 *.zip
 Application/Common/Conf/config.php
 cache.*.php
+*.idea
