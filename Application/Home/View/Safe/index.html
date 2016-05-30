@@ -1,354 +1,351 @@
 <extend name="Public:base"/>
-  <block name="leftcolumn">
+<block name="leftcolumn">
 	<div class="row">
-	 
-		   	<table class="table table-bordered table-striped col-sm-12" >
-		     <caption>基地信息:</caption>
-			     <thead>
-			        <tr>
-			           <th>基地名称</th>
-			           <th>地理位置</th>
-			           <th>水质来源</th>
-			           <th>基地规模</th>
-			           <th>联系人</th>
-			           <th>联系电话</th>
-			        </tr>
-			     </thead>
-			     <tbody>
-			        <tr>
-			           <td>{$base_data['base_name']}</td>
-			           <td>{$base_data['base_addr']}</td>
-			           <td>{$base_data['base_source_water']}</td>
-	                   <td>{$base_data['base_scale']}</td>
-			           <td>{$base_data['base_contacts']}</td>
-			           <td>{$base_data['base_tel']}</td>
-			        </tr>
-			     </tbody>
-	 		 </table>
-	  
+
+		<table class="table table-bordered table-striped col-sm-12" >
+			<caption>基地信息:</caption>
+			<thead>
+			<tr>
+				<th>基地名称</th>
+				<th>地理位置</th>
+				<th>水质来源</th>
+				<th>基地规模</th>
+				<th>联系人</th>
+				<th>联系电话</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>{$base_data['base_name']}</td>
+				<td>{$base_data['base_addr']}</td>
+				<td>{$base_data['base_source_water']}</td>
+				<td>{$base_data['base_scale']}</td>
+				<td>{$base_data['base_contacts']}</td>
+				<td>{$base_data['base_tel']}</td>
+			</tr>
+			</tbody>
+		</table>
+
 	</div> <!-- row --><hr>
 	<div class="row">
 		<table class="table table-bordered table-striped col-sm-12" >
-	     <caption>池塘信息:</caption>
-		     <thead>
-		        <tr>	        	
-		           
-		           <th>池塘名称</th>
-		           <th>池塘位置</th>
-		           <th>经纬度列表</th>
-		           <th>水面面积</th>
-		           <th>水面深度</th>	
-		           <th>养殖设施设备</th>
-		           <th>养殖模式</th>
-		           <th>操作</th>
-		           
-		        </tr>
-		     </thead>
-		     <tbody>
-				 <volist name="pool_data" id="pool_data">
-					 <tr>
-						 <td>{$pool_data.pool_name}</td>
-						 <td>{$pool_data.pool_addr}</td>
-						 <td>{$pool_data.pool_coordinate}</td>
-						 <td>{$pool_data.pool_area}</td>
-						 <td>{$pool_data.pool_depth}</td>
-						 <td>{$pool_data.pool_equipment}</td>
-						 <td>
-							 <button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="对应网箱信息如下">{$pool_data.pool_model}</button>
-						 </td>
+			<caption>池塘信息:</caption>
+			<thead>
+			<tr>
 
-						 <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyPoolModal" id="modifyButton" value="{$pool_data.pool_id}" onclick="change(this)">修改</button></td>
-					 </tr>
-				 </volist>
-		     </tbody>
- 		 </table>
+				<th>池塘名称</th>
+				<th>池塘位置</th>
+				<th>经纬度列表</th>
+				<th>水面面积</th>
+				<th>水面深度</th>
+				<th>养殖设施设备</th>
+				<th>养殖模式</th>
+				<th>操作</th>
+
+			</tr>
+			</thead>
+			<tbody>
+			<volist name="pool_data" id="pool_data">
+				<tr>
+					<td>{$pool_data.pool_name}</td>
+					<td>{$pool_data.pool_addr}</td>
+					<td>{$pool_data.pool_coordinate}</td>
+					<td>{$pool_data.pool_area}</td>
+					<td>{$pool_data.pool_depth}</td>
+					<td>{$pool_data.pool_equipment}</td>
+					<td>
+						<button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="对应网箱信息如下">{$pool_data.pool_model}</button>
+					</td>
+
+					<td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyPoolModal" id="modifyButton" value="{$pool_data.pool_id}" onclick="change(this)">修改</button></td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
 	</div><hr>
-	  <if condition = "$pool_data['pool_model'] eq '网箱'">
+	<if condition = "$pool_data['pool_model'] eq '网箱'">
 		<div class="row">
-	      <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addCageModal">添加网箱</button>
-		   	<table class="table table-bordered table-striped col-sm-12" >
-		     <caption>网箱信息:</caption>
-			     <thead>
-			        <tr>
-			           <th>网箱排编号</th>
-			           <th>网箱排名称</th>
-			           <th>网箱数量</th>
-                        <th>网箱编码</th>
-                        <th>网箱排编码</th>
-			           <th>操作</th>
-			        </tr>
-			     </thead>
-			     <tbody>
-			     	<volist name="cage" id="cage">	
-				        <tr>
-				           <td>{$cage.cage_rowid}</td>
-				           <td>{$cage.cage_rowname}</td>
-				           <td>{$cage.cage_number}</td>
-                            <td>{$cage.cage_code}</td>
-                            <td>{$cage.cage_row_code}</td>
-			               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyCageModal" id="modifyCageButton" value="{$cage.cage_id}" onclick="cageChange(this)">修改</button></td>
-				        </tr>
-				    </volist>    
-			     </tbody>
-	 		 </table>
-	    </div> <!-- row --><hr>
-      </if>
+			<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addCageModal">添加网箱</button>
+			<table class="table table-bordered table-striped col-sm-12" >
+				<caption>网箱信息:</caption>
+				<thead>
+				<tr>
+					<th>网箱排编号</th>
+					<th>网箱排名称</th>
+					<th>网箱数量</th>
+					<th>网箱编码</th>
+					<th>网箱排编码</th>
+					<th>操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				<volist name="cage" id="cage">
+					<tr>
+						<td>{$cage.cage_rowid}</td>
+						<td>{$cage.cage_rowname}</td>
+						<td>{$cage.cage_number}</td>
+						<td>{$cage.cage_code}</td>
+						<td>{$cage.cage_row_code}</td>
+						<td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyCageModal" id="modifyCageButton" value="{$cage.cage_id}" onclick="cageChange(this)">修改</button></td>
+					</tr>
+				</volist>
+				</tbody>
+			</table>
+		</div> <!-- row --><hr>
+	</if>
 
-<!-- modifyPool模态框（Modal） -->
-<div class="modal fade" id="modifyPoolModal" tabindex="-1" role="dialog" 
-   aria-labelledby="myModalLabel" aria-hidden="true">
-		   <div class="modal-dialog">
-		      <div class="modal-content">
-		         <div class="modal-header">
-		            <button type="button" class="close" 
-		               data-dismiss="modal" aria-hidden="true">
-		                  &times;
-		            </button>
-		            <h4 class="modal-title" id="myModalLabel">
-		               信息修改
-		            </h4>
-		         </div>
-		         <div class="modal-body">
-		            <form action="{:U('Home/Safe/modify', array('name' => 'pool'))}" id="modifyPool_form"role="form" method="post">
-		                <div class="form-group">
-		            		<label for="">池塘名称</label>
-		            		<input type="text" class="form-control" value="" name="pool_name" id="pool_name">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">池塘位置</label>
-		            		<input type="text" class="form-control" value="" name="pool_addr" id="pool_addr">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">经纬度列表</label>
-		            		<input type="text" class="form-control" value="" name="pool_coordinate" id="pool_coordinate">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">水面面积</label>
-		            		<input type="text" class="form-control" value="" name="pool_area" id="pool_area" placeholder="水面面积，例如200平方米">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">水深</label>
-		            		<input type="text" class="form-control" value="" name="pool_depth" id="pool_depth" placeholder="水深，例如100米">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">养殖设施设备</label>
-		            		<input type="text" class="form-control" value="" name="pool_equipment" id="pool_equipment" placeholder="养殖设施设备">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">养殖模式</label>
-		            		<select class="form-control"name="pool_model" id="pool_model">
-		            			<option value="0">请选择养殖模式</option>
-		            			<option value="大塘混养">大塘混养</option>
-		            			<option value="网箱">网箱</option>
-		            		</select>
-		            	</div>
-		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
-		            	<div class="form-group" hidden>
-		            		<input type="text" class="form-control" value="" name="pool_id" id="pool_id" >
-		            	</div>
+	<!-- modifyPool模态框（Modal） -->
+	<div class="modal fade" id="modifyPoolModal" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"
+							data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						信息修改
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form action="{:U('Home/Safe/modify', array('name' => 'pool'))}" id="modifyPool_form"role="form" method="post">
+						<div class="form-group">
+							<label for="">池塘名称</label>
+							<input type="text" class="form-control" value="" name="pool_name" id="pool_name">
+						</div>
+						<div class="form-group">
+							<label for="">池塘位置</label>
+							<input type="text" class="form-control" value="" name="pool_addr" id="pool_addr">
+						</div>
+						<div class="form-group">
+							<label for="">经纬度列表</label>
+							<input type="text" class="form-control" value="" name="pool_coordinate" id="pool_coordinate">
+						</div>
+						<div class="form-group">
+							<label for="">水面面积</label>
+							<input type="text" class="form-control" value="" name="pool_area" id="pool_area" placeholder="水面面积，例如200平方米">
+						</div>
+						<div class="form-group">
+							<label for="">水深</label>
+							<input type="text" class="form-control" value="" name="pool_depth" id="pool_depth" placeholder="水深，例如100米">
+						</div>
+						<div class="form-group">
+							<label for="">养殖设施设备</label>
+							<input type="text" class="form-control" value="" name="pool_equipment" id="pool_equipment" placeholder="养殖设施设备">
+						</div>
+						<div class="form-group">
+							<label for="">养殖模式</label>
+							<select class="form-control"name="pool_model" id="pool_model">
+								<option value="0">请选择养殖模式</option>
+								<option value="大塘混养">大塘混养</option>
+								<option value="网箱">网箱</option>
+							</select>
+						</div>
+						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+						<div class="form-group" hidden>
+							<input type="text" class="form-control" value="" name="pool_id" id="pool_id" >
+						</div>
 
-		            </form>
-		         </div>
-		         <div class="modal-footer">
-		            <button type="button" class="btn btn-default" 
-		               data-dismiss="modal">关闭
-		            </button>
-		            <button type="button"  id="modifyPoolBtn" class="btn btn-primary">
-		               提交更改
-		            </button>
-		         </div>
-		      </div><!-- /.modal-content -->
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+					<button type="button"  id="modifyPoolBtn" class="btn btn-primary">
+						提交更改
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
-</div>
-<!-- cage模态框（Modal） -->
-<div class="modal fade" id="modifyCageModal" tabindex="-1" role="dialog" 
-   aria-labelledby="myModalLabel" aria-hidden="true">
-		   <div class="modal-dialog">
-		      <div class="modal-content">
-		         <div class="modal-header">
-		            <button type="button" class="close" 
-		               data-dismiss="modal" aria-hidden="true">
-		                  &times;
-		            </button>
-		            <h4 class="modal-title" id="myModalLabel">
-		               修改网箱信息
-		            </h4>
-		         </div>
-		         <div class="modal-body">
-		            <form action="{:U('Home/Safe/modify', array('name' => 'Cage'))}" id="modifyCage_form"role="form" method="post">
+	</div>
+	<!-- cage模态框（Modal） -->
+	<div class="modal fade" id="modifyCageModal" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"
+							data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						修改网箱信息
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form action="{:U('Home/Safe/modify', array('name' => 'Cage'))}" id="modifyCage_form"role="form" method="post">
 
-                        <div class="form-group">
-                            <label for="">网箱编码</label>
-                            <input type="text" class="form-control" value="{$cage.cage_code}" name="cage_code" id="cage_code">
-                        </div>
-                        <div class="form-group">
-                            <label for="">排编码</label>
-                            <input type="text" class="form-control" value="{$cage.cage_row_code}" name="cage_row_code" id="cage_row_code">
-                        </div>
-		                <div class="form-group">
-		            		<label for="">排名称</label>
-		            		<input type="text" class="form-control" value="{$cage.cage_rowname}" name="cage_rowname" id="cage_rowname">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">网箱数量</label>
-		            		<input type="text" class="form-control" value="{$cage.cage_number}" name="cage_number" id="cage_number">
-		            	</div>
-		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
-		            	<div class="form-group" hidden>
-		            		<input type="text" class="form-control" value="" name="cage_id" id="cage_id" >
-		            	</div>
-		            </form>
-		         </div>
-		         <div class="modal-footer">
-		            <button type="button" class="btn btn-default" 
-		               data-dismiss="modal">关闭
-		            </button>
-		            <button type="button"  id="modifyCageBtn" class="btn btn-primary">
-		               提交更改
-		            </button>
-		         </div>
-		      </div><!-- /.modal-content -->
+						<div class="form-group">
+							<label for="">网箱编码</label>
+							<input type="text" class="form-control" value="{$cage.cage_code}" name="cage_code" id="cage_code">
+						</div>
+						<div class="form-group">
+							<label for="">排编码</label>
+							<input type="text" class="form-control" value="{$cage.cage_row_code}" name="cage_row_code" id="cage_row_code">
+						</div>
+						<div class="form-group">
+							<label for="">排名称</label>
+							<input type="text" class="form-control" value="{$cage.cage_rowname}" name="cage_rowname" id="cage_rowname">
+						</div>
+						<div class="form-group">
+							<label for="">网箱数量</label>
+							<input type="text" class="form-control" value="{$cage.cage_number}" name="cage_number" id="cage_number">
+						</div>
+						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+						<div class="form-group" hidden>
+							<input type="text" class="form-control" value="" name="cage_id" id="cage_id" >
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+					<button type="button"  id="modifyCageBtn" class="btn btn-primary">
+						提交更改
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
-</div>
-<!-- 添加新网箱 -->
-<div class="modal fade" id="addCageModal" tabindex="-1" role="dialog" 
-   aria-labelledby="myModalLabel" aria-hidden="true">
-		   <div class="modal-dialog">
-		      <div class="modal-content">
-		         <div class="modal-header">
-		            <button type="button" class="close" 
-		               data-dismiss="modal" aria-hidden="true">
-		                  &times;
-		            </button>
-		            <h4 class="modal-title" id="myModalLabel">
-		               添加网箱排
-		            </h4>
-		         </div>
-		         <div class="modal-body">
-		            <form action="{:U('Home/Safe/adds', array('name' => 'cage'))}" id="addCage_form"role="form" method="post">
+	</div>
+	<!-- 添加新网箱 -->
+	<div class="modal fade" id="addCageModal" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"
+							data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						添加网箱排
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form action="{:U('Home/Safe/adds', array('name' => 'cage'))}" id="addCage_form"role="form" method="post">
 
-                        <div class="form-group">
-                            <label for="">网箱编码</label>
-                            <input type="text" class="form-control" value="" name="cage_code" id="cage_code">
-                        </div>
-                        <div class="form-group">
-                            <label for="">排编码</label>
-                            <input type="text" class="form-control" value="" name="cage_row_code" id="cage_row_code">
-                        </div>
-		            	<div class="form-group">
-		            		<label for="">排编号</label>
-		            		<input type="text" class="form-control" value="" name="cage_rowid" id="cage_rowid">
-		            	</div>
-		                <div class="form-group">
-		            		<label for="">排名称</label>
-		            		<input type="text" class="form-control" value="" name="cage_rowname" id="cage_rowname">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">网箱数量</label>
-		            		<input type="text" class="form-control" value="" name="cage_number" id="cage_number">
-		            	</div>
-		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
-		            	
-		            </form>
-		         </div>
-		         <div class="modal-footer">
-		            <button type="button" class="btn btn-default" 
-		               data-dismiss="modal">关闭
-		            </button>
-		            <button type="button"  id="addCageBtn" class="btn btn-primary">
-		               提交
-		            </button>
-		         </div>
-		      </div><!-- /.modal-content -->
+						<div class="form-group">
+							<label for="">网箱编码</label>
+							<input type="text" class="form-control" value="" name="cage_code" id="cage_code">
+						</div>
+						<div class="form-group">
+							<label for="">排编码</label>
+							<input type="text" class="form-control" value="" name="cage_row_code" id="cage_row_code">
+						</div>
+						<div class="form-group">
+							<label for="">排编号</label>
+							<input type="text" class="form-control" value="" name="cage_rowid" id="cage_rowid">
+						</div>
+						<div class="form-group">
+							<label for="">排名称</label>
+							<input type="text" class="form-control" value="" name="cage_rowname" id="cage_rowname">
+						</div>
+						<div class="form-group">
+							<label for="">网箱数量</label>
+							<input type="text" class="form-control" value="" name="cage_number" id="cage_number">
+						</div>
+						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+					<button type="button"  id="addCageBtn" class="btn btn-primary">
+						提交
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
 	</div>
 </block>
 
 <block name="script">
 	<script>
-	    function change(obj) { 
-	       
+		function change(obj) {
+
 			var val = $(obj).attr('value');
-	        var url = "{:U('Home/Safe/getChoose/name/pool/val/"+val+"')}";
-	        $.get(url, function(data, status){
-	        	
-	        	$('#pool_id').val(data['pool_id']);
-	            $('#pool_name').val(data['pool_name']);
-	            $('#pool_base_id').val(data['pool_base_id']);
-	            $('#pool_addr').val(data['pool_addr']);
-	            $('#pool_coordinate').val(data['pool_coordinate']);
-	            $('#pool_area').val(data['pool_area']);
-	            $('#pool_depth').val(data['pool_depth']);
-	            $('#pool_equipment').val(data['pool_equipment']);
-	            $('#pool_model').val(data['pool_model']);
+			var url = "{:U('Home/Safe/getChoose/name/pool/val/"+val+"')}";
+			$.get(url, function(data, status){
 
-	        });
+				$('#pool_id').val(data['pool_id']);
+				$('#pool_name').val(data['pool_name']);
+				$('#pool_base_id').val(data['pool_base_id']);
+				$('#pool_addr').val(data['pool_addr']);
+				$('#pool_coordinate').val(data['pool_coordinate']);
+				$('#pool_area').val(data['pool_area']);
+				$('#pool_depth').val(data['pool_depth']);
+				$('#pool_equipment').val(data['pool_equipment']);
+				$('#pool_model').val(data['pool_model']);
 
-	    } 
-	     function cageChange(obj) { 
-	       
+			});
+
+		}
+		function cageChange(obj) {
+
 			var val = $(obj).attr('value');
-	        var url = "{:U('Home/Safe/getChoose/name/cage/val/"+val+"')}";
-	        $.get(url, function(data, status){
-	        	
-	        	$('#cage_id').val(data['cage_id']);
-                $('#cage_code').val(data['cage_code']);
-                $('#cage_row_code').val(data['cage_row_code']);
-	        	$('#cage_rowid').val(data['cage_rowid']);
-	        	$('#cage_rowName').val(data['cage_rowname']);
-	        	$('#cage_number').val(data['cage_number']);
-	        });
+			var url = "{:U('Home/Safe/getChoose/name/cage/val/"+val+"')}";
+			$.get(url, function(data, status){
 
-	    } 
+				$('#cage_id').val(data['cage_id']);
+				$('#cage_code').val(data['cage_code']);
+				$('#cage_row_code').val(data['cage_row_code']);
+				$('#cage_rowid').val(data['cage_rowid']);
+				$('#cage_rowName').val(data['cage_rowname']);
+				$('#cage_number').val(data['cage_number']);
+			});
+
+		}
 		$(document).ready(function(){
-	       
-	        $('#modifyCageBtn').click(function(){
 
-	        	 var action= $('#modifyCage_form').attr('action');
-	        	 var Formattr=$('#modifyCage_form').serialize();
-		          console.log(Formattr);
-	             $.post(action, Formattr,function(data,status) {
-	                 
-	                 if(status == "success") {
-	                    alert( "修改成功！");
-	                 }else{
-	                 	alert("修改失败！");
-	                 }
-	                 setTimeout("window.location.href=\"{:U('Home/Safe/index')}\"",200);
-	             });
-	        });
-	        $('#modifyPoolBtn').click(function(){
+			$('#modifyCageBtn').click(function(){
 
-	        	 var action= $('#modifyPool_form').attr('action');
-	        	 var Formattr=$('#modifyPool_form').serialize();
-		         // console.log(Formattr);
-	             $.post(action, Formattr,function(data,status) {
-	                 
-	                 if(status == "success") {
-	                    alert( "修改成功！");
-	                 }else{
-	                 	alert("修改失败！");
-	                 }
-	                 setTimeout("window.location.href=\"{:U('Home/Safe/index')}\"",200);
-	             });
-	        });
-	        $('#addCageBtn').click(function(){
-	             var action = $('#addCage_form').attr('action');
-	             var Formattr = $('#addCage_form').serialize();
-	             $.post(action, Formattr, function(data,status) {
-	                 if(data.code == 1) {
-	                    alert(data.msg);
-	                    setTimeout("window.location.href=\"{:U('Home/Safe/index')}\"",200);
-	                 }else{
-	                 	alert(data.msg);
-	                 }
-	                 
-	             });
-	        });
+				var action= $('#modifyCage_form').attr('action');
+				var Formattr=$('#modifyCage_form').serialize();
+				console.log(Formattr);
+				$.post(action, Formattr,function(data,status) {
+
+					if(status == "success") {
+						alert( "修改成功！");
+					}else{
+						alert("修改失败！");
+					}
+					setTimeout("window.location.href=\"{:U('Home/Safe/index')}\"",200);
+				});
+			});
+			$('#modifyPoolBtn').click(function(){
+
+				var action= $('#modifyPool_form').attr('action');
+				var Formattr=$('#modifyPool_form').serialize();
+				// console.log(Formattr);
+				$.post(action, Formattr,function(data,status) {
+
+					if(status == "success") {
+						alert( "修改成功！");
+					}else{
+						alert("修改失败！");
+					}
+					setTimeout("window.location.href=\"{:U('Home/Safe/index')}\"",200);
+				});
+			});
+			$('#addCageBtn').click(function(){
+				var action = $('#addCage_form').attr('action');
+				var Formattr = $('#addCage_form').serialize();
+				$.post(action, Formattr, function(data,status) {
+					if(data.code == 1) {
+						alert(data.msg);
+						setTimeout("window.location.href=\"{:U('Home/Safe/index')}\"",200);
+					}else{
+						alert(data.msg);
+					}
+
+				});
+			});
 		});
-	     $(function () { $("[data-toggle='tooltip']").tooltip(); });
+		$(function () { $("[data-toggle='tooltip']").tooltip(); });
 	</script>
 </block>
-      
-   
-

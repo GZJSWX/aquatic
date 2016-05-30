@@ -54,5 +54,35 @@ class MemberModel extends Model {
             echo 'login wrong';
          }
     }
+    public function getChoose(){
+
+        if(IS_GET) {
+            $params = I('get.val');
+            $choosePool = $this->where("member_id = $params")->find();
+            return $choosePool;
+        }else {
+            echo 'getChoosePool wrong';
+        }
+    }
+    public function modify(){
+
+        if(IS_POST) {
+            $userInfo= \Org\Util\User::_getUserInfo();
+            $data = I('post.');
+            $id = $userInfo['member_id'];
+            if($userInfo['member_password']==$data['old_member_password']) {
+                $userInfo['member_password']=$data['new_member_password'];
+                $this->where(" member_id= $id")->save($userInfo);
+                \Org\Util\User::_setUserInfo($userInfo);
+                echo "修改成功";
+            }
+            else{
+                echo  "修改失败：旧密码不对";
+            }
+        }else {
+            echo 'modifyPoolInfowrong';
+        }
+
+    }
  
 }

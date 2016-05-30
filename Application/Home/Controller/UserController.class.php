@@ -49,4 +49,13 @@ class UserController extends Controller {
         }
 
     }
+    public function modify() {
+
+        $result = D(I('get.name'))->modify();
+    }
+    public function getChoose(){
+
+        $data = D(I('get.name'))->getChoose();
+        $this->ajaxReturn($data);
+    }
 }
