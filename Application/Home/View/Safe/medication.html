@@ -20,7 +20,7 @@
 		           <th>用药理由</th>
 		           <th>用药方式</th>
 		           <th>注意事项</th>
-
+					<th>图片</th>
 		           <th>操作</th>
 		        </tr>
 		     </thead>
@@ -35,6 +35,7 @@
 			           <td>{$medication.medication_reason}</td>
 			           <td>{$medication.medication_pattern}</td>
 			           <td>{$medication.medication_precautions}</td>
+						<td><img src="{$medication.medication_pool_img}" alt="" width="180px"></td>
 		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyMedicationModal" value="{$medication.medication_id}" onclick="medicationChange(this)">修改</button></td>
 			        </tr>
 			    </volist> 
