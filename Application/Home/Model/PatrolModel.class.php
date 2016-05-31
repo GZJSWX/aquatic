@@ -13,7 +13,8 @@ class PatrolModel extends Model{
            // $params['patrol_pool_id'] = $userInfo['member_pool_id'];
            $params['patrol_member_id'] = $userInfo['member_id'];
            //$params['patrol_death_date'] = date('Y-m-d');
-           $params['patrol_coordinate'] = $params['accuracy'];
+           $params['patrol_coordinate'] = $params['latitude'].$params['longitude'];
+
            if(! $this->add($params)) {
              
               return 0;
