@@ -1,6 +1,16 @@
  <extend name="Public:base"/>
 <block name="leftcolumn">
-
+    <table class="table table-bordered table-striped col-sm-12">
+        <tbody>
+        <volist name="medication_id" id="medication_id">
+            <tr>
+                <td>{$medication_id.medication_medicine_id}</td>
+                <td>{$medication_id.medication_pool_id}</td>
+                <td>{$medication_id.medication_time}</td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
 <div class="panel panel-info">
        <div class="panel-heading">
           <h3 class="panel-title">
@@ -92,6 +102,9 @@
             'chooseImage' 
         ]
     });
+
+
+
     wx.ready(function () {
 
          $("#medication_pool").click(function() { 
@@ -122,21 +135,19 @@
             });
 
         });
-        $("#medication_pool_name").change(function() {
-            var url = "{:U('Home/Wechat/medication_show')}";
-            $.post(url,
-                    {
-                        medication_pool_id:$('#medication_pool_id').val(),
-                        medication_medicine_id:$('#medication_medicine_id').val(),
 
-                    },
-                    function(data) {
-                        alert(data);
+        $("#medication_pool_name").change(function() {
+            var medication = $("#medication_medicine_id").attr('value');
+            var pool = $("#medication_pool_id").attr('value');
+            var url = "{:U('Home/Wechat/medication_show/medication/"+medication+"/pool/"+pool+"')}";
+            $.get(url, function(data) {
+                        $('#medication_id').val(data);
                     }
             );
 
 
         });
+
 
         $("#medication_picture").click(function() {
 

@@ -46,19 +46,19 @@ class WechatController extends Controller{
         $to_save = "Public/uploads/".$dir_name.date('/Y/m/d/');
         if($this->create_my_file_path($to_save, 0755) !== false) {
           $filename = $this->curl_get_img($url,$to_save); 
-<<<<<<< HEAD
+
           $img = str_replace($img_path, '', $filename);
             if(!empty($filename)){
               $data['status'] = 1;
                 $data['pool_img'] = $img;
              }
-=======
+
           $feeding_pool_img = str_replace($img_path, '', $filename);
             //if(!empty(filename)){
              //  $data['status'] = 1;
              // $data['pool_img'] = $feeding_pool_img;
              //}
->>>>>>> 0e46d9b38a56f01b8eab7d36fa145a7fe03f7298
+
         }
         $this->ajaxReturn($data);
   }
