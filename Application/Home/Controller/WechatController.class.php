@@ -211,5 +211,9 @@ class WechatController extends Controller{
         }
 
     }
+    public function medication_show(){
+        $result = D('medication')->show();
+        $this->ajaxReturn($result);
+    }
 
 }

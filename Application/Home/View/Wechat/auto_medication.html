@@ -16,12 +16,12 @@
            </div><hr>
               <div class="form-group">
                 <button class="btn btn-default" id="medication_medicine">药品扫描</button>
-                <input type="text" id="medication_medicine_name" class="form-control"> 
+                <input type="text" id="medication_medicine_name" class="form-control"  >
               </div>
 
               <div class="form-group">
                 <button class="btn btn-default" id="medication_pool">池塘扫描</button>
-                <input type="text"id="medication_pool_name" class="form-control">  
+                <input type="text"id="medication_pool_name" class="form-control">
               </div> 
              
                   <div class="form-group">
@@ -120,7 +120,24 @@
                   $('#medication_medicine_name').val(n[1]);
                 }
             });
+
         });
+        $("#medication_pool_name").change(function() {
+            var url = "{:U('Home/Wechat/medication_show')}";
+            $.post(url,
+                    {
+                        medication_pool_id:$('#medication_pool_id').val(),
+                        medication_medicine_id:$('#medication_medicine_id').val(),
+
+                    },
+                    function(data) {
+                        alert(data);
+                    }
+            );
+
+
+        });
+
         $("#medication_picture").click(function() {
 
             wx.chooseImage({
