@@ -2,6 +2,17 @@
 <block name="leftcolumn">
 
 <div class="panel panel-info">
+<table class="table table-bordered table-striped col-sm-12">
+        <tbody>
+        <volist name="medication_id" id="medication_id">
+            <tr>
+                <td>{$medication_id.medication_medicine_id}</td>
+                <td>{$medication_id.medication_pool_id}</td>
+                <td>{$medication_id.medication_time}</td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
        <div class="panel-heading">
           <h3 class="panel-title">
              用药管理
@@ -112,6 +123,17 @@
                   $('#medication_medicine_name').val(n[1]);
                 }
             });
+        });
+          $("#medication_pool_name").change(function() {
+            var medication = $("#medication_medicine_id").attr('value');
+            var pool = $("#medication_pool_id").attr('value');
+            var url = "{:U('Home/Wechat/medication_show/medication/"+medication+"/pool/"+pool+"')}";
+            $.get(url, function(data) {
+                        $('#medication_id').val(data);
+                    }
+            );
+
+
         });
         $("#medication_submit").click(function(){
             var url = "{:U('Home/Wechat/medication_submit')}";
