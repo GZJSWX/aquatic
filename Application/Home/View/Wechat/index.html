@@ -137,12 +137,13 @@
                             upload();
                           }
                          var url = "{:U('Home/Wechat/savePic/serverId/"+ res.serverId +"')}";
+                         //alert(res.serverId);
                             //拍照逻辑问题
                             $.get(url, function(data){
                                 
                                 if(data['status']) {
                                     alert('图片已保存');
-                                    alert(data['pool_img']);
+                                    // alert(data['pool_img']); 
                                 }
                                 else 
                                   alert('图片上传失败');
@@ -174,6 +175,7 @@
                       else alert('上传失败');
                   }
               );
+            // alert('123');
              setTimeout("window.location.href=\"{:U('Home/Wechat/index')}\"", 300);
         });
 
