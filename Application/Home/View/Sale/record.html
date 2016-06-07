@@ -16,9 +16,7 @@
 		           <th>出塘日期</th>
 		           <th>养殖批次</th>
 		           <th>鱼品种</th>
-		           <if condition = "$this_pool['pool_model'] eq '网箱'">
-	           	   	 <th>网箱</th>
-             	   </if>
+					<th>网箱</th>
 		           <th>数量</th> 
 		           <th>重量</th>
 		           <th>转入池塘</th>
@@ -101,7 +99,7 @@
 		            			</volist>
 		            		</select>
 		            	</div>
-                        <if condition = "$this_pool['pool_model'] eq '网箱'">
+
 			            	<div class="form-group">
 			            		<label for="">网箱</label>
 				            		<select class="form-control" name="record_cage_id" >
@@ -112,7 +110,7 @@
 				            		</select>
 			            	    </else>
 			            	</div> 
-		            	</if>
+
 		            	<div class="form-group">
 		            		<label for="">数量</label>
 		            		<input type="text" class="form-control" value="" name="record_number" id="number">
