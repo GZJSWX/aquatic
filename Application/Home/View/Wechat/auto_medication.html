@@ -1,6 +1,16 @@
  <extend name="Public:base"/>
 <block name="leftcolumn">
-
+    <table class="table table-bordered table-striped col-sm-12">
+        <tbody>
+        <volist name="medication_id" id="medication_id">
+            <tr>
+                <td>{$medication_id.medication_medicine_id}</td>
+                <td>{$medication_id.medication_pool_id}</td>
+                <td>{$medication_id.medication_time}</td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
 <div class="panel panel-info">
        <div class="panel-heading">
           <h3 class="panel-title">
@@ -16,12 +26,12 @@
            </div><hr>
               <div class="form-group">
                 <button class="btn btn-default" id="medication_medicine">药品扫描</button>
-                <input type="text" id="medication_medicine_name" class="form-control"> 
+                <input type="text" id="medication_medicine_name" class="form-control"  >
               </div>
 
               <div class="form-group">
                 <button class="btn btn-default" id="medication_pool">池塘扫描</button>
-                <input type="text"id="medication_pool_name" class="form-control">  
+                <input type="text"id="medication_pool_name" class="form-control">
               </div> 
              
                   <div class="form-group">
@@ -92,6 +102,9 @@
             'chooseImage' 
         ]
     });
+
+
+
     wx.ready(function () {
 
          $("#medication_pool").click(function() { 
@@ -118,6 +131,70 @@
                   var n = url.split(",");
                   $('#medication_medicine_id').val(n[0]);
                   $('#medication_medicine_name').val(n[1]);
+                }
+            });
+
+        });
+
+        $("#medication_pool_name").change(function() {
+            var medication = $("#medication_medicine_id").attr('value');
+            var pool = $("#medication_pool_id").attr('value');
+            var url = "{:U('Home/Wechat/medication_show/medication/"+medication+"/pool/"+pool+"')}";
+            $.get(url, function(data) {
+                        $('#medication_id').val(data);
+                    }
+            );
+
+
+        });
+
+
+        $("#medication_picture").click(function() {
+
+            wx.chooseImage({
+                count: 1, // 默认9
+                sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    images.localId = res.localIds;
+                    // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                    $.each( res.localIds, function(i, n){
+                        $("#medication_img").append('<img  width="250" height="250" src="'+n+'" /> <br />');
+                    });
+                    if (images.localId.length == 0) {
+                        alert('请先使用 chooseImage 接口选择图片');
+                        return;
+                    }
+                    var i = 0, length = images.localId.length;
+                    images.serverId = [];
+                    function upload() {
+                        wx.uploadImage({
+                            localId: images.localId[i],
+                            success: function (res) {
+                                i++;
+                                images.serverId.push(res.serverId);
+                                if (i < length) {
+                                    upload();
+                                }
+                                var url = "{:U('Home/Wechat/savePic/serverId/"+ res.serverId +"')}";
+                                //拍照逻辑问题
+                                $.get(url, function(data){
+
+                                    if(data['status']) {
+                                        alert('图片已保存');
+                                        alert(data['pool_img']);
+                                    }
+                                    else
+                                        alert('图片上传失败');
+                                    $('#medication_pool_img').val(data['pool_img']);
+                                },'json');
+                            },
+                            fail: function (res) {
+                                alert(JSON.stringify(res));
+                            }
+                        });
+                    }
+                    upload();
                 }
             });
         });

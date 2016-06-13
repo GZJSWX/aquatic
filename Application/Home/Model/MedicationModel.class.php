@@ -82,5 +82,20 @@ class MedicationModel extends Model{
         echo 'wrong';
       }
     }
+    public function show(){
+        if(IS_POST){
+            $medication_medicine_id= I("get.medication");
+            $medication_pool_id= I("get.pool");
+            $data = $this->where("medication_pool_id = $medication_pool_id and  medication_medicine_id= $medication_medicine_id")->limit(5)->order('medication_time desc')->select();
+            foreach ($data as $key => $value) {
+                $data[$key]['medication_medicine_id'] = M('medicine')->getFieldBymedicine_id($data[$key]['medication_medicine_id'],'medicine_name');
+                $data[$key]['medication_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['medication_pool_id'],'pool_name');
+
+            }
+            return $data;
+            
+
+        }
+    }
 
 }
