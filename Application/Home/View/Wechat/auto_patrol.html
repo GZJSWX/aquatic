@@ -217,9 +217,9 @@
                       if(data['status']) 
                         alert('提交成功');
                       else alert('上传失败');
+                      setTimeout("window.location.href=\"{:U('Home/Wechat/index')}\"", 300);
                   }
               );
-             setTimeout("window.location.href=\"{:U('Home/Wechat/index')}\"", 300);
         });
 
      });

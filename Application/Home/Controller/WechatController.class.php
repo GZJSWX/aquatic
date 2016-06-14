@@ -46,11 +46,11 @@ class WechatController extends Controller{
         $to_save = "Public/uploads/".$dir_name.date('/Y/m/d/');
         if($this->create_my_file_path($to_save, 0755) !== false) {
           $filename = $this->curl_get_img($url,$to_save); 
-          $img = str_replace($img_path, '', $filename);
-            if(!empty($filename)){
-              $data['status'] = 1;
-                $data['pool_img'] = $img;
-             }
+          $feeding_pool_img = str_replace($img_path, '', $filename);
+            if(!empty(filename)){
+                $data['status'] = 1;
+                $data['pool_img'] = $feeding_pool_img;
+            }
         }
         $this->ajaxReturn($data);
   }
@@ -182,13 +182,11 @@ class WechatController extends Controller{
         return FALSE;
     }
     public function feeding_submit() {
-        $data['status'] = 1;
+        
         if(D('feeding')->adds())
-          $this->ajaxReturn($data);
-        else {
-          $data['status'] = 0;
-          $this->ajaxReturn($data);
-        }
+          echo '提交成功';
+        else 
+          echo  '提交失败';
 
     }
     public function medication_submit() {
@@ -210,6 +208,10 @@ class WechatController extends Controller{
           $this->ajaxReturn($data);
         }
 
+    }
+      public function medication_show(){
+        $result = D('medication')->show();
+        $this->ajaxReturn($result);
     }
 
 }

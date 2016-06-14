@@ -143,7 +143,7 @@
                                 
                                 if(data['status']) {
                                     alert('图片已保存');
-                                    // alert(data['pool_img']); 
+                                     
                                 }
                                 else 
                                   alert('图片上传失败');
@@ -161,22 +161,19 @@
         });
         $("#feeding_submit").click(function(){
             var url = "{:U('Home/Wechat/feeding_submit')}";
-            $.post(url, 
-                  {
-                    feeding_pool_id:$('#feeding_pool_id').val(),
-                    feeding_feed_id:$('#feeding_feed_id').val(),
-                    feeding_number:$('#feeding_number').val(),
-                    feeding_pool_img:$('#feeding_pool_img').val(),
-                    feeding_cage_id:$('#feeding_cage_id').val()
-                  },
-                  function(data) {
-                      if(data['status']) 
-                        alert('提交成功');
-                      else alert('上传失败');
-                  }
-              );
-            // alert('123');
-             setTimeout("window.location.href=\"{:U('Home/Wechat/index')}\"", 300);
+            $.post(url,
+            {
+                feeding_pool_id:$('#feeding_pool_id').val(),
+                feeding_feed_id:$('#feeding_feed_id').val(),
+                feeding_number:$('#feeding_number').val(),
+                feeding_pool_img:$('#feeding_pool_img').val(),
+                feeding_cage_id:$('#feeding_cage_id').val()
+            },
+            function(data,status){
+              alert(data);
+              setTimeout("window.location.href=\"{:U('Home/Wechat/index')}\"", 500);
+            });
+          
         });
 
      });

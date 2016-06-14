@@ -14,7 +14,7 @@ class FeedingModel extends Model{
            if(! $this->add($params)) {
               return 0;
            }
-            return 1;
+           return 1;
       }
 	}
 	public function getChoose(){

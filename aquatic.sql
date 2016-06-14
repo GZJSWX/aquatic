@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?05 �?28 �?22:14
+-- 生成日期: 2016 �?06 �?15 �?07:44
 -- 服务器版本: 5.5.40
 -- PHP 版本: 5.5.17
 
@@ -135,13 +135,13 @@ CREATE TABLE IF NOT EXISTS `ap_feeding` (
   `feeding_number` varchar(30) NOT NULL DEFAULT '',
   `feeding_member_id` int(11) DEFAULT NULL,
   `feeding_time` varchar(20) NOT NULL DEFAULT '',
-  `feeding_pool_img` varchar(50) NOT NULL DEFAULT '',
+  `feeding_pool_img` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`feeding_id`),
   KEY `feeding_pool_id` (`feeding_pool_id`,`feeding_cage_id`,`feeding_feed_id`,`feeding_member_id`),
   KEY `feeding_cage_id` (`feeding_cage_id`),
   KEY `feeding_feed_id` (`feeding_feed_id`),
   KEY `feeding_member_id` (`feeding_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='投饲' AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='投饲' AUTO_INCREMENT=75 ;
 
 --
 -- 转存表中的数据 `ap_feeding`
@@ -155,8 +155,25 @@ INSERT INTO `ap_feeding` (`feeding_id`, `feeding_pool_id`, `feeding_cage_id`, `f
 (5, 1, 1, 1, '26', 7, '2016-02-23 22:34', ''),
 (8, 5, 1, 1, '32', 7, '2016-03-03', ''),
 (9, 1, 1, 1, '12', 7, '2016-03-31', ''),
-(10, 1, 7, 1, '20', 7, '2016-04-19', 'wechat_img/2016/04/19/2fa191046ee60e0e6dd3f821e412'),
-(11, 1, 6, 1, '2', 7, '2016-04-19', 'wechat_img/2016/04/19/0bdc4b3837affa0a54c405e6213c');
+(10, 1, 7, 1, '20', 7, '2016-04-19', 'wechat_img/2016/04/19/2fa191046ee60e0e6dd3f821e412.jpg'),
+(11, 1, 6, 1, '2', 7, '2016-04-19', 'wechat_img/2016/04/19/0bdc4b3837affa0a54c405e6213c.jpg'),
+(12, 1, 9, 1, '40', 7, '2016-05-30', 'wechat_img/2016/05/30/bfece971e70c18c1308af03ca2e5.jpg'),
+(14, 1, 2, 1, '1000', 7, '2016-05-30', 'wechat_img/2016/05/30/28b2a7593de2d9283e04ae0175e7.jpg'),
+(59, 2, 1, 5, '123', 7, '2016-06-02', ''),
+(61, 1, 0, 1, '123', 7, '2016-06-02', ''),
+(62, 1, 2, 1, '11', 7, '2016-06-02', ''),
+(63, 0, 0, 0, '', 7, '2016-06-02', ''),
+(64, 1, 2, 1, '123', 7, '2016-06-03', 'wechat_img/2016/06/03/880d0f1ea769372884b3ccbeb0e8.jpg'),
+(65, 0, 0, 0, '', 7, '2016-06-03', 'wechat_img/2016/06/03/54ae704316ee8a8eb74a3b5ef8d3e91e.jpg'),
+(66, 1, 6, 1, '100', 7, '2016-06-03', 'wechat_img/2016/06/03/d37769bf03cc4826f26a39ef394dcfb8.jpg'),
+(67, 0, 0, 0, '', 7, '2016-06-03', ''),
+(68, 0, 0, 0, '', 7, '2016-06-03', ''),
+(69, 0, 0, 0, '', 7, '2016-06-03', ''),
+(70, 0, 0, 0, '', 7, '2016-06-03', ''),
+(71, 0, 0, 0, '', 7, '2016-06-03', ''),
+(72, 0, 0, 0, '', 7, '2016-06-03', ''),
+(73, 0, 0, 0, '', 7, '2016-06-03', ''),
+(74, 0, 0, 0, '', 7, '2016-06-03', '');
 
 -- --------------------------------------------------------
 
@@ -234,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `ap_medication` (
   KEY `medication_cage_id` (`medication_cage_id`),
   KEY `medication_member_id` (`medication_member_id`),
   KEY `medication_member_id_2` (`medication_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `ap_medication`
@@ -246,7 +263,8 @@ INSERT INTO `ap_medication` (`medication_id`, `medication_medicine_id`, `medicat
 (3, 3, '1袋', 5, 8, '2016-03-18', '保健', '无', '无', 7),
 (4, 1, 'km', 1, 6, '1460652905', '258', 'ajtj', '255', 7),
 (5, 1, '10', 1, 2, '2016-04-19', '生病', '水调', '无', 7),
-(6, 1, '5', 1, 8, '2016-04-19', '', '', '', 7);
+(6, 1, '5', 1, 8, '2016-04-19', '', '', '', 7),
+(7, 1, '10', 1, 6, '2016-05-30', '保护', '水调', '', 7);
 
 -- --------------------------------------------------------
 
@@ -342,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `ap_patrol` (
   KEY `patrol_member_id` (`patrol_member_id`),
   KEY `patrol_cage_id` (`patrol_cage_id`),
   KEY `patrol_fry_id` (`patrol_fry_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `ap_patrol`
@@ -354,7 +372,9 @@ INSERT INTO `ap_patrol` (`patrol_id`, `patrol_pool_id`, `patrol_cage_id`, `patro
 (3, 0, 6, 1, '1', '1', '22', '2016-03-31', 7, '', '', ''),
 (4, 1, 0, 3, '562', '565', 'no', '2016-04-15', 7, ' 563', '', '65'),
 (6, 1, 8, 3, '23', '12', '天气', '2016-04-19', 7, ' 无', 'wechat_img/2016/04/19/659dbc7a3330d74761cafdeb9b7a0a2d.jpg', '40.0'),
-(7, 1, 11, 1, '5', '5', '无', '2016-04-19', 7, ' ', 'wechat_img/2016/04/19/e44dfb5819f2c60f965ade9407bd8e64.jpg', '40.0');
+(7, 1, 11, 1, '5', '5', '无', '2016-04-19', 7, ' ', 'wechat_img/2016/04/19/e44dfb5819f2c60f965ade9407bd8e64.jpg', '40.0'),
+(8, 1, 2, 1, '10', '20', '自然死亡', '2016-05-30', 7, ' ', 'wechat_img/2016/05/30/55dc22fe6aab10608fcf89f80ed0bc2b.jpg', '137.5659'),
+(9, 1, 9, 2, '123', '123', '未知', '2016-06-03', 7, ' test', 'wechat_img/2016/06/03/7099aab03e779fd471e8d342ed476e3a.jpg', '23.56589116.2015');
 
 -- --------------------------------------------------------
 
@@ -559,13 +579,6 @@ ALTER TABLE `ap_cage`
   ADD CONSTRAINT `ap_cage_ibfk_1` FOREIGN KEY (`cage_pool_id`) REFERENCES `ap_pool` (`pool_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- 限制表 `ap_feeding`
---
-ALTER TABLE `ap_feeding`
-  ADD CONSTRAINT `ap_feeding_ibfk_3` FOREIGN KEY (`feeding_feed_id`) REFERENCES `ap_feed` (`feed_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `ap_feeding_ibfk_4` FOREIGN KEY (`feeding_member_id`) REFERENCES `ap_member` (`member_id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
 -- 限制表 `ap_indicator`
 --
 ALTER TABLE `ap_indicator`
@@ -579,13 +592,6 @@ ALTER TABLE `ap_indicator`
 ALTER TABLE `ap_medication`
   ADD CONSTRAINT `ap_medication_ibfk_1` FOREIGN KEY (`medication_medicine_id`) REFERENCES `ap_medicine` (`medicine_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `ap_medication_ibfk_4` FOREIGN KEY (`medication_member_id`) REFERENCES `ap_member` (`member_id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- 限制表 `ap_patrol`
---
-ALTER TABLE `ap_patrol`
-  ADD CONSTRAINT `ap_patrol_ibfk_3` FOREIGN KEY (`patrol_fry_id`) REFERENCES `ap_fry` (`fry_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `ap_patrol_ibfk_4` FOREIGN KEY (`patrol_member_id`) REFERENCES `ap_member` (`member_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- 限制表 `ap_pool`

@@ -2,24 +2,30 @@
 <block name="leftcolumn">
 
 <div class="panel panel-info">
-<table class="table table-bordered table-striped col-sm-12">
-        <tbody>
-        <volist name="medication_id" id="medication_id">
-            <tr>
-                <td>{$medication_id.medication_medicine_id}</td>
-                <td>{$medication_id.medication_pool_id}</td>
-                <td>{$medication_id.medication_time}</td>
-            </tr>
-        </volist>
-        </tbody>
-    </table>
+  
        <div class="panel-heading">
           <h3 class="panel-title">
              用药管理
           </h3>
        </div>
        <div class="panel-body">
-
+              
+              <div class="form-group">
+                <table class="table table-bordered table-striped col-sm-12">
+                  <caption>用药记录</caption>
+                      <thead>
+                        <tr>
+                           <th>药品名称</th>
+                           <th>池塘名称</th>
+                           <th>使用时间</th>
+                        </tr>
+                     </thead>
+                     <tbody id="record_table">
+                        
+                     </tbody>
+                </table>
+              </div>
+              <hr>
               <div class="form-group">
                 <button class="btn btn-default" id="medication_medicine">药品扫描</button>
                 <input type="text" id="medication_medicine_name" class="form-control"> 
@@ -81,6 +87,8 @@
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
+    //cnt 扫描一次二位码加1，为2时，后台拿数据
+    var cnt = 0;
     wx.config({
         debug: false,
         appId: '{$signPackage["appId"]}',
@@ -108,6 +116,13 @@
                   var n = url.split(",");
                   $('#medication_pool_id').val(n[0]);
                   $('#medication_pool_name').val(n[1]);
+                  if( n.length != 0 ) {
+                    cnt ++;
+                  }
+                  if(cnt == 2) {
+                     get_medication_record();
+                     cnt = 0;
+                  }
                 }
             });
         });
@@ -121,14 +136,22 @@
                   var n = url.split(",");
                   $('#medication_medicine_id').val(n[0]);
                   $('#medication_medicine_name').val(n[1]);
+                  if( n.length != 0 ) {
+                    cnt ++;
+                  }
+                  if(cnt == 2) {
+                     get_medication_record();
+                     cnt = 0;
+                  }
                 }
             });
         });
           $("#medication_pool_name").change(function() {
+            
             var medication = $("#medication_medicine_id").attr('value');
             var pool = $("#medication_pool_id").attr('value');
             var url = "{:U('Home/Wechat/medication_show/medication/"+medication+"/pool/"+pool+"')}";
-            $.get(url, function(data) {
+            $.get(url, function(data,status) {
                         $('#medication_id').val(data);
                     }
             );
@@ -159,5 +182,18 @@
 
       
      });
+     function  get_medication_record() {
+         
+          var medication = $("#medication_medicine_id").val();
+          var pool = $("#medication_pool_id").val();
+          var url = "{:U('Home/Wechat/medication_show/medication/"+medication+"/pool/"+pool+"')}";
+          $.get(url, function(data,status) {
+
+               $.each(data, function(i, item){
+                  $('#record_table').append("<tr><td>"+ item.medication_medicine_id+"</td><td>"+item.medication_pool_id+"</td><td>"+item.medication_time+"</td></tr>");
+               });
+
+          });
+     }
 </script>
 </block>
