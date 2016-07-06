@@ -6,20 +6,43 @@ class MemberModel extends Model{
 	public function adminRegister(){
 
 		if(IS_POST){
-            
+
             $params = I("post.");
+
             $params['member_role'] = 2;
-            $this->checkParams($params); 
-            if( !$this->add($params)) {
-                echo 'Member adminRegister wrong';
-            }
-            
+
+			//dump($nameResult);exit();
+
+			if(!$this->checkName($params['member_username']))
+				return 1;
+			elseif(!$this->checkParams($params))
+				return 2;
+			elseif($params['member_base_id']==0)
+				return 3;
+			elseif($params['quanxian']==0)
+				return 4;
+			else{
+				$params['member_password'] = md5($params['member_password'].$params['member_username']);
+
+				if( !$this->add($params)) {
+					return 5;
+				}
+				else return 0;
+			}
+
 		}else {
-           echo 'Member register wrong';
+           return 5;
 		}
 	}
+	public  function checkName($name){
+		if($this->where(array('member_username'=>$name))->select())
+			return 0;
+		else return 1;
+	}
 	public function checkParams($params){
-       
+        if($params['member_password']==$params['member_apassword'])
+			return 1;
+		return 0;
 	}
 	public function getMemberInfo() {
         

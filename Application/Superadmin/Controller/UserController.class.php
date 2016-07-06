@@ -22,9 +22,26 @@ class UserController extends Controller{
     	$this->display();
     }
 	public function adminRegister(){
-        
+        $params = I("post.");
+
         $data = D('Member')->adminRegister();
-        redirect(U("Superadmin/Index/index"));
+        //dump($data);exit();
+        if($data==1){
+            $this->error("已存在此用户名，请选择其他用户名");
+        }elseif($data==2){
+            $this->error("两次密码不同，请重新填写");
+        }elseif($data==3){
+            $this->error("请选择所属基地");
+        }elseif($data==4){
+            $this->error("请选择权限");
+        }elseif($data==5){
+            $this->error("注册失败，请重新尝试！");
+        }
+        else{
+            $this->success("注册成功",U("Superadmin/Index/index"));
+            //redirect(U("Superadmin/Index/index"));
+        }
+
 	}
    
 }
