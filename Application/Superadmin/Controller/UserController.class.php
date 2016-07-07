@@ -17,7 +17,8 @@ class UserController extends Controller{
     	$this->display();
     }
     public function manage(){
-    	$data= D('member')->getMemberInfo();
+
+    	$data = D('member')->getMemberInfo();
     	$this->assign('member_data',$data);
     	$this->display();
     }
@@ -39,7 +40,6 @@ class UserController extends Controller{
         }
         else{
             $this->success("注册成功",U("Superadmin/Index/index"));
-            //redirect(U("Superadmin/Index/index"));
         }
 
 	}

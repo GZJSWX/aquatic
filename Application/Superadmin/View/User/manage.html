@@ -9,7 +9,6 @@
 		     <thead>
 		        <tr>
 		           <th>账号</th>
-		           <th>密码</th>
 		           <th>所属基地</th>
 		           <th>拥有权限</th>
 		           <th>操作</th>
@@ -19,9 +18,8 @@
 		     	<volist name="member_data" id="vo">
 			        <tr>
 			           <td>{$vo.member_username}</td>
-			           <td>{$vo.member_password}</td>
+			           <td>{$vo.member_role}</td>
 			           <td>{$vo.member_base_id}</td>
-			           <td>{$vo.member_permission}</td>
 	                   <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyMemberModal" id="modifyButton" value="{$vo.member_id}" onclick="change(this)">修改</button></td>
 			        </tr>
 		        </volist>
@@ -29,5 +27,57 @@
  		 </table>
    	  </div>
    </div>
+
+<!-- modifybase模态框（Modal） -->
+<div class="modal fade" id="modifyMemberModal" tabindex="-1" role="dialog"
+	 aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close"
+						data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					信息修改
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form action="{:U('Superadmin/Safe/modifyBase')}" id="modifyBase_form"role="form" method="post">
+
+					<div class="form-group">
+						<label for="">账号</label>
+						<input type="text" class="form-control" value="" name="base_id" id="base_id" readonly>
+					</div>
+					<div class="form-group">
+						<label for="">修改密码</label>
+						<input type="text" class="form-control" value="" name="base_code" id="base_code">
+					</div>
+					<div class="form-group">
+						<label for="">确认密码</label>
+						<input type="text" class="form-control" value="" name="base_name" id="base_name">
+					</div>
+					<div class="form-group">
+						<label for="">所属基地</label>
+						<input type="text" class="form-control" value="{$base_data['base_addr']}" name="base_addr" id="base_addr">
+					</div>
+					<div class="form-group">
+						<label for="">拥有权限</label>
+						<input type="text" class="form-control" value="{$base_data['base_source_water']}" name="base_source_water" id="base_source_water">
+					</div>
+
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+						data-dismiss="modal">关闭
+				</button>
+				<button type="button"  id="modifyBaseBtn" class="btn btn-primary">
+					提交更改
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
    
 <include file="Public:footer"/>
