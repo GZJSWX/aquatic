@@ -19,7 +19,7 @@ class MemberModel extends Model{
 				return 2;
 			elseif($params['member_base_id']==0)
 				return 3;
-			elseif($params['quanxian']==0)
+			elseif($params['member_permission']==0)
 				return 4;
 			else{
 				$params['member_password'] = md5($params['member_password'].$params['member_username']);
@@ -48,7 +48,7 @@ class MemberModel extends Model{
         
 		$data = $this->where("member_role = 2")->select();
 		foreach($data as $key => $value) {
-
+			$data[$key]['member_permission'] = M('base')->getFieldbyBase_id($data[$key]['member_permission'],'base_name');
 		    $data[$key]['member_base_id'] = M('base')->getFieldbyBase_id($data[$key]['member_base_id'],'base_name');
 		    $data[$key]['member_role'] = 2 ? '基础管理员' : '普通用户';
 		}

@@ -18,8 +18,8 @@
 		     	<volist name="member_data" id="vo">
 			        <tr>
 			           <td>{$vo.member_username}</td>
-			           <td>{$vo.member_role}</td>
 			           <td>{$vo.member_base_id}</td>
+			           <td>{$vo.member_permission}</td>
 	                   <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyMemberModal" id="modifyButton" value="{$vo.member_id}" onclick="change(this)">修改</button></td>
 			        </tr>
 		        </volist>
@@ -47,23 +47,33 @@
 
 					<div class="form-group">
 						<label for="">账号</label>
-						<input type="text" class="form-control" value="" name="base_id" id="base_id" readonly>
+						<input type="text" class="form-control" value="" name="member_username" id="member_username" readonly>
 					</div>
 					<div class="form-group">
 						<label for="">修改密码</label>
-						<input type="text" class="form-control" value="" name="base_code" id="base_code">
+						<input type="password" class="form-control" value="" name="member_password" id="member_password">
 					</div>
 					<div class="form-group">
 						<label for="">确认密码</label>
-						<input type="text" class="form-control" value="" name="base_name" id="base_name">
+						<input type="password" class="form-control" value="" name="member_apassword" id="member_apassword">
 					</div>
 					<div class="form-group">
 						<label for="">所属基地</label>
-						<input type="text" class="form-control" value="{$base_data['base_addr']}" name="base_addr" id="base_addr">
+						<select class="form-control" name="stocking_fry_id" >
+							<option value="0">所属基地</option>
+							<volist name="fry" id="fr">
+								<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+							</volist>
+						</select>
 					</div>
 					<div class="form-group">
 						<label for="">拥有权限</label>
-						<input type="text" class="form-control" value="{$base_data['base_source_water']}" name="base_source_water" id="base_source_water">
+						<select class="form-control" name="stocking_fry_id" >
+							<option value="0">拥有权限</option>
+							<volist name="fry" id="fr">
+								<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+							</volist>
+						</select>
 					</div>
 
 				</form>
@@ -81,3 +91,36 @@
 </div>
    
 <include file="Public:footer"/>
+<script>
+	function change(obj) {
+
+		var val = $(obj).attr('value');
+		var url = "{:U('Superadmin/User/getManage/val/"+val+"')}";
+		$.get(url, function(data, status){
+			$('#member_id').val(data['member_id']);
+			$('#member_username').val(data['member_username']);
+			$('#member_role').val(data['member_role']);
+			$('#member_base_id').val(data['base_source_water']);
+			$('#member_permission').val(data['base_scale']);
+
+		});
+	}
+
+	$(document).ready(function() {
+		$('#addBaseBtn').click(function () {
+
+			var action = $('#addBase_form').attr('action');
+			var Formattr = $('#addBase_form').serialize();
+			$.post(action, Formattr, function (data, status) {
+
+				if (status == "success") {
+					alert("添加成功！");
+				} else {
+					alert("添加失败！");
+				}
+				setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"", 500);
+			});
+		});
+	});
+
+</script>

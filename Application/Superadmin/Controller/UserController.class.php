@@ -19,6 +19,7 @@ class UserController extends Controller{
     public function manage(){
 
     	$data = D('member')->getMemberInfo();
+        //dump($data);exit();
     	$this->assign('member_data',$data);
     	$this->display();
     }
@@ -43,5 +44,10 @@ class UserController extends Controller{
         }
 
 	}
+    public function getManage(){
+
+        $data = D('member')->getMemberInfo();
+        $this->ajaxReturn($data);
+    }
    
 }
