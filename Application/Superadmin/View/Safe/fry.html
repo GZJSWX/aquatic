@@ -141,12 +141,12 @@
             });
             $('#modifyFryBtn').click(function(){
 
-                var action= $('#modifyFeed_form').attr('action');
-                var Formattr=$('#modifyFeed_form').serialize();
+                var action= $('#modifyFry_form').attr('action');
+                var Formattr=$('#modifyFry_form').serialize();
                 console.log(Formattr);
                 $.post(action, Formattr,function(data,status) {
 
-                    if(status == "success") {
+                     if(status == "success") {
                         alert( "修改成功！");
                         setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'fry'))}\"",200);
                     }else{
