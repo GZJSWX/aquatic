@@ -217,10 +217,11 @@
 
                     if (status == "success") {
                         alert("添加成功！");
+                        setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'base'))}\"",200);
                     } else {
                         alert("添加失败！");
                     }
-                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/base')}\"", 500);
+                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'base'))}\"",200);
                 });
             });
             $('#modifyBaseBtn').click(function(){
@@ -232,10 +233,11 @@
 
                     if(status == "success") {
                         alert( "修改成功！");
+                        setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'base'))}\"",200);
                     }else{
                         alert("修改失败！");
                     }
-                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/base')}\"",200);
+                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'base'))}\"",200);
                 });
             });
         });

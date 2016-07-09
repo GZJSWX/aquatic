@@ -166,10 +166,11 @@
 
                     if(status == "success") {
                         alert( "添加成功！");
+                        setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'medicine'))}\"",200);
                     }else{
                         alert("添加失败！");
                     }
-                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/medicine')}\"",500);
+                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'medicine'))}\"",200);
                 });
             });
             $('#modifyMedicineBtn').click(function(){
@@ -181,10 +182,11 @@
 
                     if(status == "success") {
                         alert( "修改成功！");
+                        setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'medicine'))}\"",200);
                     }else{
                         alert("修改失败！");
                     }
-                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/medicine')}\"",200);
+                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'medicine'))}\"",200);
                 });
             });
         });
