@@ -48,9 +48,10 @@ class WechatController extends Controller{
           $filename = $this->curl_get_img($url,$to_save); 
 <<<<<<< HEAD
           $feeding_pool_img = str_replace($img_path, '', $filename);
-            if(!empty(filename)){
+            /*if(!empty(filename)){
                 $data['status'] = 1;
                 $data['pool_img'] = $feeding_pool_img;
+<<<<<<< HEAD
             }
 =======
 
@@ -67,6 +68,9 @@ class WechatController extends Controller{
              //}
 
 >>>>>>> ce30b51d8d5540a38183934943d170fe0ba106d5
+=======
+            }*/
+>>>>>>> 6ea6a5e89bce6024537ffa8d269b029de44ec84d
         }
         $this->ajaxReturn($data);
   }

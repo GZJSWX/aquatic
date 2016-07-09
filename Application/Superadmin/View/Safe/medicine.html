@@ -1,0 +1,192 @@
+<extend name="Public:base"/>
+<block name="leftcolumn">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                用药管理
+            </h3>
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addMedicineModal">添加药品</button>
+            <table class="table table-bordered table-striped col-sm-12" >
+                <caption>药品信息:</caption>
+                <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>药品编码</th>
+                    <th>用途</th>
+                    <th>注意事项</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="medicine" id="medicine">
+                    <tr>
+                        <td>{$medicine.medicine_name}</td>
+                        <td>{$medicine.medicine_code}</td>
+                        <td>{$medicine.medicine_use}</td>
+                        <td>{$medicine.medicine_precautions}</td>
+                        <td>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#modifyMedicineModal" id="modifyButton" value="{$medicine.medicine_id}" onclick="medicineChange(this)">修改</button>
+                            <a href="{:U('Safe/showMedicineQr',array('name'=>$medicine['medicine_name'],'use'=>$medicine['medicine_use']))}" class="btn btn-success" data-toggle="modal" id="modifyButton" value="{$feed.feed_id}">二维码</a>
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="addMedicineModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新药品信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{:U('Superadmin/Safe/addMedicine')}" id="addMedicine_form" role="form" method="post">
+                        <div class="form-group">
+                            <label for="">药品名称</label>
+                            <input type="text" class="form-control" value="" name="medicine_name" >
+                        </div>
+                        <div class="form-group">
+                            <label for="">药品编码</label>
+                            <input type="text" class="form-control" value="" name="medicine_code" >
+                        </div>
+                        <div class="form-group">
+                            <label for="">用途</label>
+                            <input type="text" class="form-control" value="" name="medicine_use">
+                        </div>
+                        <div class="form-group">
+                            <label for="">注意事项</label>
+		            		<textarea class="form-control" value="" name="medicine_precautions">
+		            		</textarea>
+                        </div>
+                        <label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button"  id="addMedicineBtn" class="btn btn-primary">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+
+    </div>
+
+    <!-- ModifymedicineModal -->
+    <div class="modal fade" id="modifyMedicineModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        修改药品信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{:U('Superadmin/Safe/modifyMedicine')}" id="modifyMedicine_form" role="form" method="post">
+                        <div class="form-group">
+                            <label for="">药品名称</label>
+                            <input type="text" class="form-control" value="" name="medicine_name" id="medicine_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">药品编码</label>
+                            <input type="text" class="form-control" value="" name="medicine_code" id="medicine_code">
+                        </div>
+                        <div class="form-group">
+                            <label for="">用途</label>
+                            <input type="text" class="form-control" value="" name="medicine_use" id="medicine_use">
+                        </div>
+                        <div class="form-group">
+                            <label for="">注意事项</label>
+                            <textarea class="form-control" value="" name="medicine_precautions" id="medicine_precautions"> </textarea>
+                        </div>
+                        <label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+                        <div class="form-group hidden">
+                            <input type="text" class="form-control" value="" name="medicine_id" id="medicine_id" >
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button"  id="modifyMedicineBtn" class="btn btn-primary">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</block>
+<block name="rightcolumn">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{:U('Superadmin/Safe/index',array('name' => 'base'))}">基地基本信息</a></li>
+        <li><a href="{:U('Superadmin/Safe/index',array('name' => 'feed'))}">喂料基本信息</a></li>
+        <li><a href="{:U('Superadmin/Safe/index',array('name' => 'fry'))}">鱼苗基本信息</a></li>
+        <li><a href="{:U('Superadmin/Safe/index',array('name' => 'medicine'))}">药物基本信息</a></li>
+    </ul>
+</block>
+
+<block name="script">
+    <script>
+        function medicineChange(obj) {
+
+            var val = $(obj).attr('value');
+            var url = "{:U('Superadmin/Safe/getChooseMedicine/val/"+val+"')}";
+            $.get(url, function(data, status){
+                $('#medicine_id').val(data['medicine_id']);
+                $('#medicine_code').val(data['medicine_code']);
+                $('#medicine_name').val(data['medicine_name']);
+                $('#medicine_use').val(data['medicine_use']);
+                $('#medicine_precautions').val(data['medicine_precautions']);
+            });
+        }
+        $(document).ready(function() {
+            $('#addMedicineBtn').click(function(){
+
+                var action= $('#addMedicine_form').attr('action');
+                var Formattr=$('#addMedicine_form').serialize();
+                $.post(action, Formattr,function(data,status) {
+
+                    if(status == "success") {
+                        alert( "添加成功！");
+                    }else{
+                        alert("添加失败！");
+                    }
+                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/medicine')}\"",500);
+                });
+            });
+            $('#modifyMedicineBtn').click(function(){
+
+                var action= $('#modifyMedicine_form').attr('action');
+                var Formattr=$('#modifyMedicine_form').serialize();
+                console.log(Formattr);
+                $.post(action, Formattr,function(data,status) {
+
+                    if(status == "success") {
+                        alert( "修改成功！");
+                    }else{
+                        alert("修改失败！");
+                    }
+                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/medicine')}\"",200);
+                });
+            });
+        });
+    </script>
+</block>

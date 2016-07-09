@@ -9,7 +9,6 @@
 		     <thead>
 		        <tr>
 		           <th>账号</th>
-		           <th>密码</th>
 		           <th>所属基地</th>
 		           <th>拥有权限</th>
 		           <th>操作</th>
@@ -19,7 +18,6 @@
 		     	<volist name="member_data" id="vo">
 			        <tr>
 			           <td>{$vo.member_username}</td>
-			           <td>{$vo.member_password}</td>
 			           <td>{$vo.member_base_id}</td>
 			           <td>{$vo.member_permission}</td>
 	                   <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyMemberModal" id="modifyButton" value="{$vo.member_id}" onclick="change(this)">修改</button></td>
@@ -29,5 +27,99 @@
  		 </table>
    	  </div>
    </div>
+
+<!-- modifybase模态框（Modal） -->
+<div class="modal fade" id="modifyMemberModal" tabindex="-1" role="dialog"
+	 aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close"
+						data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					信息修改
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form action="{:U('Superadmin/Safe/modifyBase')}" id="modifyBase_form"role="form" method="post">
+
+					<div class="form-group">
+						<label for="">账号</label>
+						<input type="text" class="form-control" value="" name="member_username" id="member_username" readonly>
+					</div>
+					<div class="form-group">
+						<label for="">修改密码</label>
+						<input type="password" class="form-control" value="" name="member_password" id="member_password">
+					</div>
+					<div class="form-group">
+						<label for="">确认密码</label>
+						<input type="password" class="form-control" value="" name="member_apassword" id="member_apassword">
+					</div>
+					<div class="form-group">
+						<label for="">所属基地</label>
+						<select class="form-control" name="member_base_id">
+							<option value="" selected id="member_base_id">请所属基地</option>
+							<volist name="base" id="ba">
+								<option value="{$ba.base_id}">{$ba.base_name}</option>
+							</volist>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="">拥有权限</label>
+						<select class="form-control" name="member_permission">
+							<option value="" selected id="member_permission">拥有权限</option>
+							<volist name="base" id="ba">
+								<option value="{$ba.base_id}">{$ba.base_name}</option>
+							</volist>
+						</select>
+					</div>
+
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+						data-dismiss="modal">关闭
+				</button>
+				<button type="button"  id="modifyBaseBtn" class="btn btn-primary">
+					提交更改
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
    
 <include file="Public:footer"/>
+<script>
+	function change(obj) {
+
+		var val = $(obj).attr('value');
+		var url = "{:U('Superadmin/User/getManage/val/"+val+"')}";
+		$.get(url, function(data, status){
+			$('#member_id').val(data['member_id']);
+			$('#member_username').val(data['member_username']);
+			$('#member_role').val(data['member_role']);
+			$('#member_base_id').val(data['base_source_water']);
+			$('#member_permission').val(data['base_scale']);
+		});
+	}
+
+	$(document).ready(function() {
+		$('#addBaseBtn').click(function () {
+
+			var action = $('#addBase_form').attr('action');
+			var Formattr = $('#addBase_form').serialize();
+			$.post(action, Formattr, function (data, status) {
+
+				if (status == "success") {
+					alert("添加成功！");
+				} else {
+					alert("添加失败！");
+				}
+				setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"", 500);
+			});
+		});
+	});
+
+</script>

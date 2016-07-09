@@ -10,21 +10,36 @@ class SafeController extends Controller{
               redirect(U('Home/Index/index'));
           }
     }
-	public function index() {
+    public function index() {
+        date_default_timezone_set('prc');
+        $time = date('Y-m-d H:i', time());
+        $this->assign('time',$time);
+        $name = I('get.name');
+        switch($name) {
+            case 'base':
+                $result = D('Base')->getBaseInfo();
+                $this->assign('base_data', $result['data']);
+                break;
+            case 'feed':
+                $feed = D('feed')->getFeedInfo();
+                $this->assign('feed', $feed);
+                break;
+            case 'fry':
+                $fry = D('fry')->getFryInfo();
+                $this->assign('fry', $fry);
+                break;
+            case 'medicine':
+                $medicine = D('medicine')->getMedicineInfo();
+                $this->assign('medicine', $medicine);
+                break;
+            default:
+                echo 'name wrong ';
+                break;
+        }
 
-		$result = D('Base')->getBaseInfo();
-     	$this->assign("base_data", $result['data']);
-        $this->assign('time', $result['time']);
+        $this->display($name);
 
-        $feed = D('feed')->getFeedInfo();
-        $fry  = D('fry')->getFryInfo();
-        $medicine = D('medicine')->getMedicineInfo();
-
-        $this->assign('feed',$feed);
-        $this->assign('fry',$fry);
-        $this->assign('medicine',$medicine);
-		$this->display();
-	}
+    }
 
 	public function modifyBase() {
         
@@ -46,6 +61,7 @@ class SafeController extends Controller{
     public function addBase(){
 
     	$result = D("base")->addBase();
+
     }
     
     public function addFeed(){
@@ -88,8 +104,6 @@ class SafeController extends Controller{
             $time = I('get.time',null);
 
             $data = "扫描结果\n\n 产品名称:".$name."\n 时  间:".$time;
-            //$data = "123486dfhuksfuihkishdiauhlg;iahkyuid hsikhjusdhfsdkhfkjah";
-            //dump($data);exit();
             $this->qr($data);
         }else{
             $this->error('生成二维码出错，请重试');
@@ -132,22 +146,21 @@ class SafeController extends Controller{
             //dump($_GET);exit();
             $data['name'] = I('get.name',null);
             $data['time'] = date('Y-m-d');
-            $this->assign('data',$data);
-            $this->display();
+            $this->ajaxReturn($data,'JSON');
+//            $this->assign('data',$data);
+//            $this->display();
         }else{
-            $this->error("生成二维码出错，请重试");
+            $this->ajaxReturn(0);
         }
 
     }
 
     public function showMedicineQr(){
         if(IS_GET){
+            $data = D('medicine')->getChooseMedicine();
             //dump($_GET);exit();
-            $data['name'] = I('get.name',null);
-            $data['use'] = I('get.use',null);
             $data['time'] = date('Y-m-d');
-            $this->assign('data',$data);
-            $this->display();
+            $this->ajaxReturn($data,'JSON');
         }else{
             $this->error("生成二维码出错，请重试");
         }

@@ -61,6 +61,7 @@ class MedicationModel extends Model{
             $data[$key]['medication_medicine_id'] = M('medicine')->getFieldBymedicine_id($data[$key]['medication_medicine_id'],'medicine_name');
             $data[$key]['medication_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['medication_pool_id'],'pool_name');
             $data[$key]['medication_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['medication_cage_id'],'cage_rowname');
+            $data[$key]['medication_pool_img'] = C('PIC_UPLOADS').$data[$key]['medication_pool_img'];
        }
        $result['page'] = $show;
        $result['data'] = $data;

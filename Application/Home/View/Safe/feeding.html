@@ -1,250 +1,251 @@
 <extend name="Public:base"/>
 <block name="leftcolumn">
-   <div class="panel panel-info">
-	   <div class="panel-heading">
-	      <h3 class="panel-title">
-	         投饲记录
-	      </h3>
-	   </div>
-	   <div class="panel-body">
-	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addFeedingModal">添加</button><br><br>
-		   <table class="table table-bordered table-striped col-sm-12" >
-			   <thead>
-			  	 <tr>
-				   <th>池塘</th>
-				   <th>网箱</th>
-				   <th>饲料</th>
-				   <th>投料数量</th>
-				   <th>投料时间</th>
-					 <th>图片</th>
-				   <th>操作</th>
-			  	 </tr>
-			   </thead>
-		     <tbody>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				投饲记录
+			</h3>
+		</div>
+		<div class="panel-body">
+			<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addFeedingModal">添加</button><br><br>
+			<table class="table table-bordered table-striped col-sm-12" >
+				<thead>
+				<tr>
+					<th>池塘</th>
+					<th>网箱</th>
+					<th>饲料</th>
+					<th>投料数量</th>
+					<th>投料时间</th>
+					<th>图片</th>
+					<th>操作</th>
+				</tr>
+				</thead>
+				<tbody>
 
-		     	<volist name="feeding" id="feeding">
-			        <tr>
-			           <td>{$feeding.feeding_pool_id}</td>
-			           <td>{$feeding.feeding_cage_id}</td>
-			           <td>{$feeding.feeding_feed_id}</td>
-			           <td>{$feeding.feeding_number}</td>
-			           <td>{$feeding.feeding_time}</td>
-			           <!-- <td><img src="{$feeding.feeding_pool_img}" alt="" width="180px"></td> -->
+				<volist name="feeding" id="feeding">
+					<tr>
+						<td>{$feeding.feeding_pool_id}</td>
+						<td>{$feeding.feeding_cage_id}</td>
+						<td>{$feeding.feeding_feed_id}</td>
+						<td>{$feeding.feeding_number}</td>
+						<td>{$feeding.feeding_time}</td>
+						<!-- <td><img src="{$feeding.feeding_pool_img}" alt="" width="180px"></td> -->
 						<td><img src="{$feeding.feeding_pool_img}" alt="" width="180px"></td>
-		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedingModal" value="{$feeding.feeding_id}" onclick="feedingChange(this)">修改</button></td>
-			        </tr>
-			    </volist> 
-			  
-		     </tbody>
- 		 </table>
-	   </div>
-	     <div class="panel-footer">
-	     	<ul class="pagination">
-			 {$page}
-		    </ul>
-	     </div>
+						<td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedingModal" value="{$feeding.feeding_id}" onclick="feedingChange(this)">修改</button></td>
+					</tr>
+				</volist>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer">
+			<ul class="pagination">
+				{$page}
+			</ul>
+		</div>
 	</div>
 
-<!-- ModifyfryModal -->
-<div class="modal fade" id="modifyFeedingModal" tabindex="-1" role="dialog" 
-   aria-labelledby="myModalLabel" aria-hidden="true">
-		   <div class="modal-dialog">
-		      <div class="modal-content">
-		         <div class="modal-header">
-		            <button type="button" class="close" 
-		               data-dismiss="modal" aria-hidden="true">
-		                  &times;
-		            </button>
-		            <h4 class="modal-title" id="myModalLabel">
-		               修改放养信息
-		            </h4>
-		         </div>
-		         <div class="modal-body">
-		            <form action="{:U('Home/Safe/modify', array('name' => 'Feeding'))}" id="modifyFeeding_form" role="form" method="post">
-		            	<div class="form-group">
-		            		<label for="">池塘</label>
-		            		<select class="form-control" name="feeding_pool_id" id="feeding_pool_id">
-		            			<option value="0">请选择池塘</option>
-		            			<volist name="pool_data" id="po">
-		            				<option value="{$po.pool_id}">{$po.pool_name}</option>
-		            			</volist>
-		            		</select>
-		            	</div>
-                        <div class="form-group">
-		            		<label for="">饲料</label>
-		            		<select class="form-control" name="feeding_feed_id" id="feeding_feed_id">
-		            			<option value="0">请选择饲料</option>
-		            			<volist name="feed" id="fee">
-		            				<option value="{$fee.feed_id}">{$fee.feed_name}</option>
-		            			</volist>
-		            		</select>
-		            	</div>
+	<!-- ModifyfryModal -->
+	<div class="modal fade" id="modifyFeedingModal" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"
+							data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						修改放养信息
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form action="{:U('Home/Safe/modify', array('name' => 'Feeding'))}" id="modifyFeeding_form" role="form" method="post">
+						<div class="form-group">
+							<label for="">池塘</label>
+							<select class="form-control" name="feeding_pool_id" id="feeding_pool_id">
+								<option value="0">请选择池塘</option>
+								<volist name="pool_data" id="po">
+									<option value="{$po.pool_id}">{$po.pool_name}</option>
+								</volist>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">饲料</label>
+							<select class="form-control" name="feeding_feed_id" id="feeding_feed_id">
+								<option value="0">请选择饲料</option>
+								<volist name="feed" id="fee">
+									<option value="{$fee.feed_id}">{$fee.feed_name}</option>
+								</volist>
+							</select>
+						</div>
 
-		            	<div class="form-group">
-		            		<label for="">网箱</label>
-			            		<select class="form-control" name="feeding_cage_id" id="feeding_cage_id">
-			            			<option value="0">请选择网箱</option>
-			            			<volist name="cage" id="ca">
-			            				<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
-			            			</volist>
-			            		</select>
-		            	    </else>
-		            	</div> 
-		            
-		            	<div class="form-group">
-		            		<label for="">投饲数量</label>
-		            		<input type="text" class="form-control" value="" name="feeding_number" id="feeding_number">
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">投饲时间</label>
-		            		<input type="date" class="form-control" value="" name="feeding_time" id="feeding_time">
-		            	</div>
-		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
-		                <div class="form-group hidden">
-		            		<input type="text" class="form-control" value="" name="feeding_id" id="feeding_id" >
-		            	</div>
-		            </form>
-		         </div>
-		         <div class="modal-footer">
-		            <button type="button" class="btn btn-default" 
-		               data-dismiss="modal">关闭
-		            </button>
-		            <button type="button"  id="modifyFeedingBtn" class="btn btn-primary">
-		               提交修改
-		            </button>
-		         </div>
-		      </div><!-- /.modal-content -->
+						<div class="form-group">
+							<label for="">网箱</label>
+							<select class="form-control" name="feeding_cage_id" id="feeding_cage_id">
+								<option value="0">请选择网箱</option>
+								<volist name="cage" id="ca">
+									<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
+								</volist>
+							</select>
+							</else>
+						</div>
+
+						<div class="form-group">
+							<label for="">投饲数量</label>
+							<input type="text" class="form-control" value="" name="feeding_number" id="feeding_number">
+						</div>
+						<div class="form-group">
+							<label for="">投饲时间</label>
+							<input type="text" class="form-control" value="" name="feeding_time" id="feeding_time">
+						</div>
+						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+						<div class="form-group hidden">
+							<input type="text" class="form-control" value="" name="feeding_id" id="feeding_id" >
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+					<button type="button"  id="modifyFeedingBtn" class="btn btn-primary">
+						提交修改
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
-</div>
+	</div>
 	<!-- feedingModal -->
-<div class="modal fade" id="addFeedingModal" tabindex="-1" role="dialog" 
-   aria-labelledby="myModalLabel" aria-hidden="true">
-		   <div class="modal-dialog">
-		      <div class="modal-content">
-		         <div class="modal-header">
-		            <button type="button" class="close" 
-		               data-dismiss="modal" aria-hidden="true">
-		                  &times;
-		            </button>
-		            <h4 class="modal-title" id="myModalLabel">
-		               新放养信息
-		            </h4>
-		         </div>
-		         <div class="modal-body">
-		            <form action="{:U('Home/Safe/adds',array('name' => 'feeding'))}" id="addFeeding_form" role="form" method="post">
-		            	
-		            	<div class="form-group">
-		            		<label for="">池塘</label>
-		            		<select class="form-control" name="feeding_pool_id">
-		            			<option value="0">请选择池塘</option>
-		            			<volist name="pool_data" id="p">
-		            				<option value="{$p.pool_id}">{$p.pool_name}</option>
-		            			</volist>
-		            		</select>
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">饲料</label>
-		            		<select class="form-control" name="feeding_feed_id" >
-		            			<option value="0">请选择饲料</option>
-		            			<volist name="feed" id="fe">
-		            				<option value="{$fe.feed_id}">{$fe.feed_name}</option>
-		            			</volist>
-		            		</select>
-		            	</div>
+	<div class="modal fade" id="addFeedingModal" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"
+							data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						新放养信息
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form action="{:U('Home/Safe/adds',array('name' => 'feeding'))}" id="addFeeding_form" role="form" method="post">
 
-		            	<div class="form-group">
-		            		<label for="">网箱</label>
-			            		<select class="form-control" name="feeding_cage_id" >
-			            			<option value="0">请选择网箱</option>
-			            			<volist name="cage" id="caa">
-			            				<option value="{$caa.cage_id}">{$caa.cage_rowname}</option>
-			            			</volist>
-			            		</select>
-		            	    </else>
-		            	</div>
+						<div class="form-group">
+							<label for="">池塘</label>
+							<select class="form-control" name="feeding_pool_id">
+								<option value="0">请选择池塘</option>
+								<volist name="pool_data" id="p">
+									<option value="{$p.pool_id}">{$p.pool_name}</option>
+								</volist>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">饲料</label>
+							<select class="form-control" name="feeding_feed_id" >
+								<option value="0">请选择饲料</option>
+								<volist name="feed" id="fe">
+									<option value="{$fe.feed_id}">{$fe.feed_name}</option>
+								</volist>
+							</select>
+						</div>
 
-		            	<div class="form-group">
-		            		<label for="">投饲数量</label>
-		            		<input type="text" class="form-control" value="" name="feeding_number" >
-		            	</div>
-		            	<div class="form-group">
-		            		<label for="">投饲时间</label>
-		            		<input type="date" class="form-control" value="" name="feeding_time" >
-		            	</div>
-		            	<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
-		            </form>
-		         </div>
-		         <div class="modal-footer">
-		            <button type="button" class="btn btn-default" 
-		               data-dismiss="modal">关闭
-		            </button>
-		            <button type="button"  id="addFeedingBtn" class="btn btn-primary">
-		               提交
-		            </button>
-		         </div>
-		      </div><!-- /.modal-content -->
+						<div class="form-group">
+							<label for="">网箱</label>
+							<select class="form-control" name="feeding_cage_id" >
+								<option value="0">请选择网箱</option>
+								<volist name="cage" id="caa">
+									<option value="{$caa.cage_id}">{$caa.cage_rowname}</option>
+								</volist>
+							</select>
+							</else>
+						</div>
+
+						<div class="form-group">
+							<label for="">投饲数量</label>
+							<input type="text" class="form-control" value="" name="feeding_number" >
+						</div>
+						<div class="form-group hidden">
+							<label for="">投饲时间</label>
+							<input type="date" class="form-control" value="{$time}" name="feeding_time" >
+						</div>
+						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+					<button type="button"  id="addFeedingBtn" class="btn btn-primary">
+						提交
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
 
-</div>
+	</div>
 
 </block>
-<block name="rightcolumn"> 
-  <h1><strong>养殖管理</strong></h1>
-   	  <ul class="nav nav-pills nav-stacked">
-   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'stocking'))}">放养管理</a></li>
-   	  	<li class="active"><a href="{:U('Home/Safe/cultivation', array('name' => 'feeding'))}">投饲管理</a></li>
-   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'patrol'))}">巡塘管理</a></li>
-   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'medication'))}">用药管理</a></li>
-   	  	<li><a href="{:U('Home/Safe/cultivation', array('name' => 'indicator'))}">养殖指标管理</a></li>
-   	  	<li><a href="#">病害管理</a></li>
-   	  	<li><a href="#">自动获取数据采集指标</a></li>
-   	  </ul>
+<block name="rightcolumn">
+	<h1><strong>养殖管理</strong></h1>
+	<ul class="nav nav-pills nav-stacked">
+		<li><a href="{:U('Home/Safe/cultivation', array('name' => 'stocking'))}">放养管理</a></li>
+		<li class="active"><a href="{:U('Home/Safe/cultivation', array('name' => 'feeding'))}">投饲管理</a></li>
+		<li><a href="{:U('Home/Safe/cultivation', array('name' => 'patrol'))}">巡塘管理</a></li>
+		<li><a href="{:U('Home/Safe/cultivation', array('name' => 'medication'))}">用药管理</a></li>
+		<li><a href="{:U('Home/Safe/cultivation', array('name' => 'indicator'))}">养殖指标管理</a></li>
+		<li><a href="#">病害管理</a></li>
+		<li><a href="#">自动获取数据采集指标</a></li>
+	</ul>
 </block>
-<block name="script"> 
+<block name="script">
 	<script>
-	function feedingChange(obj) { 
-	       
+		function feedingChange(obj) {
+
 			var val = $(obj).attr('value');
-	        var url = "{:U('Home/Safe/getChoose/name/feeding/val/"+val+"')}";
-	        $.get(url, function(data, status){
-                $('#feeding_id').val(data['feeding_id']);
-	        	//$('#feeding_feed_id').val(data['feeding_feed_id']);
-	        	//$('#feeding_cage_id').val(data['feeding_cage_id']);
-	        	$('#feeding_number').val(data['feeding_number']);
-	        	$('#feeding_time').val(data['feeding_time']);
+			var url = "{:U('Home/Safe/getChoose/name/feeding/val/"+val+"')}";
+			$.get(url, function(data, status){
+				$('#feeding_id').val(data['feeding_id']);
+				$('#feeding_feed_id').val(data['feeding_feed_id']);
+				$('#feeding_cage_id').val(data['feeding_cage_id']);
+				$('#feeding_pool_id').val(data['feeding_pool_id']);
+				$('#feeding_number').val(data['feeding_number']);
+				$('#feeding_time').val(data['feeding_time']);
 
-	        	
-	        });
-	}
-	$(document).ready(function(){
 
-	      $('#addFeedingBtn').click(function(){
-	             var action = $('#addFeeding_form').attr('action');
-	             var Formattr = $('#addFeeding_form').serialize();
-	             $.post(action, Formattr, function(data,status) {
-	                 if(data.code == 1) {
-	                    alert(data.msg);
-	                    setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'feeding'))}\"",200);
-	                 }else{
-	                 	alert(data.msg);
-	                 }
-	             });
-	        });
-	      $('#modifyFeedingBtn').click(function(){
+			});
+		}
+		$(document).ready(function(){
 
-	        	 var action= $('#modifyFeeding_form').attr('action');
-	        	 var Formattr=$('#modifyFeeding_form').serialize();
-		         console.log(Formattr);
-	             $.post(action, Formattr,function(data,status) {
-	                 
-	                 if(status == "success") {
-	                    alert( "修改成功！");
-	                 }else{
-	                 	alert("修改失败！");
-	                 }
-	                 setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'feeding'))}\"",200);
-	             });
-	        });
-	});
+			$('#addFeedingBtn').click(function(){
+				var action = $('#addFeeding_form').attr('action');
+				var Formattr = $('#addFeeding_form').serialize();
+				$.post(action, Formattr, function(data,status) {
+					if(data.code == 1) {
+						alert(data.msg);
+						setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'feeding'))}\"",200);
+					}else{
+						alert(data.msg);
+					}
+				});
+			});
+			$('#modifyFeedingBtn').click(function(){
+
+				var action= $('#modifyFeeding_form').attr('action');
+				var Formattr=$('#modifyFeeding_form').serialize();
+				console.log(Formattr);
+				$.post(action, Formattr,function(data,status) {
+
+					if(status == "success") {
+						alert( "修改成功！");
+					}else{
+						alert("修改失败！");
+					}
+					setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'feeding'))}\"",200);
+				});
+			});
+		});
 	</script>
 </block>

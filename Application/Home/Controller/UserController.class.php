@@ -26,7 +26,7 @@ class UserController extends Controller {
         
     }
     public function login(){
-        
+
         $result=D('member')->login();
         if($result['status']) {
 

@@ -3,10 +3,18 @@
 html {
   position: relative;
   min-height: 100%;
+
+
 }
 body {
-  /* Margin bottom by footer height */
+  /* Margin bottom by footer height * http://img3.redocn.com/20100611/Redocn_2010060822071969.jpg*http://pic.58pic.com/58pic/15/16/87/18I58PICdSi_1024.jpg*/
+
   margin-bottom: 60px;
+  background-image: url(../beijing.jpg);
+  background-position:center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
 }
 .footer {
   position: absolute;
@@ -15,6 +23,11 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
+  background-image: url(../beijing.jpg);
+  background-position:center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
 }
 
 
@@ -34,6 +47,21 @@ body > .container {
   padding-left: 15px;
 }
 
+
+
 code {
   font-size: 80%;
+}
+div#beijing{
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  z-index:-1;
+}
+div#beijing > img {
+  height:100%;
+  width:100%;
+  border:0;
 }

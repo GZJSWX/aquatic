@@ -7,7 +7,7 @@ class StockingModel extends Model{
 	public function adds() {
         
     	if(IS_POST) {
-           
+
            $userInfo = \Org\Util\User::_getUserInfo();
            $member_id = $userInfo['member_id'];
            $params = I("post.");
@@ -26,8 +26,12 @@ class StockingModel extends Model{
        if(IS_GET) {
            $params = I('get.val');
            $data = $this->where("stocking_id = $params")->find();
-            // $data['stocking_fry_id'] = M('fry')->getFieldByfry_id($data['stocking_fry_id'],'fry_name');
-            // $data['stocking_cage_id'] = M('cage')->getFieldBycage_id($data['stocking_cage_id'],'cage_rowname');
+//           $startTime = $this->getFieldBystocking_id($data['stocking_id'],'stocking_start_time');
+//           $data['stocking_start_time'] = date('d F Y',strtotime($startTime));
+//           $finishTime = $this->getFieldBystocking_id($data['stocking_id'],'stocking_finish_time');
+//           $data['stocking_finish_time'] = date('d F Y',strtotime($finishTime));
+           //$data['stocking_fry_id'] = M('fry')->getFieldByfry_id($data['stocking_fry_id'],'fry_name');
+           //$data['stocking_cage_id'] = M('cage')->getFieldBycage_id($data['stocking_cage_id'],'cage_rowname');
            return $data;
        }else {
          echo 'getChoosePool wrong';

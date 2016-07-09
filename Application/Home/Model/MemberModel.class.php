@@ -32,7 +32,9 @@ class MemberModel extends Model {
          if(IS_GET) {
              
              $username = I("get.member_username");
-             $password = I("get.member_password");
+             $psw = I("get.member_password");
+             $password = md5($psw.$username);
+             //dump($password);exit();
              $role = I('get.member_role');
              if($data = $this->where(array('member_role' => $role, 'member_username' => $username, 'member_password' => $password))->find()) {
                 

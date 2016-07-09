@@ -43,6 +43,8 @@ class BaseModel extends Model{
            date_default_timezone_set('prc');
            $time = date('Y-m-d H:i', time());
            $params = I("post.");
+           if($this->where(array('base_code'=>$params['base_code']))->select())
+                echo '基地编码不可重复！';
            $params['base_time'] = $time;
            if(! $this->add($params)) {
               echo 'addBase 插入失败';

@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 class SafeController extends Controller {
-     
+
      private  $base = array();
      private  $cage = array();
      private  $feeding = array();
@@ -17,7 +17,7 @@ class SafeController extends Controller {
      private  $feed     = array();
 
      public function _initialize(){
-          
+
           $this->userInfo = \Org\Util\User::_getUserInfo();
           if(empty($this->userInfo)) {
               redirect(U('Home/Index/index'));
@@ -37,23 +37,22 @@ class SafeController extends Controller {
           //S($name,$value,$options)
      }
      public function index(){
-         
+
        	$this->assign("base_data", $this->base['data']);
        	$this->assign('time', $this->base['time']);
-         
-        $this->assign("pool_data", $this->pool);   
+
+        $this->assign("pool_data", $this->pool);
         $this->assign('cage',$this->cage);
        	$this->display();
      }
      public function cultivation(){
-        
-        date_default_timezone_set('prc');
-        $time = date('Y-m-d H:i', time());
+
+        date_default_timezone_set('prc');$time = date('Y-m-d H:i:s', time());
         $this->assign('time',$time);
         $name = I('get.name');
 
         switch ($name) {
-             
+
             case 'stocking':
                  $data = $this->stocking;
                  $this->assign('stocking',$data['data']);
@@ -67,7 +66,7 @@ class SafeController extends Controller {
             case 'patrol':
                  $data = $this->patrol;
                  $this->assign('patrol',$data['data']);
-                 $this->assign('page', $data['page']);  
+                 $this->assign('page', $data['page']);
                 break;
             case 'medication':
                  $data = $this->medication;
@@ -83,19 +82,17 @@ class SafeController extends Controller {
                 echo 'name wrong ';
                 break;
         }
-        
+
         $this->assign('pool_data',$this->pool);
         $this->assign('fry',$this->fry);
         $this->assign('cage',$this->cage);
         $this->assign('feed',$this->feed);
         $this->assign('medicine', $this->medicine);
-        
+
         $this->display($name);
      }
-     
-     public function adds() {
-        
 
+     public function adds() {
         $name = I('get.name');
         $data = D($name)->adds();
         if($data == 0){
@@ -110,7 +107,7 @@ class SafeController extends Controller {
         $this->ajaxReturn($data);
      }
      public function modify() {
-        
+
         $result = D(I('get.name'))->modify();
      }
 
@@ -126,6 +123,6 @@ class SafeController extends Controller {
      //      $this->display();
 
      // }
-     
+
 }
 
