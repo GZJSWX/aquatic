@@ -231,9 +231,11 @@
 	        var url = "{:U('Home/Safe/getChoose/name/Medication/val/"+val+"')}";
 	        $.get(url, function(data, status){
 
-	        	$('#medication_id').val(data['medication_id']);
+	        	$('#medication_id').val(data['medication_id']);medication_pool_id
 	        	// $('#medication_fry_id').val(data['medication_fry_id']);
-	        	// $('#medication_cage_id').val(data['medication_cage_id']);
+	        	 $('#medication_cage_id').val(data['medication_cage_id']);
+				$('#medication_pool_id').val(data['medication_pool_id']);
+				$('#medication_medicine_id').val(data['medication_medicine_id']);
 	        	$('#medication_amount').val(data['medication_amount']);
 	        	$('#medication_time').val(data['medication_time']);
 	        	$('#medication_reason').val(data['medication_reason']);
