@@ -1,0 +1,243 @@
+<extend name="Public:base"/>
+<block name="leftcolumn">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                基地管理
+            </h3>
+        </div>
+        <div class="panel-body">
+            <!-- <a href=""><button class="btn btn-success">  修改基地信息</button></a> -->
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addBaseModal">       添加基地
+            </button>
+            <table class="table table-bordered table-striped col-sm-12" >
+                <caption>基地基本信息:</caption>
+                <thead>
+                <tr>
+                    <th>基地编号</th>
+                    <th>基地编码</th>
+                    <th>基地名称</th>
+                    <th>地理位置</th>
+                    <th>水质来源</th>
+                    <th>基地规模</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>经纬度列表</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="base_data" id="vo">
+                    <tr>
+                        <td>{$vo.base_id}</td>
+                        <td>{$vo.base_code}</td>
+                        <td>{$vo['base_name']}</td>
+                        <td>{$vo['base_addr']}</td>
+                        <td>{$vo['base_source_water']}</td>
+                        <td>{$vo['base_scale']}</td>
+                        <td>{$vo['base_contacts']}</td>
+                        <td>{$vo['base_tel']}</td>
+                        <td>{$vo['base_coordinate']}</td>
+                        <td>{$vo['base_time']}</td>
+                        <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyBaseModal" id="modifyButton" value="{$vo.base_id}" onclick="baseChange(this)">修改</button></td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="modifyBaseModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        信息修改
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{:U('Superadmin/Safe/modifyBase')}" id="modifyBase_form"role="form" method="post">
+
+                        <div class="form-group">
+                            <label for="">基地编号</label>
+                            <input type="text" class="form-control" value="" name="base_id" id="base_id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="">基地编码</label>
+                            <input type="text" class="form-control" value="" name="base_code" id="base_code">
+                        </div>
+                        <div class="form-group">
+                            <label for="">基地名称</label>
+                            <input type="text" class="form-control" value="" name="base_name" id="base_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">地理位置</label>
+                            <input type="text" class="form-control" value="{$base_data['base_addr']}" name="base_addr" id="base_addr">
+                        </div>
+                        <div class="form-group">
+                            <label for="">水质来源</label>
+                            <input type="text" class="form-control" value="{$base_data['base_source_water']}" name="base_source_water" id="base_source_water">
+                        </div>
+                        <div class="form-group">
+                            <label for="">基地规模</label>
+                            <input type="text" class="form-control" value="{$base_data['base_scale']}" name="base_scale" id="base_scale">
+                        </div>
+                        <div class="form-group">
+                            <label for="">联系人</label>
+                            <input type="text" class="form-control" value="{$base_data['base_contacts']}" name="base_contacts" id="base_contacts">
+                        </div>
+                        <div class="form-group">
+                            <label for="">联系电话</label>
+                            <input type="text" class="form-control" value="{$base_data['base_tel']}" name="base_tel" id="base_tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="">经纬度列表</label>
+                            <input type="text" class="form-control" value="{$base_data[
+		            		'base_coordinate']}" name="base_coordinate" id="base_coordinate">
+                        </div>
+                        <label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button"  id="modifyBaseBtn" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    </div>
+
+    <div class="modal fade" id="addBaseModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新基地信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{:U('Superadmin/Safe/addBase')}" id="addBase_form" role="form" method="post">
+                        <div class="form-group">
+                            <label for="">基地名称</label>
+                            <input type="text" class="form-control" value="" name="base_name" id="base_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">基地编码</label>
+                            <input type="text" class="form-control" value="" name="base_code" id="base_code">
+                        </div>
+                        <div class="form-group">
+                            <label for="">地理位置</label>
+                            <input type="text" class="form-control" value="" name="base_addr" id="base_addr">
+                        </div>
+                        <div class="form-group">
+                            <label for="">水质来源</label>
+                            <input type="text" class="form-control" value="" name="base_source_water" id="base_source_water">
+                        </div>
+                        <div class="form-group">
+                            <label for="">基地规模</label>
+                            <input type="text" class="form-control" value="" name="base_scale" id="base_scale">
+                        </div>
+                        <div class="form-group">
+                            <label for="">联系人</label>
+                            <input type="text" class="form-control" value="" name="base_contacts" id="base_contacts">
+                        </div>
+                        <div class="form-group">
+                            <label for="">联系电话</label>
+                            <input type="text" class="form-control" value="" name="base_tel" id="base_tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="">经纬度列表</label>
+                            <input type="text" class="form-control" value="" name="base_coordinate" id="base_coordinate">
+                        </div>
+                        <label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button"  id="addBaseBtn" class="btn btn-primary">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+
+    </div>
+</block>
+<block name="rightcolumn">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="{:U('Superadmin/Safe/index',array('name' => 'base'))}">基地基本信息</a></li>
+        <li><a href="{:U('Superadmin/Safe/index',array('name' => 'feed'))}">喂料基本信息</a></li>
+        <li><a href="{:U('Superadmin/Safe/index',array('name' => 'fry'))}">鱼苗基本信息</a></li>
+        <li><a href="{:U('Superadmin/Safe/index',array('name' => 'medicine'))}">药物基本信息</a></li>
+    </ul>
+
+</block>
+<block name="script">
+    <script>
+        function baseChange(obj) {
+
+            var val = $(obj).attr('value');
+            var url = "{:U('Superadmin/Safe/getChooseBase/val/"+val+"')}";
+            $.get(url, function(data, status){
+                $('#base_id').val(data['base_id']);
+                $('#base_code').val(data['base_code']);
+                $('#base_name').val(data['base_name']);
+                $('#base_addr').val(data['base_addr']);
+                $('#base_source_water').val(data['base_source_water']);
+                $('#base_scale').val(data['base_scale']);
+                $('#base_contacts').val(data['base_contacts']);
+                $('#base_tel').val(data['base_tel']);
+                $('#base_coordinate').val(data['base_coordinate']);
+
+            });
+        }
+        $(document).ready(function() {
+            $('#addBaseBtn').click(function () {
+
+                var action = $('#addBase_form').attr('action');
+                var Formattr = $('#addBase_form').serialize();
+                $.post(action, Formattr, function (data, status) {
+
+                    if (status == "success") {
+                        alert("添加成功！");
+                    } else {
+                        alert("添加失败！");
+                    }
+                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"", 500);
+                });
+            });
+            $('#modifyBaseBtn').click(function(){
+
+                var action= $('#modifyBase_form').attr('action');
+                var Formattr=$('#modifyBase_form').serialize();
+                console.log(Formattr);
+                $.post(action, Formattr,function(data,status) {
+
+                    if(status == "success") {
+                        alert( "修改成功！");
+                    }else{
+                        alert("修改失败！");
+                    }
+                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"",200);
+                });
+            });
+        });
+    </script>
+</block>

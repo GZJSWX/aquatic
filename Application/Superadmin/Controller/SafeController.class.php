@@ -10,21 +10,36 @@ class SafeController extends Controller{
               redirect(U('Home/Index/index'));
           }
     }
-	public function index() {
+    public function index() {
+        date_default_timezone_set('prc');
+        $time = date('Y-m-d H:i', time());
+        $this->assign('time',$time);
+        $name = I('get.name');
+        switch($name) {
+            case 'base':
+                $result = D('Base')->getBaseInfo();
+                $this->assign('base_data', $result['data']);
+                break;
+            case 'feed':
+                $feed = D('feed')->getFeedInfo();
+                $this->assign('feed', $feed);
+                break;
+            case 'fry':
+                $fry = D('fry')->getFryInfo();
+                $this->assign('fry', $fry);
+                break;
+            case 'medicine':
+                $medicine = D('medicine')->getMedicineInfo();
+                $this->assign('medicine', $medicine);
+                break;
+            default:
+                echo 'name wrong ';
+                break;
+        }
 
-		$result = D('Base')->getBaseInfo();
-     	$this->assign("base_data", $result['data']);
-        $this->assign('time', $result['time']);
+        $this->display($name);
 
-        $feed = D('feed')->getFeedInfo();
-        $fry  = D('fry')->getFryInfo();
-        $medicine = D('medicine')->getMedicineInfo();
-
-        $this->assign('feed',$feed);
-        $this->assign('fry',$fry);
-        $this->assign('medicine',$medicine);
-		$this->display();
-	}
+    }
 
 	public function modifyBase() {
         
