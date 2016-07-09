@@ -1,62 +1,60 @@
 <!DOCTYPE>
 <html>
-   <head>
-   	   <meta charset="utf8">
-   	   <meta name="viewport" content="width=device-width, initial-scale=1">
-       <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
-       <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/sticky-footer-navbar.css">
+<head>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/sticky-footer-navbar.css">
 
-       <script type="application/javascript" src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
-       <script type="application/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
-   	   
-   	   <title>水产品质量溯源系统</title>
+	<script type="application/javascript" src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+	<script type="application/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
 
-   </head>
+	<title>水产品质量溯源系统</title>
+
+</head>
 <body>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-	        <div class="navbar-header">
-	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-	            <span class="sr-only">Toggle navigation</span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </button>
-	          <a class="navbar-brand" href="#">水产品质量溯源系统</a>
-	        </div>
-	        <div id="navbar" class="collapse navbar-collapse">
-	          <ul class="nav navbar-nav">
-	            <li class="dropdown">
-	            	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
-	            	   <ul class="dropdown-menu">
-		                <li><a href="{:U('Home/User/showMe',array('role'=> '1'))}">个人信息</a></li>
-		                <li><a style="color:red" href="{:U('Home/Index/logout')}">退出</a></li>	                
-		              </ul>
-	            </li> 
-	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户中心 <span class="caret"></span></a>
-	              <ul class="dropdown-menu">
-	                <li><a href="{:U('Superadmin/User/index')}">注册用户</a></li>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">水产品质量溯源系统</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{:U('Home/User/showMe',array('role'=> '1'))}">个人信息</a></li>
+						<li><a style="color:red" href="{:U('Home/Index/logout')}">退出</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户中心 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{:U('Superadmin/User/index')}">注册用户</a></li>
 
-	                <li><a href="{:U('Superadmin/User/manage')}">用户管理</a></li>
-	              </ul>
-	            </li>
-				  <li class="dropdown">
-					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list"> </span>  功能列表 <span class="caret"></span></a>
-					  <ul class="dropdown-menu">
-						  <li><a href="{:U('Superadmin/Safe/index',array('name' => 'base'))}">基地基本信息</a></li>
-						  <li><a href="{:U('Superadmin/Safe/index',array('name' => 'feed'))}">喂料基本信息</a></li>
-						  <li><a href="{:U('Superadmin/Safe/index',array('name' => 'fry'))}">鱼苗基本信息</a></li>
-						  <li><a href="{:U('Superadmin/Safe/index',array('name' => 'medicine'))}">药物基本信息</a></li>
-						  <li><a href="#"></a></li>
-					  </ul>
-				  </li>
-	          </ul>
-	          <a class="navbar-brand " href="#">|&nbsp&nbsp&nbsp&nbsp系统管理员</a>
-	        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+						<li><a href="{:U('Superadmin/User/manage')}">用户管理</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">功能列表 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{:U('Superadmin/Safe/index')}">基地基本信息</a></li>
+
+						<li><a href="#"></a></li>
+					</ul>
+				</li>
+			</ul>
+			<a class="navbar-brand " href="#">|&nbsp&nbsp&nbsp&nbsp系统管理员</a>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
     
 
    
