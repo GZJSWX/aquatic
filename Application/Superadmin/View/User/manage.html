@@ -43,7 +43,7 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-				<form action="{:U('Superadmin/Safe/modifyBase')}" id="modifyBase_form" role="form" method="post">
+				<form action="{:U('Superadmin/User/manageSave')}" id="modifyManage_form" role="form" method="post">
 
 					<div class="form-group">
 						<label for="">账号</label>
@@ -51,17 +51,17 @@
 					</div>
 					<div class="form-group">
 						<label for="">所属基地</label>
-						<select class="form-control" name="member_base_id">
+						<select class="form-control" name="member_base_id" id="member_base_id">
+							<option value="0" >所属基地</option>
 							<volist name="base" id="ba">
-
 								<option value="{$ba.base_id}">{$ba.base_name}</option>
 							</volist>
 						</select>
 					</div>
 					<div class="form-group">
 						<label for="">拥有权限</label>
-						<select class="form-control" name="member_permission">
-							<option value="" id="member_permission">拥有权限</option>
+						<select class="form-control" name="member_permission" id="member_permission">
+							<option value="0" >拥有权限</option>
 							<volist name="base" id="ba">
 								<option value="{$ba.base_id}">{$ba.base_name}</option>
 							</volist>
@@ -74,7 +74,7 @@
 				<button type="button" class="btn btn-default"
 						data-dismiss="modal">关闭
 				</button>
-				<button type="button"  id="modifyBaseBtn" class="btn btn-primary">
+				<button type="button"  id="modifyManageBtn" class="btn btn-primary">
 					提交更改
 				</button>
 			</div>
@@ -97,10 +97,11 @@
 	}
 
 	$(document).ready(function() {
-		$('#addBaseBtn').click(function () {
+		$('#modifyManageBtn').click(function () {
 
-			var action = $('#addBase_form').attr('action');
-			var Formattr = $('#addBase_form').serialize();
+			var action = $('#modifyManage_form').attr('action');
+			var Formattr = $('#modifyManage_form').serialize();
+			console.log(Formattr);
 			$.post(action, Formattr, function (data, status) {
 
 				if (status == "success") {
@@ -108,7 +109,7 @@
 				} else {
 					alert("添加失败！");
 				}
-				setTimeout("window.location.href=\"{:U('Superadmin/Safe/index')}\"", 500);
+				setTimeout("window.location.href=\"{:U('Superadmin/User/manage')}\"", 500);
 			});
 		});
 	});

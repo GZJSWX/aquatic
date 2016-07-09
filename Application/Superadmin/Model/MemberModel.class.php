@@ -63,4 +63,9 @@ class MemberModel extends Model{
 		return $data;
 	}
 
+    public function saveManage(){
+		$userName = I('post.member_usrname');
+		$data = $this->where(array('member_username'=>$userName))->save($_POST);
+		return $data;
+	}
 }
