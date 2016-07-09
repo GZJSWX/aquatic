@@ -46,6 +46,7 @@ class SafeController extends Controller{
     public function addBase(){
 
     	$result = D("base")->addBase();
+
     }
     
     public function addFeed(){
@@ -88,8 +89,6 @@ class SafeController extends Controller{
             $time = I('get.time',null);
 
             $data = "扫描结果\n\n 产品名称:".$name."\n 时  间:".$time;
-            //$data = "123486dfhuksfuihkishdiauhlg;iahkyuid hsikhjusdhfsdkhfkjah";
-            //dump($data);exit();
             $this->qr($data);
         }else{
             $this->error('生成二维码出错，请重试');
@@ -132,22 +131,21 @@ class SafeController extends Controller{
             //dump($_GET);exit();
             $data['name'] = I('get.name',null);
             $data['time'] = date('Y-m-d');
-            $this->assign('data',$data);
-            $this->display();
+            $this->ajaxReturn($data,'JSON');
+//            $this->assign('data',$data);
+//            $this->display();
         }else{
-            $this->error("生成二维码出错，请重试");
+            $this->ajaxReturn(0);
         }
 
     }
 
     public function showMedicineQr(){
         if(IS_GET){
+            $data = D('medicine')->getChooseMedicine();
             //dump($_GET);exit();
-            $data['name'] = I('get.name',null);
-            $data['use'] = I('get.use',null);
             $data['time'] = date('Y-m-d');
-            $this->assign('data',$data);
-            $this->display();
+            $this->ajaxReturn($data,'JSON');
         }else{
             $this->error("生成二维码出错，请重试");
         }

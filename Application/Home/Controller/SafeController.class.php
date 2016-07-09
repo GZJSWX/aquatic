@@ -94,8 +94,6 @@ class SafeController extends Controller {
      }
      
      public function adds() {
-        
-
         $name = I('get.name');
         $data = D($name)->adds();
         if($data == 0){
