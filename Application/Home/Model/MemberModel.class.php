@@ -10,6 +10,7 @@ class MemberModel extends Model {
          $id = $userInfo['member_id'];
          $data = $this->where(array('member_id' => $id))->find();
          $data['member_base_id'] = M('base')->getFieldbyBase_id($data['member_base_id'],'base_name');
+        $data['member_permission'] = M('base')->getFieldbyBase_id($data['member_permission'],'base_name');
          $data['member_pool_id'] = M('pool')->getFieldbypool_id($data['member_pool_id'],'pool_name');
          switch ($data['member_role']) {
              case '1':
