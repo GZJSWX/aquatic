@@ -52,8 +52,8 @@
 					<div class="form-group">
 						<label for="">所属基地</label>
 						<select class="form-control" name="member_base_id">
-							<option value="" selected id="member_base_id">请所属基地</option>
 							<volist name="base" id="ba">
+
 								<option value="{$ba.base_id}">{$ba.base_name}</option>
 							</volist>
 						</select>
@@ -61,7 +61,7 @@
 					<div class="form-group">
 						<label for="">拥有权限</label>
 						<select class="form-control" name="member_permission">
-							<option value="" selected id="member_permission">拥有权限</option>
+							<option value="" id="member_permission">拥有权限</option>
 							<volist name="base" id="ba">
 								<option value="{$ba.base_id}">{$ba.base_name}</option>
 							</volist>

@@ -49,7 +49,7 @@ class RecordModel extends Model{
        $Page->setConfig('last',  '<span aria-hidden="true">尾页</span>');//最后一页
        $Page->setConfig ( 'theme', '<li><a>当前%NOW_PAGE%/%TOTAL_PAGE%</a></li>  %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%' );
        $show = $Page->show();
-       $data = $this->where("record_member_id = $member_id")->limit($Page->firstRow.','.$Page->listRows)->select();
+       $data = $this->where("record_member_id = $member_id")->order('')->limit($Page->firstRow.','.$Page->listRows)->select();
        
        foreach ($data as $key => $value) {
 
