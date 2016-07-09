@@ -46,14 +46,14 @@ class WechatController extends Controller{
         $to_save = "Public/uploads/".$dir_name.date('/Y/m/d/');
         if($this->create_my_file_path($to_save, 0755) !== false) {
           $filename = $this->curl_get_img($url,$to_save); 
-<<<<<<< HEAD
+
           $feeding_pool_img = str_replace($img_path, '', $filename);
             /*if(!empty(filename)){
                 $data['status'] = 1;
                 $data['pool_img'] = $feeding_pool_img;
-<<<<<<< HEAD
+
             }
-=======
+
 
           $img = str_replace($img_path, '', $filename);
             if(!empty($filename)){
@@ -67,10 +67,10 @@ class WechatController extends Controller{
              // $data['pool_img'] = $feeding_pool_img;
              //}
 
->>>>>>> ce30b51d8d5540a38183934943d170fe0ba106d5
-=======
+
+
             }*/
->>>>>>> 6ea6a5e89bce6024537ffa8d269b029de44ec84d
+
         }
         $this->ajaxReturn($data);
   }
@@ -229,11 +229,10 @@ class WechatController extends Controller{
         }
 
     }
-<<<<<<< HEAD
-      public function medication_show(){
-=======
+
+
     public function medication_show(){
->>>>>>> ce30b51d8d5540a38183934943d170fe0ba106d5
+
         $result = D('medication')->show();
         $this->ajaxReturn($result);
     }

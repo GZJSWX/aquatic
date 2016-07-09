@@ -43,19 +43,11 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-				<form action="{:U('Superadmin/Safe/modifyBase')}" id="modifyBase_form"role="form" method="post">
+				<form action="{:U('Superadmin/Safe/modifyBase')}" id="modifyBase_form" role="form" method="post">
 
 					<div class="form-group">
 						<label for="">账号</label>
 						<input type="text" class="form-control" value="" name="member_username" id="member_username" readonly>
-					</div>
-					<div class="form-group">
-						<label for="">修改密码</label>
-						<input type="password" class="form-control" value="" name="member_password" id="member_password">
-					</div>
-					<div class="form-group">
-						<label for="">确认密码</label>
-						<input type="password" class="form-control" value="" name="member_apassword" id="member_apassword">
 					</div>
 					<div class="form-group">
 						<label for="">所属基地</label>
@@ -99,9 +91,8 @@
 		$.get(url, function(data, status){
 			$('#member_id').val(data['member_id']);
 			$('#member_username').val(data['member_username']);
-			$('#member_role').val(data['member_role']);
-			$('#member_base_id').val(data['base_source_water']);
-			$('#member_permission').val(data['base_scale']);
+			$('#member_base_id').val(data['member_base_name']);
+			$('#member_permission').val(data['member_permission_name']);
 		});
 	}
 

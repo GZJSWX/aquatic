@@ -13,6 +13,10 @@ class BaseModel extends Model{
   		return $this->result;
   	}
 
+    public function getBase(){
+        return $this->select();
+    }
+
     public function getChooseBase(){
 
        if(IS_GET) {
