@@ -73,8 +73,8 @@ class MemberModel extends Model {
             $userInfo= \Org\Util\User::_getUserInfo();
             $data = I('post.');
             $id = $userInfo['member_id'];
-            if($userInfo['member_password']==$data['old_member_password']) {
-                $userInfo['member_password']=$data['new_member_password'];
+            if($userInfo['member_password']==md5($data['old_member_password'].$userInfo['member_username'])) {
+                $userInfo['member_password']=md5($data['new_member_password'].$userInfo['member_username']);
                 $this->where(" member_id= $id")->save($userInfo);
                 \Org\Util\User::_setUserInfo($userInfo);
                 echo "修改成功";
