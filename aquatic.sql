@@ -3,9 +3,15 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
+<<<<<<< HEAD
 -- 生成日期: 2016 �?06 �?15 �?07:44
 -- 服务器版本: 5.5.40
 -- PHP 版本: 5.5.17
+=======
+-- 生成日期: 2016 �?06 �?13 �?22:16
+-- 服务器版本: 5.5.47
+-- PHP 版本: 5.5.30
+>>>>>>> ce30b51d8d5540a38183934943d170fe0ba106d5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -72,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `ap_cage` (
 
 INSERT INTO `ap_cage` (`cage_id`, `cage_rowid`, `cage_rowname`, `cage_number`, `cage_pool_id`, `cage_code`, `cage_row_code`) VALUES
 (1, 1, '30排', 10, 1, '123', '123'),
-(2, 2, '30排', 15, 1, '2', '12'),
+(2, 2, '30排', 15, 1, '222', '12'),
 (6, 3, '13排', 6, 1, NULL, NULL),
 (7, 4, '14排', 10, 1, NULL, NULL),
 (8, 5, '15排', 10, 1, NULL, NULL),
@@ -193,10 +199,10 @@ CREATE TABLE IF NOT EXISTS `ap_fry` (
 --
 
 INSERT INTO `ap_fry` (`fry_id`, `fry_name`, `fry_code`) VALUES
-(1, '罗非鱼', '122'),
-(2, '鲫鱼', NULL),
-(3, '草鱼', NULL),
-(4, '海鲈', NULL);
+(1, '罗非鱼', '0122'),
+(2, '鲫鱼', '0123'),
+(3, '草鱼', '0124'),
+(4, '海鲈', '0125');
 
 -- --------------------------------------------------------
 
@@ -401,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `ap_pool` (
   KEY `pool_base_id_2` (`pool_base_id`),
   KEY `pool_base_id_3` (`pool_base_id`),
   KEY `pool_base_id_4` (`pool_base_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='池塘信息' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='池塘信息' AUTO_INCREMENT=15 ;
 
 --
 -- 转存表中的数据 `ap_pool`
@@ -410,7 +416,8 @@ CREATE TABLE IF NOT EXISTS `ap_pool` (
 INSERT INTO `ap_pool` (`pool_id`, `pool_name`, `pool_base_id`, `pool_addr`, `pool_area`, `pool_depth`, `pool_equipment`, `pool_model`, `pool_coordinate`, `pool_time`, `pool_smart_id`, `pool_code`) VALUES
 (1, '11号塘', 1, '11号塘地址', '1000平方米', '610米', '增氧机', '网箱', '123.123.12', '2016-02-06 21:13', 0, '123'),
 (2, '14号塘', 2, '14号塘地址', '1000平方米', '300米', '增氧机', '网箱', '123.123.2', '2016-02-06 21:13', 0, NULL),
-(3, '15号塘', 1, '15号塘地址', '500平方米', '200米', '增氧机', '网箱', '123.123.1', '2016-02-15 20:38', 0, '121');
+(3, '15号塘', 1, '15号塘地址', '500平方米', '200米', '增氧机', '网箱', '123.123.1', '2016-02-15 20:38', 0, '121'),
+(14, '1', 1, '1', '1', '1', '1', '大塘混养', '1', '2016-06-02 14:55', 0, '1');
 
 -- --------------------------------------------------------
 

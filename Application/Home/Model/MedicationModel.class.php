@@ -81,8 +81,13 @@ class MedicationModel extends Model{
         echo 'wrong';
       }
     }
+<<<<<<< HEAD
      public function show(){
         if(IS_GET){
+=======
+    public function show(){
+        if(IS_POST){
+>>>>>>> ce30b51d8d5540a38183934943d170fe0ba106d5
             $medication_medicine_id= I("get.medication");
             $medication_pool_id= I("get.pool");
             $data = $this->where("medication_pool_id = $medication_pool_id and  medication_medicine_id= $medication_medicine_id")->limit(5)->order('medication_time desc')->select();

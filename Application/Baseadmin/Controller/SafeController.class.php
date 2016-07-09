@@ -29,4 +29,21 @@ class SafeController extends Controller{
         $data = D("pool")->getChoosePool();
         $this->ajaxReturn($data);
     }
+
+    public function deletePool(){
+        if(IS_GET){
+            //dump($_GET);exit();
+            $pool_id = I('get.id',null);
+            $result = M('pool')->where(array('pool_id'=>$pool_id))->delete();
+            if($result){
+                $this->success('删除成功', U('Baseadmin/Safe/index'));
+                //redirect(U('Baseadmin/Safe/index'));
+            }else{
+                $this->error('删除失败');
+            }
+        }
+        else{
+            $this->error('删除失败');
+        }
+    }
 }
