@@ -248,12 +248,12 @@
 	$(document).ready(function(){
 
 	      $('#addPatrolBtn').click(function(){
-	             var action = $('#addPatrol_form').attr('action');
-	             var Formattr = $('#addPatrol_form').serialize();
-	             $.post(action, Formattr, function(data,status) {
+	              var action = $('#addPatrol_form').attr('action');
+	              var Formattr = $('#addPatrol_form').serialize();
+	              $.post(action, Formattr, function(data,status) {
 	                 if(data.code == 1) {
 	                    alert( data.msg);
-	                    setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'potrol'))}\"",200);
+	                    setTimeout("window.location.href=\"{:U('Home/Safe/cultivation', array('name' => 'patrol'))}\"",200);
 	                 }else{
 	                 	alert(data.msg);
 	                 }
