@@ -19,8 +19,10 @@ class UserController extends Controller{
     public function manage(){
 
     	$data = D('member')->getMemberInfo();
-        //dump($data);exit();
+        $base = D('base')->getBaseInfo();
+        //dump($base);exit();
     	$this->assign('member_data',$data);
+        $this->assign('base',$base);
     	$this->display();
     }
 	public function adminRegister(){

@@ -46,13 +46,21 @@ class MemberModel extends Model{
 	}
 	public function getMemberInfo() {
         
-		$data = $this->where("member_role = 2")->select();
+		$data = $this->where(array('member_role'=>2))->select();
 		foreach($data as $key => $value) {
 			$data[$key]['member_permission'] = M('base')->getFieldbyBase_id($data[$key]['member_permission'],'base_name');
 		    $data[$key]['member_base_id'] = M('base')->getFieldbyBase_id($data[$key]['member_base_id'],'base_name');
 		    $data[$key]['member_role'] = 2 ? '基础管理员' : '普通用户';
 		}
         return $data;
+	}
+
+	public function getChooseMember(){
+		$member_id = I('get.val');
+		$data = $this->where(array('member_id'=>$member_id))->find();
+		$data['member_permission_name'] = M('base')->getFieldbyBase_id($data['member_permission'],'base_name');
+		$data['member_base_name'] = M('base')->getFieldbyBase_id($data['member_base_id'],'base_name');
+		return $data;
 	}
 
 }

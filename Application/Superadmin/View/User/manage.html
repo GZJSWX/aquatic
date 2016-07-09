@@ -59,19 +59,19 @@
 					</div>
 					<div class="form-group">
 						<label for="">所属基地</label>
-						<select class="form-control" name="stocking_fry_id" >
-							<option value="0">所属基地</option>
-							<volist name="fry" id="fr">
-								<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+						<select class="form-control" name="member_base_id">
+							<option value="" selected id="member_base_id">请所属基地</option>
+							<volist name="base" id="ba">
+								<option value="{$ba.base_id}">{$ba.base_name}</option>
 							</volist>
 						</select>
 					</div>
 					<div class="form-group">
 						<label for="">拥有权限</label>
-						<select class="form-control" name="stocking_fry_id" >
-							<option value="0">拥有权限</option>
-							<volist name="fry" id="fr">
-								<option value="{$fr.fry_id}">{$fr.fry_name}</option>
+						<select class="form-control" name="member_permission">
+							<option value="" selected id="member_permission">拥有权限</option>
+							<volist name="base" id="ba">
+								<option value="{$ba.base_id}">{$ba.base_name}</option>
 							</volist>
 						</select>
 					</div>
@@ -102,7 +102,6 @@
 			$('#member_role').val(data['member_role']);
 			$('#member_base_id').val(data['base_source_water']);
 			$('#member_permission').val(data['base_scale']);
-
 		});
 	}
 
