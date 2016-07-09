@@ -28,7 +28,7 @@
                         <td>{$feed.feed_specifications}</td>
                         <td>
                             <button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedModal" id="modifyButton" value="{$feed.feed_id}" onclick="feedChange(this)">修改</button>
-                            <a href="{:U('Safe/showFeedQr',array('name'=>$feed['feed_name']))}" class="btn btn-success" data-toggle="modal">二维码</a>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#modifyQrModel" id="" value="{$feed.feed_name}" onclick="showFeedQr(this)">二维码</button>
                         </td>
                     </tr>
                 </volist>
@@ -80,6 +80,33 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+
+    <!-- ModifyQrModal -->
+    <div class="modal fade" id="modifyQrModel" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        饲料信息二维码
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div align="center"><img id="feedQr" src="" height="290" width="290"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
     <div class="modal fade" id="addFeedModal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -128,6 +155,23 @@
 
 <block name="script">
     <script>
+        function showFeedQr(obj){
+            var val = $(obj).attr('value');
+            var url = "{:U('Superadmin/Safe/showFeedQr')}";
+            $.get(url, {name:val}, function(data, status){
+
+                var name = data.name;
+                var time = data.time;
+                //alert(data);
+                //console.log(data);
+                //var src="{:U('Safe/feedQr',array('name'=>"+data.name+",'time'=>"+data.time+"))}";
+                var url1 = "{:U('Safe/feedQr')}";
+                var src = url1+"?name="+name+"&time="+time;
+                console.log(src);
+                document.getElementById('feedQr').src=src;
+
+            });
+        }
         function feedChange(obj) {
 
             var val = $(obj).attr('value');

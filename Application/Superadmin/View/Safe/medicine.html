@@ -28,7 +28,7 @@
                         <td>{$medicine.medicine_precautions}</td>
                         <td>
                             <button class="btn btn-danger" data-toggle="modal" data-target="#modifyMedicineModal" id="modifyButton" value="{$medicine.medicine_id}" onclick="medicineChange(this)">修改</button>
-                            <a href="{:U('Safe/showMedicineQr',array('name'=>$medicine['medicine_name'],'use'=>$medicine['medicine_use']))}" class="btn btn-success" data-toggle="modal" id="modifyButton" value="{$feed.feed_id}">二维码</a>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#modifyMedicineQrModal" id="modifyButton" value="{$medicine.medicine_id}" onclick="showMedicineQr(this)">二维码</button>
                         </td>
                     </tr>
                 </volist>
@@ -82,6 +82,33 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
 
+    </div>
+
+    <!-- modifyMedicineQrModal -->
+    <div class="modal fade" id="modifyMedicineQrModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        饲料信息二维码
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div align="center"><img id="medicineQr" src="" height="290" width="290"></div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
 
     <!-- ModifymedicineModal -->
@@ -138,6 +165,23 @@
 
 <block name="script">
     <script>
+        function showMedicineQr(obj){
+            var val = $(obj).attr('value');
+            var url = "{:U('Superadmin/Safe/showMedicineQr')}";
+            $.get(url, {val:val}, function(data, status){
+
+                var name = data.medicine_name;
+                var use = data.medicine_use;
+                var time = data.time;
+                //console.log(data);
+                //{:U('Safe/medicineQr',array('name'=>$data['name'],'use'=>$data['use'],'time'=>$data['time']))}
+                //var src="{:U('Safe/feedQr',array('name'=>"+name+",'time'=>"+time+"))}";
+                var url1="{:U('Safe/medicineQr')}";
+                var src=url1+"?name="+name+"&use="+use+"&time="+time;
+                document.getElementById('medicineQr').src=src;
+
+            });
+        }
         function medicineChange(obj) {
 
             var val = $(obj).attr('value');
