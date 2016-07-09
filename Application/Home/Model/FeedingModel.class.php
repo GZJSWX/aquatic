@@ -10,7 +10,7 @@ class FeedingModel extends Model{
            $userInfo = \Org\Util\User::_getUserInfo();
            $params = I("post.");
            $params['feeding_member_id'] = $userInfo['member_id'];
-           $params['feeding_time'] = date('Y-m-d');
+           $params['feeding_time'] = date('Y-m-d H:i:s', time());
            if(! $this->add($params)) {
               return 0;
            }
