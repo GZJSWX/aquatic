@@ -54,6 +54,6 @@ class UserController extends Controller{
 
     public function manageSave(){
         $data = D('member')->saveManage();
-        $this->ajaxReturn($data);
+        //$this->ajaxReturn($data);
     }
 }

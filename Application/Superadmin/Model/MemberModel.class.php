@@ -64,8 +64,14 @@ class MemberModel extends Model{
 	}
 
     public function saveManage(){
-		$userName = I('post.member_usrname');
-		$data = $this->where(array('member_username'=>$userName))->save($_POST);
-		return $data;
+		if(IS_POST) {
+			$data = I('post.');
+			$userName = $data['member_username'];
+			if(!($this->where(array('member_username'=>$userName))->save($data))) {
+				echo 'modifyMemberinfo_save wrong';
+			}
+		}else {
+			echo 'wrong';
+		}
 	}
 }
