@@ -27,7 +27,6 @@ class UserController extends Controller{
     }
 	public function adminRegister(){
         $params = I("post.");
-
         $data = D('Member')->adminRegister();
         //dump($data);exit();
         if($data==1){

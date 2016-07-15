@@ -40,24 +40,29 @@ class BaseModel extends Model{
     	}
     }
 
-    public function addBase(){
+    public function addBase()
+    {
 
-    	if(IS_POST) {
+        if (IS_POST) {
 
-           date_default_timezone_set('prc');
-           $time = date('Y-m-d H:i', time());
-           $params = I("post.");
-           if($this->where(array('base_code'=>$params['base_code']))->select())
+            date_default_timezone_set('prc');
+            $time = date('Y-m-d H:i', time());
+            $params = I("post.");
+            $params['base_time'] = $time;
+            if ($this->where(array('base_code' => $params['base_code']))->select())
                 echo '基地编码不可重复！';
-           $params['base_time'] = $time;
-           if(! $this->add($params)) {
-              echo 'addBase 插入失败';
-           }
+            else {
+                if(!(strlen($params['base_tel'])==11&&!preg_match('/\d+/',$params['base_tel'])))
+                    echo '电话为11位且不能为数字';
+                else {
+                    if (!$this->add($params)) {
+                        echo 'addBase 插入失败';
+                    } else {
+                        echo 'addBase success';
+                    }
+                }
+            }
+        }
 
-    	}else {
-    		echo 'addBase wrong';
-    	}
     }
-
-    
 }
