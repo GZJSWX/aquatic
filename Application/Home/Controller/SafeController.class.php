@@ -101,6 +101,11 @@ class SafeController extends Controller {
             $this->ajaxReturn(array('code'=>1,'msg'=>'添加成功'));
         }
      }
+    public function querys() {
+        $name = I('get.name');
+        $data = D($name)->querys();
+        $this->ajaxReturn($data);
+    }
      public function getChoose(){
 
         $data = D(I('get.name'))->getChoose();

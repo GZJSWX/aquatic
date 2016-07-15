@@ -21,6 +21,33 @@ class StockingModel extends Model{
             return;
     	}
 	}
+    public function querys() {
+
+
+
+
+            $params = I("get.");
+            $stocking_fry_id= $params['stocking_fry_id'];
+
+
+            $data= $this->where("stocking_fry_id = $stocking_fry_id")->order('stocking_start_time desc')->select();
+            foreach ($data as $key => $value) {
+
+                $cage = $data[$key]['stocking_cage_id'];
+                if($cage == '0') {
+                    $data[$key]['stocking_cage_id'] = '无网箱';
+                }
+
+                $data[$key]['stocking_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['stocking_fry_id'],'fry_name');
+                $data[$key]['stocking_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['stocking_cage_id'],'cage_rowname');
+            }
+
+
+
+
+            return $data;
+
+    }
 	public function getChoose(){
 
        if(IS_GET) {
@@ -42,7 +69,6 @@ class StockingModel extends Model{
 	     $userInfo = \Org\Util\User::_getUserInfo();
        $member_id = $userInfo['member_id'];
        $count = $this->where("stocking_member_id = $member_id")->count();
-
        $Page  = new \Think\Page($count,15);// 实例化分页类 传入总记录数和每页显示的记录数(2)
        $Page->setConfig('prev',  '上一页');//上一页
        $Page->setConfig('next',  '下一页');//下一页
