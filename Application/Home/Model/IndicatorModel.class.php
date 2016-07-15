@@ -13,7 +13,7 @@ class IndicatorModel extends Model{
            $params = I("post.");
            $params['indicator_pool_id'] = $userInfo['member_pool_id'];
            $params['indicator_member_id'] = $userInfo['member_id'];
-            $params['indicator_cage_id'] = '10';
+           // $params['indicator_cage_id'] = '10';
            //$params['indicator_time'] = $time;
 
            if(! $this->add($params)) {

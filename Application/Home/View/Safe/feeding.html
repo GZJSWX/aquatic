@@ -97,7 +97,12 @@
 						</div>
 						<div class="form-group">
 							<label for="">投饲时间</label>
-							<input type="text" class="form-control" value="" name="feeding_time" id="feeding_time">
+							<div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input4" data-link-format="yyyy-mm-dd">
+								<input class="form-control" size="16" type="text" value="" id="feeding_time" name="feeding_time">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+							<input type="hidden" id="dtp_input4" value="" name="stocking_start_time"/><br/>
 						</div>
 						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
 						<div class="form-group hidden">
@@ -201,6 +206,22 @@
 	</ul>
 </block>
 <block name="script">
+	<script type="text/javascript" src="__PUBLIC__/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<!--<script type="text/javascript" src="__PUBLIC__/js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>-->
+	<script type="text/javascript">
+
+		$('.form_date').datetimepicker({
+			//language:  'fr',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+		});
+
+	</script>
 	<script>
 		function feedingChange(obj) {
 
