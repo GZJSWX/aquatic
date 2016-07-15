@@ -50,7 +50,7 @@ class TraceModel extends Model{
        $Page->setConfig('last',  '<span aria-hidden="true">尾页</span>');//最后一页
        $Page->setConfig ( 'theme', '<li><a>当前%NOW_PAGE%/%TOTAL_PAGE%</a></li>  %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%' );
        $show = $Page->show();
-       $data = $this->where("trace_member_id = $member_id")->limit($Page->firstRow.','.$Page->listRows)->select();
+       $data = $this->where("trace_member_id = $member_id")->order("trace_finish_time desc")->limit($Page->firstRow.','.$Page->listRows)->select();
        
        foreach ($data as $key => $value) {
 

@@ -68,7 +68,7 @@
 		            	
 		            	<div class="form-group">
 		            		<label for="">池塘</label>
-		            		<select class="form-control" name="medication_pool_id" id="medication_pool_id">
+		            		<select class="form-control" name="patrol_pool_id">
 		            			<option value="0">请选择池塘</option>
 		            			<volist name="pool_data" id="p">
 		            				<option value="{$p.pool_id}">{$p.pool_name}</option>
@@ -151,7 +151,7 @@
 		            	
 		            	<div class="form-group">
 		            		<label for="">池塘</label>
-		            		<select class="form-control" name="medication_pool_id" id="medication_pool_id">
+		            		<select class="form-control" name="patrol_pool_id" id="patrol_pool_id">
 		            			<option value="0">请选择池塘</option>
 		            			<volist name="pool_data" id="pp">
 		            				<option value="{$pp.pool_id}">{$pp.pool_name}</option>
@@ -236,8 +236,9 @@
 	        $.get(url, function(data, status){
 
 	        	$('#patrol_id').val(data['patrol_id']);
-	        	// $('#patrol_fry_id').val(data['patrol_fry_id']);
-	        	// $('#patrol_cage_id').val(data['patrol_cage_id']);
+				$('#patrol_pool_id').val(data['patrol_pool_id']);
+				$('#patrol_fry_id').val(data['patrol_fry_id']);
+				$('#patrol_cage_id').val(data['patrol_cage_id']);
 	        	$('#patrol_number').val(data['patrol_number']);
 	        	$('#patrol_weight').val(data['patrol_weight']);
 	        	$('#patrol_death_reason').val(data['patrol_death_reason']);
