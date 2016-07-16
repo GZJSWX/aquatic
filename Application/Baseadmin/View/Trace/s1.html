@@ -8,15 +8,15 @@
 	   </div>
 	   <div class="panel-body">
    	    
-	   <form action="{:U('Baseadmin/Trace/search', array('name' => 's1'))}" method="post" >
+	   <form action="{:U('Baseadmin/Trace/querys', array('name' => 'search_breed'))}" method="post" >
 		   	<div class="form-group">
 		   	 	<label for="">日期范围</label>
 		   	 	<div class="row">
 		   	 		<div class="col-sm-4">
-		   	 			<input type="date" class='form-control' name="start_time">
+		   	 			<input type="date" class='form-control' name="start_time" id="start_time">
 		   	 		</div>
 		   	 		<div class="col-sm-4">
-		   	 		    <input type="date" class='form-control' name="end_time">	
+		   	 		    <input type="date" class='form-control' name="end_time" id="end_time">
 		   	 		</div>
 		   	 	</div>
 		   	 </div>
@@ -24,7 +24,7 @@
 		   	 	<div class="row">
 		   	 		<div class="col-sm-8">
 		   	 			<label for="">池塘编号</label>
-		   	 			<input type="text" class='form-control' name="pool_id">
+		   	 			<input type="text" class='form-control' name="pool_id" id="pool_id">
 		   	 		</div>
 		   	 	</div>
 		   	 </div>
@@ -32,7 +32,7 @@
 		   	 	<div class="row">
 		   	 		<div class="col-sm-8">
 	   	 			 	<label for="">养殖批次</label>
-	   	 				<input type="text" class='form-control' name="batch">
+	   	 				<input type="text" class='form-control' name="batch" id="batch">
 		   	 		</div>
 		   	 	</div>
 		  
@@ -55,8 +55,8 @@
 		           <th>死亡重量</th>
 		        </tr>
 		     </thead>
-		     <tbody>
-		     	<volist name="s1" id="stocking">	
+		     <tbody id="div1">
+		     	<!--<volist name="s1" id="stocking">
 			        <tr>
 			           <td>{$stocking.stocking_batch}</td>
 			           <td>{$stocking.stocking_fry_id}</td>
@@ -68,12 +68,12 @@
 			           <td>{$stocking.stocking_remark}</td>
 		               <td><button class="btn btn-danger" data-toggle="modal" data-target="#modifyStockingModal" value="{$stocking.stocking_id}" onclick="stockingChange(this)">修改</button></td>
 			        </tr>
-			    </volist> 
+			    </volist> -->
 			  
 		     </tbody>
  		 </table>
 	   </div>
-	     <div class="panel-footer">
+	     <div class="panel-footer" id="div2">
 	     	<ul class="pagination">
 			 {$page}
 		    </ul>
@@ -87,4 +87,24 @@
    	  	<li><a href="{:U('Baseadmin/Trace/search', array('name' => 's2'))}">养殖批次耗用报表</a></li>
    	  	<li><a href="{:U('Baseadmin/Trace/search', array('name' => 's3'))}">基地销售报表</a></li>
    	  </ul>
+</block>
+
+<block name="script">
+	<script>
+	$(document).ready(function(){
+			$('#search').click(function(){
+				var start_time=$('#start_time').val();
+				var end_time=$('#end_time').val();
+				var pool_id=$('#pool_id').val();
+				var batch=$('#batch').val();
+				var url="{:U('Baseadmin/Trace/search_breed/start_time/"+start_time+"/end_time/"+end_time+"/pool_id/"+pool_id+"/batch/"+batch+"')}";
+				$.get(url,function(data,status){
+
+
+				});
+		});
+
+	});
+
+	</script>
 </block>

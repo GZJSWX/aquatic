@@ -17,7 +17,6 @@ class TraceController extends Controller{
     public function search() {
 
          $name = I('get.name');
-
          $data = array();
          switch ($name) {
            case 's1':
@@ -37,5 +36,10 @@ class TraceController extends Controller{
         $this->display($name);
     }
 
-   
+    public function search_breed(){
+        $data=D('trace')->search_breed();
+        $this->ajaxReturn($data);
+
+    }
+
 }
