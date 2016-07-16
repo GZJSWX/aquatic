@@ -370,13 +370,15 @@
 				var stocking_fry_id = $("#stocking_fry_id1").val();
 			    var stocking='stocking';
 				var url = "{:U('Home/Safe/querys/name/"+stocking+"/stocking_fry_id/"+stocking_fry_id+"')}";
-				$("#div1").remove();
+				$('#querytable').empty();
+			  	$("#div1").empty();
 				$("#div2").remove();
 				$.get(url, function(data,status) {
-					$('#querytable').append("<thead><tr><th>放养批次</th><th>鱼苗</th><th>网箱</th><th>数量</th><th>规格</th><th>投苗时间</th><th>预计上市时间</th><th>备注</th></tr> </thead>");
+					$('#querytable').append("<thead><tr><th>放养批次</th><th>鱼苗</th><th>网箱</th><th>数量</th><th>规格</th><th>投苗时间</th><th>预计上市时间</th><th>备注</th><th>修改</th></tr> </thead>");
 					$.each(data, function(i, item){
 						$('#querytable').append("<tr><td>"+ item.stocking_batch+"</td><td>"+item.stocking_fry_id+"</td><td>"+item.stocking_cage_id+"</td><td>"+ item.stocking_number+"</td><td>"+item.stocking_specifications+"" +
-								"</td><td>"+item.stocking_start_time+"</td><td>"+ item.stocking_finish_time+"</td><td>"+item.stocking_remark+"</td></tr>");
+								"</td><td>"+item.stocking_start_time+"</td><td>"+ item.stocking_finish_time+"</td><td>"+item.stocking_remark+"</td>" +
+								"<td><button class='btn btn-danger' data-toggle='modal' data-target='#modifyStockingModal' value="+item.stocking_id+" onclick='stockingChange(this)'>修改</button></td></tr>");
 					});
 					$('#queryModal').modal('hide')
 				});

@@ -23,30 +23,19 @@ class StockingModel extends Model{
 	}
     public function querys() {
 
-
-
-
             $params = I("get.");
             $stocking_fry_id= $params['stocking_fry_id'];
 
-
             $data= $this->where("stocking_fry_id = $stocking_fry_id")->order('stocking_start_time desc')->select();
             foreach ($data as $key => $value) {
-
                 $cage = $data[$key]['stocking_cage_id'];
-                if($cage == '0') {
+                if($cage == 'null') {
                     $data[$key]['stocking_cage_id'] = '无网箱';
                 }
-
                 $data[$key]['stocking_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['stocking_fry_id'],'fry_name');
                 $data[$key]['stocking_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['stocking_cage_id'],'cage_rowname');
             }
-
-
-
-
             return $data;
-
     }
 	public function getChoose(){
 
