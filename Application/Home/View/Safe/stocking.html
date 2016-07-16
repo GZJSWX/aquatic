@@ -66,29 +66,37 @@
 				</div>
 				<div class="modal-body">
 					<form id="queryStocking_form" role="form" method="post">
-						<!--<div class="form-group">
+						<div class="form-group">
 							<label for="">放养批次</label>
-							<input type="text" class="form-control" value="" name="stocking_batch" >
-						</div>-->
+							<input type="text" class="form-control" value="" name="q_stocking_batch" id="q_stocking_batch">
+						</div>
 						<div class="form-group">
 							<label for="">鱼苗</label>
-							<select class="form-control" name="stocking_fry_id1" id="stocking_fry_id1">
+							<select class="form-control" name="q_stocking_fry_id" id="q_stocking_fry_id">
 								<option value="0">请选择鱼苗</option>
 								<volist name="fry" id="fr">
 									<option value="{$fr.fry_id}">{$fr.fry_name}</option>
 								</volist>
 							</select>
 						</div>
-
+						<div class="form-group">
+							<label for="">网箱</label>
+							<select class="form-control" value=""name="q_stocking_cage_id" id="q_stocking_cage_id">
+								<option value="0">请选择网箱</option>
+								<volist name="cage" id="c">
+									<option value="{$c.cage_id}">{$c.cage_rowname}</option>
+								</volist>
+							</select>
+						</div>
 						<!--<div class="form-group">
-							<label for="dtp_input2" >投苗时间</label>
-							<div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								<input class="form-control" size="16" type="text" value="" readonly>
-								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-							</div>
-							<input type="hidden" id="dtp_input2" value="" name="stocking_start_time"/><br/>
-						</div>-->
+						<label for="dtp_input2" >投苗时间</label>
+						<div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+							<input class="form-control" size="16" type="text" value="" name="q_stocking_start_time" id="q_stocking_start_time" readonly >
+							<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+							<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						</div>
+						<input type="hidden" id="q_stocking_start_time" value="" name="q_stocking_start_time"/><br/>
+					</div>-->
 						<!--<div class="form-group">-->
 						<!--<label for="">预计上市时间</label>-->
 						<!--<input type="date" class="form-control" value="" name="stocking_finish_time" >-->
@@ -138,17 +146,17 @@
 		            		</select>
 		            	</div>
                         <if condition = "$pool_data['pool_model'] eq '网箱'">
-			            	<div class="form-group">
-			            		<label for="">网箱</label>
-				            		<select class="form-control" name="stocking_cage_id" >
-				            			<option value="0">请选择网箱</option>
-				            			<volist name="cage" id="ca">
-				            				<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
-				            			</volist>
-				            		</select>
-			            	    </else>
-			            	</div> 
-		            	</if>
+						<div class="form-group">
+							<label for="">网箱</label>
+							<select class="form-control" name="stocking_cage_id" >
+								<option value="0">请选择网箱</option>
+								<volist name="cage" id="ca">
+									<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
+								</volist>
+							</select>
+							</else>
+						</div>
+					</if>
 		            	<div class="form-group">
 		            		<label for="">数量</label>
 		            		<input type="text" class="form-control" value="" name="stocking_number" >
@@ -337,7 +345,6 @@
 			var val = $(obj).attr('value');
 	        var url = "{:U('Home/Safe/getChoose/name/stocking/val/"+val+"')}";
 	        $.get(url, function(data, status){
-
 	        	$('#stocking_id').val(data['stocking_id']);
 	        	$('#stocking_batch').val(data['stocking_batch']);
 	        	// $('#stocking_fry_id').val(data['stocking_fry_id']);
@@ -367,9 +374,12 @@
 	             });
 	        });
 		$('#queryStockingBtn').click(function(){
-				var stocking_fry_id = $("#stocking_fry_id1").val();
+				var stocking_fry_id = $("#q_stocking_fry_id").val();
+				var stocking_batch=$('#q_stocking_batch').val();
+				var stocking_cage_id=$('#q_stocking_cage_id').val();
 			    var stocking='stocking';
-				var url = "{:U('Home/Safe/querys/name/"+stocking+"/stocking_fry_id/"+stocking_fry_id+"')}";
+				/*+"/stocking_start_time/"+stocking_start_time*/
+				var url = "{:U('Home/Safe/querys/name/"+stocking+"/stocking_cage_id/"+stocking_cage_id+"/stocking_fry_id/"+stocking_fry_id+"/stocking_batch/"+stocking_batch+"')}";
 				$('#querytable').empty();
 			  	$("#div1").empty();
 				$("#div2").remove();

@@ -23,13 +23,21 @@ class StockingModel extends Model{
 	}
     public function querys() {
 
-            $params = I("get.");
-            $stocking_fry_id= $params['stocking_fry_id'];
+        $params['stocking_fry_id'] = I("get.stocking_fry_id");
+        $params['stocking_batch']=I('get.stocking_batch');
+        $params['stocking_cage_id']=I('stocking_cage_id');
 
-            $data= $this->where("stocking_fry_id = $stocking_fry_id")->order('stocking_start_time desc')->select();
+        if($params['stocking_fry_id']!=0)
+            $query['stocking_fry_id']=$params['stocking_fry_id'];
+        if($params['stocking_batch']!=null)
+            $query['stocking_batch']=$params['stocking_batch'];
+        if($params['stocking_cage_id']!=0)
+            $query['stocking_cage_id']=$params['stocking_cage_id'];
+
+            $data= $this->where($query)->order('stocking_start_time desc')->select();
             foreach ($data as $key => $value) {
                 $cage = $data[$key]['stocking_cage_id'];
-                if($cage == 'null') {
+                if($cage == '0') {
                     $data[$key]['stocking_cage_id'] = '无网箱';
                 }
                 $data[$key]['stocking_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['stocking_fry_id'],'fry_name');
@@ -37,8 +45,8 @@ class StockingModel extends Model{
             }
             return $data;
     }
-	public function getChoose(){
 
+	public function getChoose(){
        if(IS_GET) {
            $params = I('get.val');
            $data = $this->where("stocking_id = $params")->find();
