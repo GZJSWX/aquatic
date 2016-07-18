@@ -7,8 +7,8 @@
 	      </h3>
 	   </div>
 	   <div class="panel-body">
-   	    
-	   <form action="{:U('Baseadmin/Trace/querys', array('name' => 'search_breed'))}" method="post" >
+		   <!--action="{:U('Baseadmin/Trace/querys', array('name' => 'search_breed'))}"-->
+	   <form>
 		   	<div class="form-group">
 		   	 	<label for="">日期范围</label>
 		   	 	<div class="row">
@@ -97,8 +97,14 @@
 				var end_time=$('#end_time').val();
 				var pool_id=$('#pool_id').val();
 				var batch=$('#batch').val();
-				var url="{:U('Baseadmin/Trace/search_breed/start_time/"+start_time+"/end_time/"+end_time+"/pool_id/"+pool_id+"/batch/"+batch+"')}";
+				var url="{:U('Baseadmin/Trace/querybreed/start_time/"+start_time+"/end_time/"+end_time+"/pool_id/"+pool_id+"/batch/"+batch+"')}";
 				$.get(url,function(data,status){
+
+					$.each(data, function(i, item){
+						$('#div1').append("<tr><td>"+ item.pool_id+"</td><td>"+item.stocking_batch+"</td><td>"+item.cage_id+"</td><td>"+ item.fry_id+"</td><td>"+item.stocking_specifications+"" +
+								"</td><td>"+item.stocking_number+"</td><td>"+ item.record_number+"</td><td>"+item.record_weight+"</td>" +
+								"<td>"+item.die_number+"</td><td>"+item.die_weight+"</td></td></tr>");
+					});
 
 
 				});
