@@ -92,17 +92,17 @@
 <block name="script">
 	<script>
 		function stockingChange(obj) {
-
+			$('#div1').empty();
 			var start_time=$('#start_time').val();
 			var end_time=$('#end_time').val();
 			var pool_id=$('#pool_id').val();
 			var batch=$('#batch').val();
-			var url="{:U('Baseadmin/Trace/search/pool_id/"+pool_id+"/batch/"+batch+"')}";
+			var url="{:U('Baseadmin/Trace/search/pool_id/"+pool_id+"/batch/"+batch+"/start_time/"+start_time+"end_time"+end_time+"')}";
 			$.get(url,function(data,status){
 
 					$('#div1').append("<tr><td>"+ data.pool_id+"</td><td>"+data.stocking_batch+"</td><td>"+data.cage_id+"</td><td>"+ data.fry_id+"</td><td>"+data.stocking_specifications+"" +
 							"</td><td>"+data.stocking_number+"</td><td>"+ data.record_number+"</td><td>"+data.record_weight+"</td>" +
-							"<td>"+data.die_number+"</td><td>"+data.die_weight+"</td></td></tr>");
+							"<td>"+data.die_number+"</td><td>"+data.die_weight+"</td></tr>");
 
 
 

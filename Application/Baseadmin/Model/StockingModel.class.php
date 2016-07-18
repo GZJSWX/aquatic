@@ -10,12 +10,16 @@ class StockingModel extends Model{
         if ($map['record_pool_id'] != null)
         strtotime($zero1)<strtotime($zero2)
             $parms['record_pool_id'] = $map['trace_pool_id'];*/
+
         $map['stocking_batch'] = I('get.batch');
+
         $start_time= I('get.start_time');
         $end_time=I('get.end_time');
-        /*$map['stocking_finish_time'] = array(array('elt', I('get.end_time')), array('egt', I('get.start_time')));*/
-        $stocking=$this->where($map)->where(strtotime($start_time)<strtotime('stocking_finish_time')&&strtotime($end_time)>strtotime('stocking_finish_time'))->find();
-
+        /*$map['stocking_finish_time'] = array(array('elt', I('get.end_time')), array('egt', I('get.start_time')));
+        where(strtotime($start_time)<strtotime('stocking_finish_time')&&strtotime($end_time)>strtotime('stocking_finish_time'))->*/
+        $stocking=$this->where($map and strtotime($start_time)<strtotime('stocking_finish_time') and strtotime($end_time)>strtotime('stocking_finish_time'))->find();
+        /*return $stocking;
+        die;*/
         $map2['record_batch']=I('get.batch');
         $map2['record_pool_id']=I('get.pool_id');
         $record=M('record')->where($map2)->find();
