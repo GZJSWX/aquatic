@@ -5,31 +5,31 @@ class StockingModel extends Model{
 
     public function search_breed()
     {
-
-
         /* var_dump($params);die;*/
         /*$map['record_pool_id'] = I('get.pool_id');
         if ($map['record_pool_id'] != null)
+        strtotime($zero1)<strtotime($zero2)
             $parms['record_pool_id'] = $map['trace_pool_id'];*/
-
         $map['stocking_batch'] = I('get.batch');
-        $map['stocking_finish_time'] = array(array('elt', I('get.end_time')), array('egt', I('get.start_time')));
-        $stocking=$this->where($map)->selcct();
+        $start_time= I('get.start_time');
+        $end_time=I('get.end_time');
+        /*$map['stocking_finish_time'] = array(array('elt', I('get.end_time')), array('egt', I('get.start_time')));*/
+        $stocking=$this->where($map)->where(strtotime($start_time)<strtotime('stocking_finish_time')&&strtotime($end_time)>strtotime('stocking_finish_time'))->find();
 
         $map2['record_batch']=I('get.batch');
-        $map2['record_pool_id']=I('get_pool_id');
-        $record=M('record')->where($map2)->select();
+        $map2['record_pool_id']=I('get.pool_id');
+        $record=M('record')->where($map2)->find();
 
         $data['pool_id']=$record['record_pool_id'];
         $data['stocking_batch']=$stocking['stocking_batch'];
         $data['cage_id']=M('cage')->getFieldBycage_id($record['record_cage_id'],'cage_rowname');
         $data['fry_id']=M('fry')->getFieldByfry_id($stocking['stocking_fry_id'],'fry_name');
-        $data['stocking_specifacations']=$stocking['stocking_specifacations'];
+        $data['stocking_specifications']=$stocking['stocking_specifications'];
         $data['stocking_number']=$stocking['stocking_number'];
         $data['record_weight']=$record['record_weight'];
         $data['record_number']=$record['record_number'];
-        $data['die_nnumber']=$data['record_number']- $data['stocking_number'];
-        $data['die_weight']=$data['record_weight']-$data['stocking_specifacations'];
+        $data['die_number']=$data['stocking_number']-$data['record_number'];
+        $data['die_weight']=$data['stocking_specifacations']-$data['record_weight'];
 
         return $data;
     }

@@ -14,28 +14,13 @@ class TraceController extends Controller{
               redirect(U('Home/Index/index'));
           }
     }
-    public function search() {
+
+    public function querys() {
          $name = I('get.name');
-       /*  $data = array();
-         switch ($name) {
-           case 's1':
-             $data = D('trace')->search_breed();
-             break;
-           case 's2':
-             $data = D('trace')->search_batch();
-             break;
-           case 's3':
-              $data = D("trace")->search_sale();
-             break;
-           default:
-             echo 'trace search wrong';
-             break;
-         }
-        $this->assign('data',$data);  */
         $this->display($name);
     }
 
-    public function querybreed(){
+    public function search(){
         $data=D('stocking')->search_breed();
         $this->ajaxReturn($data);
     }

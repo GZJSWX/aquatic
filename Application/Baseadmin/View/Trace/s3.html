@@ -71,20 +71,20 @@
 		     </tbody>
  		 </table>
 	   </div>
-	     <div class="panel-footer">
+	     <!--<div class="panel-footer">
 	     	<ul class="pagination">
 			 {$page}
 		    </ul>
-	     </div>
+	     </div>-->
 	</div>
 </block>
-<block name="rightcolumn"> 
-  <h1><strong>报表查询</strong></h1>
-   	  <ul class="nav nav-pills nav-stacked">
-   	  	<li><a href="{:U('Baseadmin/Trace/search', array('name' => 's1'))}">养殖信息月报</a></li>
-   	  	<li><a href="{:U('Baseadmin/Trace/search', array('name' => 's2'))}">养殖批次耗用报表</a></li>
-   	  	<li class="active"><a href="{:U('Baseadmin/Trace/search', array('name' => 's3'))}">基地销售报表</a></li>
-   	  </ul>
+<block name="rightcolumn">
+	<h1><strong>报表查询</strong></h1>
+	<ul class="nav nav-pills nav-stacked">
+		<li><a href="{:U('Baseadmin/Trace/querys', array('name' => 's1'))}">养殖信息月报</a></li>
+		<li><a href="{:U('Baseadmin/Trace/querys', array('name' => 's2'))}">养殖批次耗用报表</a></li>
+		<li><a href="{:U('Baseadmin/Trace/querys', array('name' => 's3'))}">基地销售报表</a></li>
+	</ul>
 </block>
 <block name="script"> 
    // <script>

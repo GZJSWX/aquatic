@@ -8,7 +8,7 @@
 	   </div>
 	   <div class="panel-body">
 		   <!--action="{:U('Baseadmin/Trace/querys', array('name' => 'search_breed'))}"-->
-	   <form>
+
 		   	<div class="form-group">
 		   	 	<label for="">日期范围</label>
 		   	 	<div class="row">
@@ -35,11 +35,11 @@
 	   	 				<input type="text" class='form-control' name="batch" id="batch">
 		   	 		</div>
 		   	 	</div>
-		  
 		   	 </div>
-		   	 <button type="submit" class="btn btn-lg btn-primary" id="search">查询</button>
+		   <div class="form-group">
+		   	 <button type="submit" class="btn btn-lg btn-primary" id="queryButtun" onclick="stockingChange(this)">查询</button>
 		   	 <button class="btn btn-lg btn-info" id="">打印</button>
-	   </form> 
+	   		</div>
 	   	<table class="table table-bordered table-striped col-sm-12" >
 		     <thead>
 		        <tr>
@@ -73,26 +73,43 @@
 		     </tbody>
  		 </table>
 	   </div>
-	     <div class="panel-footer" id="div2">
+	     <!--<div class="panel-footer" id="div2">
 	     	<ul class="pagination">
 			 {$page}
 		    </ul>
-	     </div>
+	     </div>-->
 	</div>
 </block>
-<block name="rightcolumn"> 
-  <h1><strong>报表查询</strong></h1>
-   	  <ul class="nav nav-pills nav-stacked">
-   	  	<li class="active"><a href="{:U('Baseadmin/Trace/search', array('name' => 's1'))}">养殖信息月报</a></li>
-   	  	<li><a href="{:U('Baseadmin/Trace/search', array('name' => 's2'))}">养殖批次耗用报表</a></li>
-   	  	<li><a href="{:U('Baseadmin/Trace/search', array('name' => 's3'))}">基地销售报表</a></li>
-   	  </ul>
+<block name="rightcolumn">
+	<h1><strong>报表查询</strong></h1>
+	<ul class="nav nav-pills nav-stacked">
+		<li><a href="{:U('Baseadmin/Trace/querys', array('name' => 's1'))}">养殖信息月报</a></li>
+		<li><a href="{:U('Baseadmin/Trace/querys', array('name' => 's2'))}">养殖批次耗用报表</a></li>
+		<li><a href="{:U('Baseadmin/Trace/querys', array('name' => 's3'))}">基地销售报表</a></li>
+	</ul>
 </block>
 
 <block name="script">
 	<script>
-	$(document).ready(function(){
-			$('#search').click(function(){
+		function stockingChange(obj) {
+
+			var start_time=$('#start_time').val();
+			var end_time=$('#end_time').val();
+			var pool_id=$('#pool_id').val();
+			var batch=$('#batch').val();
+			var url="{:U('Baseadmin/Trace/search/pool_id/"+pool_id+"/batch/"+batch+"')}";
+			$.get(url,function(data,status){
+
+					$('#div1').append("<tr><td>"+ data.pool_id+"</td><td>"+data.stocking_batch+"</td><td>"+data.cage_id+"</td><td>"+ data.fry_id+"</td><td>"+data.stocking_specifications+"" +
+							"</td><td>"+data.stocking_number+"</td><td>"+ data.record_number+"</td><td>"+data.record_weight+"</td>" +
+							"<td>"+data.die_number+"</td><td>"+data.die_weight+"</td></td></tr>");
+
+
+
+			});
+		}
+	/*$(document).ready(function(){
+			$('#queryButtun').click(function(){
 				var start_time=$('#start_time').val();
 				var end_time=$('#end_time').val();
 				var pool_id=$('#pool_id').val();
@@ -106,11 +123,9 @@
 								"<td>"+item.die_number+"</td><td>"+item.die_weight+"</td></td></tr>");
 					});
 
-
 				});
 		});
-
-	});
+	});*/
 
 	</script>
 </block>
