@@ -23,6 +23,28 @@ class SaleModel extends Model{
             return;
       }
 	}
+    public function querys() {
+
+        $params['sale_id'] = I("get.sale_id");
+        $params['sale_record_id']=I('get.record_id');
+        $params['sale_client_name']=I('get.client_name');
+        if($params['sale_id']!=0||$params['sale_id']!=null)
+            $query['sale_id']=$params['sale_id'];
+        if( $params['sale_record_id']!=0||$params['sale_record_id']!=null)
+            $query['sale_record_id']= $params['sale_record_id'];
+        if($params['sale_client_id']!=0||$params['sale_client_id']!=null)
+            $query['sale_client_id']=$params['sale_client_id'];
+        /*if($params['stocking_cage_id']!=0)
+            $query['stocking_cage_id']=$params['stocking_cage_id'];*/
+        $data= $this->where($query)->select();
+        foreach ($data as $key => $value) {
+
+            $data[$key]['sale_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['sale_fry_id'],'fry_name');
+            // $data[$key]['sale_record_id'] = M('record')->getFieldByrecord_id($data[$key]['sale_record_id'],'record_batch');
+        }
+
+        return $data;
+    }
 	public function getChoose(){
 
        if(IS_GET) {

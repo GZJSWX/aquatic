@@ -35,7 +35,7 @@ class IndicatorModel extends Model{
         /*if($params['stocking_cage_id']!=0)
             $query['stocking_cage_id']=$params['stocking_cage_id'];*/
 
-        $data= $this->where(time($query['indicator_time'])==time('indicator_time'))->select();
+        $data= $this->where($query)->select();
 
         foreach ($data as $key => $value) {
 

@@ -8,6 +8,7 @@
 	   </div>
 	   <div class="panel-body">
 	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addRecordModal">添加</button><br><br>
+		   <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#queryModal">查询</button><br><br>
 	   	<table class="table table-bordered table-striped col-sm-12">
 		     <thead>
 		        <tr>
@@ -27,7 +28,7 @@
 		           <th>操作</th>
 		        </tr>
 		     </thead>
-		     <tbody>
+		     <tbody id="div1">
 		     	<volist name="record" id="record">	
 			        <tr>
 			           <td>{$record.record_id}</td>
@@ -50,13 +51,63 @@
 		     </tbody>
  		 </table>
 	   </div>
-	     <div class="panel-footer">
+	     <div class="panel-footer" id="div2">
 	     	<ul class="pagination">
 			 {$page}
 		    </ul>
 	     </div>
 	</div>
+	<div class="modal fade" id="queryModal" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"
+							data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						查询条件
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="queryRecord_form" role="form" method="post">
+						<div class="form-group">
+							<label for="">出塘类型</label>
+							<select class="form-control"name="record_type" id="record_type">
+								<option value="0">请选择出塘类型</option>
+								<option value="销售">销售</option>
+								<option value="转塘">转塘</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">出塘编号</label>
+							<input type="text" class="form-control" value="" name="record_id" id="record_id" >
+						</div>
 
+						<div class="form-group">
+							<label for="">养殖批次</label>
+							<input type="text" class="form-control" value="" name="record_batch" id="record_batch">
+						</div>
+						<div class="form-group">
+							<label for="">出塘日期</label>
+							<input type="date" class="form-control" value="" name="record_time" id="record_time" >
+						</div>
+						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+					<button type="button"  id="queryRecordBtn" class="btn btn-primary">
+						提交
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+	</div>
 	<!-- recordModal -->
 <div class="modal fade" id="addRecordModal" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
@@ -306,7 +357,28 @@
 
 	}
 	$(document).ready(function(){
-          
+		$('#queryRecordBtn').click(function(){
+			var record_type = $("#record_type").val();
+			var record_id=$('#record_id').val();
+			var record_batch=$('#record_batch').val();
+			var record_time=$('#record_time').val();
+			var record='record';
+			/*+"/stocking_start_time/"+stocking_start_time*/
+			var url = "{:U('Home/Sale/querys/name/"+record+"/record_type/"+record_type+"/record_id/"+record_id+"/record_batch/"+record_batch+"/record_time/"+record_time+"')}";
+
+			$("#div1").empty();
+			$("#div2").remove();
+			$.get(url, function(data,status) {
+				$.each(data, function(i, item){
+					$('#div1').append("<tr><td>"+ item.record_id+"</td><td>"+item.record_type+"</td><td>"+item.record_time+"</td><td>"+ item.record_batch+"</td><td>"+item.record_fry_id+"" +
+							"</td><td>"+item.record_cage_id+"</td><td>"+ item.record_number+"</td><td>"+item.record_weight+"</td>" +
+							"<td>"+item.record_transfer_pool_id+"</td><td>"+item.record_transfer_cage_id+"</td><td>"+
+							item.record_transfer_number+"</td><td>"+item.record_transfer_weight+"</td><td>"+item.record_remark+"</td>"+
+							"<td><button class='btn btn-danger' data-toggle='modal' data-target='#modifyRecordModal' value="+item.record_id+" onclick='recordChange(this)'>修改</button></td></tr>");
+				});
+				$('#queryModal').modal('hide')
+			});
+		});
      
           $('#pool').change(function(){
                var val = $(this).val();

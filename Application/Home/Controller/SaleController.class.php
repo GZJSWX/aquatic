@@ -66,6 +66,11 @@ class SaleController extends Controller {
 
         $this->display($name);
 	}
+    public function querys() {
+        $name = I('get.name');
+        $data = D($name)->querys();
+        $this->ajaxReturn($data);
+    }
     public function adds() {
         
         $name = I('get.name');

@@ -255,9 +255,8 @@
 				$("#div2").remove();
 				$.get(url, function (data, status) {
 					$.each(data, function (i, item) {
-						$('#div1').append("<tr><td>" + item.feeding_pool_id + "</td><td>" + item.feeding_cage_id + "</td><td>" + item.feeding_feed_id + "</td><td>" + item.feeding_number + "</td><td>" + item.feeding_time + "" +
-								"</td><td><img src='{" + item.feeding_pool_img + "}' alt='' width='180px'></td>" +
-								"<td><button class='btn btn-danger' data-toggle='modal' data-target='#modifyIndicatorModal' value=" + item.feeding_id + " onclick='indicatorChange(this)'>修改</button></td></tr>");
+						$('#div1').append("<tr><td>" + item.indicator_time+ "</td><td>" + item.indicator_weather + "</td><td>" + item.indicator_name + "</td><td>" + item.indicator_value + "</td><td>" + item.indicator_unit +
+								"</td><td><button class='btn btn-danger' data-toggle='modal' data-target='#modifyIndicatorModal' value=" + item.indicator_id + " onclick='indicatorChange(this)'>修改</button></td></tr>");
 					});
 					$('#queryModal').modal('hide')
 				});

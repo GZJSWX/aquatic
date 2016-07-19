@@ -8,6 +8,7 @@
 	   </div>
 	   <div class="panel-body">
 	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addSaleModal">添加</button><br><br>
+		   <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#queryModal">查询</button><br><br>
 	   	<table class="table table-bordered table-striped col-sm-12">
 		     <thead>
 		        <tr>
@@ -24,7 +25,7 @@
 		           <th>操作</th>
 		        </tr>
 		     </thead>
-		     <tbody>
+		     <tbody id="div1">
 		     	<volist name="sale" id="sale">	
 			        <tr>
 			           <td>{$sale.sale_id}</td>
@@ -44,13 +45,62 @@
 		     </tbody>
  		 </table>
 	   </div>
-	     <div class="panel-footer">
+	     <div class="panel-footer" id="div2">
 	     	<ul class="pagination">
 			 {$page}
 		    </ul>
 	     </div>
 	</div>
 
+	<div class="modal fade" id="queryModal" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"
+							data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						查询条件
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="querySale_form" role="form" method="post">
+						<div class="form-group">
+							<label for="">销售编号</label>
+							<input type="text" class="form-control" value="" name="sale_id" id="sale_id">
+						</div>
+						<div class="form-group">
+							<label for="">出塘编号</label>
+							<select class="form-control" name="sale_record_id" id="sale_record_id">
+								<option value="0">请选择出塘编号</option>
+								<volist name="record_data" id="rr">
+									<option value="{$rr.record_id}">{$rr.record_id}</option>
+								</volist>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">客户名称</label>
+							<input type="text" class="form-control" value="" name="sale_client_name" id="sale_client_name">
+						</div>
+
+
+						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+					<button type="button"  id="querySaleBtn" class="btn btn-primary">
+						提交
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+	</div>
 	<!-- saleModal -->
 <div class="modal fade" id="addSaleModal" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
@@ -251,7 +301,25 @@
 	        });
 	}
 	$(document).ready(function(){
-
+		$('#querySaleBtn').click(function(){
+			var sale_id = $("#sale_id").val();
+			var sale_record_id=$('#sale_record_id').val();
+			var sale_client_name=$('#sale_client_name').val();
+			var sale='sale';
+			/*+"/stocking_start_time/"+stocking_start_time*/
+			var url = "{:U('Home/Sale/querys/name/"+sale+"/sale_id/"+sale_id+"/sale_record_id/"+sale_record_id+"/sale_client_name/"+sale_client_name+"')}";
+			$("#div1").empty();
+			$("#div2").remove();
+			$.get(url, function(data,status) {
+				$.each(data, function(i, item){
+					$('#div1').append("<tr><td>"+ item.sale_id+"</td><td>"+item.sale_record_id+"</td><td>"+item.sale_client_name+"</td><td>"+ item.sale_client_tel+"</td><td>"+item.sale_fry_id+"" +
+							"</td><td>"+item.sale_number+"</td><td>"+item.sale_weight+"</td><td>"+item.sale_univalent+"</td><td>"+item.sale_sales+"</td><td>"+
+							item.sale_remark+"</td>" +
+							"<td><button class='btn btn-danger' data-toggle='modal' data-target='#modifySaleModal' value="+item.sale_id+" onclick='saleChange(this)'>修改</button></td></tr>");
+				});
+				$('#queryModal').modal('hide')
+			});
+		});
 	      $('#addSaleBtn').click(function(){
 	             var action = $('#addSale_form').attr('action');
 	             var Formattr = $('#addSale_form').serialize();
