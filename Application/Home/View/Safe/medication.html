@@ -8,6 +8,7 @@
 	   </div>
 	   <div class="panel-body">
 	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addMedicationModal">添加</button><br><br>
+		   <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#queryModal">查询</button><br><br>
 	   	<table class="table table-bordered table-striped col-sm-12" >
 		     <thead>
 		        <tr>
@@ -24,7 +25,7 @@
 		           <th>操作</th>
 		        </tr>
 		     </thead>
-		     <tbody>
+		     <tbody id="div1">
 		     	<volist name="medication" id="medication">	
 			        <tr>
 			           <td>{$medication.medication_pool_id}</td>
@@ -43,12 +44,71 @@
 		     </tbody>
  		 </table>
 	   </div>
-	     <div class="panel-footer">
+	     <div class="panel-footer" id="div2">
 	     	<ul class="pagination">
 			 {$page}
 		    </ul>
 	     </div>
 	</div>
+
+	<div class="modal fade" id="queryModal" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"
+							data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						查询条件
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="queryMedication_form" role="form" method="post">
+						<div class="form-group">
+							<label for="">池塘</label>
+							<select class="form-control" name="medication_pool_id" id="medication_pool_id">
+								<option value="0">请选择池塘</option>
+								<volist name="pool_data" id="pp">
+									<option value="{$pp.pool_id}">{$pp.pool_name}</option>
+								</volist>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">药品</label>
+							<select class="form-control" name="medication_medicine_id" id="medication_medicine_id" >
+								<option value="0">请选择药品</option>
+								<volist name="medicine" id="m">
+									<option value="{$m.medicine_id}">{$m.medicine_name}</option>
+								</volist>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">网箱</label>
+							<select class="form-control" name="medication_cage_id" id="medication_cage_id">
+								<option value="0">请选择网箱</option>
+								<volist name="cage" id="ca">
+									<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>
+								</volist>
+							</select>
+						</div>
+						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+					<button type="button"  id="queryMedicationBtn" class="btn btn-primary">
+						提交
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+
+	</div>
+
 	<!-- medicationModal -->
 <div class="modal fade" id="addMedicationModal" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
@@ -244,7 +304,24 @@
 	        });
 	}
 	$(document).ready(function(){
-
+		$('#queryMedicationBtn').click(function(){
+			var medication_medicine_id = $("#medication_medicine_id").val();
+			var medication_pool_id=$('#medication_pool_id').val();
+			var medication_cage_id=$('#medication_cage_id').val();
+			var medication='medication';
+			/*+"/stocking_start_time/"+stocking_start_time*/
+			var url = "{:U('Home/Safe/querys/name/"+medication+"/medication_cage_id/"+medication_cage_id+"/medication_pool_id/"+medication_pool_id+"/medication_medicine_id/"+medication_medicine_id+"')}";
+			$("#div1").empty();
+			$("#div2").remove();
+			$.get(url, function(data,status) {
+				$.each(data, function(i, item){
+					$('#div1').append("<tr><td>"+ item.medication_pool_id+"</td><td>"+item.medication_medicine_id+"</td><td>"+item.medication_amount+"</td><td>"+ item.medication_cage_id+"</td><td>"+item.medication_time+"" +
+							"</td><td>"+item.medication_reason+"</td><td>"+item.medication_pattern+"</td><td>"+item.medication_precautions+"</td><td><img src='{"+item.medication_pool_img+"}' alt='' width='180px'></td>" +
+							"<td><button class='btn btn-danger' data-toggle='modal' data-target='#modifyMedicationModal' value="+item.feeding_id+" onclick='feedingChange(this)'>修改</button></td></tr>");
+				});
+				$('#queryModal').modal('hide')
+			});
+		});
 	      $('#addMedicationBtn').click(function(){
 	             var action = $('#addMedication_form').attr('action');
 	             var Formattr = $('#addMedication_form').serialize();

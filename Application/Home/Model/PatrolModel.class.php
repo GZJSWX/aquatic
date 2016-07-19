@@ -25,6 +25,35 @@ class PatrolModel extends Model{
             return;
       }
 	}
+
+    public function querys() {
+
+        $params['patrol_pool_id'] = I("get.patrol_pool_id");
+        $params['patrol_cage_id']=I('get.patrol_cage_id');
+        $params['patrol_fry_id']=I('get.patrol_fry_id');
+        if($params['patrol_pool_id']!=0)
+            $query['patrol_pool_id']=$params['patrol_pool_id'];
+        if( $params['patrol_cage_id']!=0)
+            $query['patrol_cage_id']= $params['patrol_cage_id'];
+        if($params['patrol_fry_id']!=0)
+            $query['patrol_fry_id']=$params['patrol_fry_id'];
+        /*if($params['stocking_cage_id']!=0)
+            $query['stocking_cage_id']=$params['stocking_cage_id'];*/
+        $data= $this->where($query)->select();
+        foreach ($data as $key => $value) {
+
+            $cage = $data[$key]['feeding_cage_id'];
+            if($cage == null || $cage == 0) {
+                $data[$key]['medication_cage_id'] = '无网箱';
+            }
+            $data[$key]['patrol_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['patrol_fry_id'],'fry_name');
+            $data[$key]['patrol_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['patrol_cage_id'],'cage_rowname');
+            $data[$key]['patrol_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['patrol_pool_id'],'pool_name');
+            $data[$key]['patrol_pool_img'] = C('PIC_UPLOADS').$data[$key]['patrol_pool_img'];
+        }
+
+        return $data;
+    }
 	public function getChoose(){
 
        if(IS_GET) {
@@ -56,12 +85,14 @@ class PatrolModel extends Model{
 
        foreach ($data as $key => $value) {
 
-            $cage = $data[$key]['feeding_cage_id'];
+            $cage = $data[$key]['patrol_cage_id'];
             if($cage == null || $cage == 0) {
-               $data[$key]['medication_cage_id'] = '无网箱';
+               $data[$key]['patrol_cage_id'] = '无网箱';
             }
+           else{
+               $data[$key]['patrol_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['patrol_cage_id'],'cage_rowname');
+           }
             $data[$key]['patrol_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['patrol_fry_id'],'fry_name');
-            $data[$key]['patrol_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['patrol_cage_id'],'cage_rowname');
             $data[$key]['patrol_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['patrol_pool_id'],'pool_name');
             $data[$key]['patrol_pool_img'] = C('PIC_UPLOADS').$data[$key]['patrol_pool_img'];
        }

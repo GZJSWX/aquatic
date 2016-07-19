@@ -20,6 +20,38 @@ class MedicationModel extends Model{
             return 1;
       }
 	}
+    public function querys() {
+
+        $params['medication_pool_id'] = I("get.medication_pool_id");
+        $params['medication_cage_id']=I('get.medication_cage_id');
+        $params['medication_medicine_id']=I('get.medication_medicine_id');
+        if($params['medication_pool_id']!=0)
+            $query['medication_pool_id']=$params['medication_pool_id'];
+        if( $params['medication_cage_id']!=0)
+            $query['medication_cage_id']= $params['medication_cage_id'];
+        if($params['medication_medicine_id']!=0)
+            $query['medication_medicine_id']=$params['medication_medicine_id'];
+        /*if($params['stocking_cage_id']!=0)
+            $query['stocking_cage_id']=$params['stocking_cage_id'];*/
+        $data= $this->where($query)->select();
+        foreach ($data as $key => $value) {
+            $cage = $data[$key]['medication_cage_id'];
+            if($cage == null || $cage == 0) {
+                $data[$key]['medication_cage_id'] = '无网箱';
+            }
+            else{
+                $data[$key]['medication_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['medication_cage_id'],'cage_rowname');
+            }
+        }
+        foreach ($data as $key => $value) {
+
+            $data[$key]['medication_medicine_id'] = M('medicine')->getFieldBymedicine_id($data[$key]['medication_medicine_id'],'medicine_name');
+            $data[$key]['medication_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['medication_pool_id'],'pool_name');
+            $data[$key]['medication_pool_img'] = C('PIC_UPLOADS').$data[$key]['medication_pool_img'];
+        }
+
+        return $data;
+    }
 	public function getChoose(){
 
        if(IS_GET) {
@@ -49,18 +81,18 @@ class MedicationModel extends Model{
        $show = $Page->show();
        $data = $this->where("medication_member_id = $member_id")->limit($Page->firstRow.','.$Page->listRows)->order('medication_time desc')->select();
        foreach ($data as $key => $value) {
-       	  
        	  $cage = $data[$key]['medication_cage_id'];
        	  if($cage == null || $cage == 0) {
        	  	 $data[$key]['medication_cage_id'] = '无网箱';
        	  }
-       }  
-
+           else{
+               $data[$key]['medication_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['medication_cage_id'],'cage_rowname');
+           }
+       }
        foreach ($data as $key => $value) {
 
             $data[$key]['medication_medicine_id'] = M('medicine')->getFieldBymedicine_id($data[$key]['medication_medicine_id'],'medicine_name');
             $data[$key]['medication_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['medication_pool_id'],'pool_name');
-            $data[$key]['medication_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['medication_cage_id'],'cage_rowname');
             $data[$key]['medication_pool_img'] = C('PIC_UPLOADS').$data[$key]['medication_pool_img'];
        }
        $result['page'] = $show;
