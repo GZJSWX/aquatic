@@ -28,11 +28,11 @@ class SaleModel extends Model{
         $params['sale_id'] = I("get.sale_id");
         $params['sale_record_id']=I('get.record_id');
         $params['sale_client_name']=I('get.client_name');
-        if($params['sale_id']!=0||$params['sale_id']!=null)
+        if($params['sale_id']!=0 && $params['sale_id']!=null)
             $query['sale_id']=$params['sale_id'];
-        if( $params['sale_record_id']!=0||$params['sale_record_id']!=null)
+        if( $params['sale_record_id']!=0 && $params['sale_record_id']!=null)
             $query['sale_record_id']= $params['sale_record_id'];
-        if($params['sale_client_id']!=0||$params['sale_client_id']!=null)
+        if($params['sale_client_id']!=0 && $params['sale_client_id']!=null)
             $query['sale_client_id']=$params['sale_client_id'];
         /*if($params['stocking_cage_id']!=0)
             $query['stocking_cage_id']=$params['stocking_cage_id'];*/

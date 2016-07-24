@@ -74,7 +74,7 @@
 					<form id="queryRecord_form" role="form" method="post">
 						<div class="form-group">
 							<label for="">出塘类型</label>
-							<select class="form-control"name="record_type" id="record_type">
+							<select class="form-control"name="q_record_type" id="q_record_type">
 								<option value="0">请选择出塘类型</option>
 								<option value="销售">销售</option>
 								<option value="转塘">转塘</option>
@@ -82,16 +82,16 @@
 						</div>
 						<div class="form-group">
 							<label for="">出塘编号</label>
-							<input type="text" class="form-control" value="" name="record_id" id="record_id" >
+							<input type="text" class="form-control" value="" name="q_record_id" id="q_record_id" >
 						</div>
 
 						<div class="form-group">
 							<label for="">养殖批次</label>
-							<input type="text" class="form-control" value="" name="record_batch" id="record_batch">
+							<input type="text" class="form-control" value="" name="q_record_batch" id="q_record_batch">
 						</div>
 						<div class="form-group">
 							<label for="">出塘日期</label>
-							<input type="date" class="form-control" value="" name="record_time" id="record_time" >
+							<input type="date" class="form-control" value="" name="q_record_time" id="q_record_time" >
 						</div>
 						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
 					</form>
@@ -344,8 +344,8 @@
 	        	$('#record_type').val(data['record_type']);
 	        	$('#record_time').val(data['record_time']);
 	        	$('#record_batch').val(data['record_batch']);
-	        	// $('#record_fry_id').val(data['record_fry_id']);
-	        	// $('#record_cage_id').val(data['record_cage_id']);
+	        	 $('#record_fry_id').val(data['record_fry_id']);
+	        	 $('#record_cage_id').val(data['record_cage_id']);
 	        	$('#record_number').val(data['record_number']);
 	        	$('#record_weight').val(data['record_weight']);
 	        	$('#record_transfer_weight').val(data['record_transfer_weight']);
@@ -358,10 +358,10 @@
 	}
 	$(document).ready(function(){
 		$('#queryRecordBtn').click(function(){
-			var record_type = $("#record_type").val();
-			var record_id=$('#record_id').val();
-			var record_batch=$('#record_batch').val();
-			var record_time=$('#record_time').val();
+			var record_type = $("#q_record_type").val();
+			var record_id=$('#q_record_id').val();
+			var record_batch=$('#q_record_batch').val();
+			var record_time=$('#q_record_time').val();
 			var record='record';
 			/*+"/stocking_start_time/"+stocking_start_time*/
 			var url = "{:U('Home/Sale/querys/name/"+record+"/record_type/"+record_type+"/record_id/"+record_id+"/record_batch/"+record_batch+"/record_time/"+record_time+"')}";

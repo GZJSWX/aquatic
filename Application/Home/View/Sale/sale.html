@@ -69,11 +69,11 @@
 					<form id="querySale_form" role="form" method="post">
 						<div class="form-group">
 							<label for="">销售编号</label>
-							<input type="text" class="form-control" value="" name="sale_id" id="sale_id">
+							<input type="text" class="form-control" value="" name="q_sale_id" id="q_sale_id">
 						</div>
 						<div class="form-group">
 							<label for="">出塘编号</label>
-							<select class="form-control" name="sale_record_id" id="sale_record_id">
+							<select class="form-control" name="q_sale_record_id" id="q_sale_record_id">
 								<option value="0">请选择出塘编号</option>
 								<volist name="record_data" id="rr">
 									<option value="{$rr.record_id}">{$rr.record_id}</option>
@@ -82,7 +82,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">客户名称</label>
-							<input type="text" class="form-control" value="" name="sale_client_name" id="sale_client_name">
+							<input type="text" class="form-control" value="" name="q_sale_client_name" id="q_sale_client_name">
 						</div>
 
 
@@ -302,9 +302,9 @@
 	}
 	$(document).ready(function(){
 		$('#querySaleBtn').click(function(){
-			var sale_id = $("#sale_id").val();
-			var sale_record_id=$('#sale_record_id').val();
-			var sale_client_name=$('#sale_client_name').val();
+			var sale_id = $("#q_sale_id").val();
+			var sale_record_id=$('#q_sale_record_id').val();
+			var sale_client_name=$('#q_sale_client_name').val();
 			var sale='sale';
 			/*+"/stocking_start_time/"+stocking_start_time*/
 			var url = "{:U('Home/Sale/querys/name/"+sale+"/sale_id/"+sale_id+"/sale_record_id/"+sale_record_id+"/sale_client_name/"+sale_client_name+"')}";

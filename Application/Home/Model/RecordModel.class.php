@@ -33,11 +33,11 @@ class RecordModel extends Model{
 
         if($params['record_type']!=0)
             $query['record_type']=$params['record_type'];
-        if($params['record_id']!=null||$params['record_id']!=0)
+        if($params['record_id']!=null&&$params['record_id']!=0)
             $query['record_id']=$params['record_id'];
-        if($params['record_batch']!=null)
+        if($params['record_batch']!=null&&$params['record_batch']!=0)
             $query['record_batch']=$params['record_batch'];
-        if($params['record_time']!=null||$params['record_time']!=0)
+        if($params['record_time']!=null&&$params['record_time']!=0)
             $query['record_time']=$params['record_time'];
 
         $data= $this->where($query)->select();
