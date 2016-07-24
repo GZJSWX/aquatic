@@ -63,7 +63,7 @@
 					<form id="queryFeeding_form" role="form" method="post">
 						<div class="form-group">
 							<label for="">池塘</label>
-							<select class="form-control" name="feeding_pool_id" id="feeding_pool_id">
+							<select class="form-control" name="q_feeding_pool_id" id="q_feeding_pool_id">
 								<option value="0">请选择池塘</option>
 								<volist name="pool_data" id="p">
 									<option value="{$p.pool_id}">{$p.pool_name}</option>
@@ -72,7 +72,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">网箱</label>
-							<select class="form-control" name="feeding_cage_id" id="feeding_cage_id" >
+							<select class="form-control" name="q_feeding_cage_id" id="q_feeding_cage_id" >
 								<option value="0">请选择网箱</option>
 								<volist name="cage" id="caa">
 									<option value="{$caa.cage_id}">{$caa.cage_rowname}</option>
@@ -82,7 +82,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">饲料</label>
-							<select class="form-control" name="feeding_feed_id" id="feeding_feed_id">
+							<select class="form-control" name="q_feeding_feed_id" id="q_feeding_feed_id">
 								<option value="0">请选择饲料</option>
 								<volist name="feed" id="fee">
 									<option value="{$fee.feed_id}">{$fee.feed_name}</option>
@@ -302,9 +302,9 @@
 		}
 		$(document).ready(function(){
 			$('#queryFeedingBtn').click(function(){
-				var feeding_pool_id = $("#feeding_pool_id").val();
-				var feeding_feed_id=$('#feeding_feed_id').val();
-				var feeding_cage_id=$('#feeding_cage_id').val();
+				var feeding_pool_id = $("#q_feeding_pool_id").val();
+				var feeding_feed_id=$('#q_feeding_feed_id').val();
+				var feeding_cage_id=$('#q_feeding_cage_id').val();
 				var feeding='feeding';
 				/*+"/stocking_start_time/"+stocking_start_time*/
 				var url = "{:U('Home/Safe/querys/name/"+feeding+"/feeding_pool_id/"+feeding_pool_id+"/feeding_cage_id/"+feeding_cage_id+"/feeding_feed_id/"+feeding_feed_id+"')}";

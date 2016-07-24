@@ -65,7 +65,7 @@
 					<form id="queryIndicator_form" role="form" method="post">
 						<div class="form-group">
 							<label for="">测量日期</label>
-							<input type="date" class="form-control" value="" name="indicator_time" id="indicator_time" >
+							<input type="date" class="form-control" value="" name="q_indicator_time" id="q_indicator_time" >
 						</div>
 						<label class="control-label" for="input01" name="time">当前时间: {$time} </label>
 					</form>
@@ -247,7 +247,7 @@
 
 		$(document).ready(function() {
 			$('#queryIndicatorBtn').click(function () {
-				var indicator_time = $("#indicator_time").val();
+				var indicator_time = $("#q_indicator_time").val();
 				var indicator = 'indicator';
 				/*+"/stocking_start_time/"+stocking_start_time*/
 				var url = "{:U('Home/Safe/querys/name/" + indicator + "/indicator_time/" + indicator_time + "')}";

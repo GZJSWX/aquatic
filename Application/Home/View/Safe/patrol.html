@@ -69,7 +69,7 @@
 					<form id="queryFeeding_form" role="form" method="post">
 						<div class="form-group">
 							<label for="">池塘</label>
-							<select class="form-control" name="patrol_pool_id" id="patrol_pool_id">
+							<select class="form-control" name="q_patrol_pool_id" id="q_patrol_pool_id">
 								<option value="0">请选择池塘</option>
 								<volist name="pool_data" id="p">
 									<option value="{$p.pool_id}">{$p.pool_name}</option>
@@ -78,7 +78,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">网箱</label>
-							<select class="form-control" name="patrol_cage_id" id="patrol_cage_id" >
+							<select class="form-control" name="q_patrol_cage_id" id="q_patrol_cage_id" >
 								<option value="0">请选择网箱</option>
 								<volist name="cage" id="caa">
 									<option value="{$caa.cage_id}">{$caa.cage_rowname}</option>
@@ -88,7 +88,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">鱼苗</label>
-							<select class="form-control" name="patrol_fry_id" id="patrol_fry_id">
+							<select class="form-control" name="q_patrol_fry_id" id="q_patrol_fry_id">
 								<option value="0">请选择鱼苗</option>
 								<volist name="fry" id="fr">
 									<option value="{$fr.fry_id}">{$fr.fry_name}</option>
@@ -312,9 +312,9 @@
 	$(document).ready(function(){
 
 		$('#queryPatrolBtn').click(function(){
-			var patrol_pool_id = $("#patrol_pool_id").val();
-			var patrol_fry_id=$('#patrol_fry_id').val();
-			var patrol_cage_id=$('#patrol_cage_id').val();
+			var patrol_pool_id = $("#q_patrol_pool_id").val();
+			var patrol_fry_id=$('#q_patrol_fry_id').val();
+			var patrol_cage_id=$('#q_patrol_cage_id').val();
 			var patrol='patrol';
 			/*+"/stocking_start_time/"+stocking_start_time*/
 			var url = "{:U('Home/Safe/querys/name/"+patrol+"/patrol_pool_id/"+patrol_pool_id+"/patrol_cage_id/"+patrol_cage_id+"/patrol_fry_id/"+patrol_fry_id+"')}";
