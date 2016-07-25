@@ -12,29 +12,39 @@ class StockingModel extends Model{
             $parms['record_pool_id'] = $map['trace_pool_id'];*/
 
         $map['stocking_batch'] = I('get.batch');
-
         $start_time= I('get.start_time');
         $end_time=I('get.end_time');
         /*$map['stocking_finish_time'] = array(array('elt', I('get.end_time')), array('egt', I('get.start_time')));
         where(strtotime($start_time)<strtotime('stocking_finish_time')&&strtotime($end_time)>strtotime('stocking_finish_time'))->*/
-        $stocking=$this->where($map and strtotime($start_time)<strtotime('stocking_finish_time') and strtotime($end_time)>strtotime('stocking_finish_time'))->find();
+        $stocking=$this->where($map)->select();
         /*return $stocking;
         die;*/
+        foreach ($stocking as $key => $value) {
+            $data[$key]['stocking_batch']=$stocking[$key]['stocking_batch'];
+            $data[$key]['stocking_number']=$stocking[$key]['stocking_number'];
+            $data[$key]['stocking_specifications']=$stocking[$key]['stocking_specifications'];
+        }
         $map2['record_batch']=I('get.batch');
         $map2['record_pool_id']=I('get.pool_id');
-        $record=M('record')->where($map2)->find();
+        $record=M('record')->where($map2)->select();
 
-        $data['pool_id']=$record['record_pool_id'];
-        $data['stocking_batch']=$stocking['stocking_batch'];
-        $data['cage_id']=M('cage')->getFieldBycage_id($record['record_cage_id'],'cage_rowname');
-        $data['fry_id']=M('fry')->getFieldByfry_id($stocking['stocking_fry_id'],'fry_name');
-        $data['stocking_specifications']=$stocking['stocking_specifications'];
-        $data['stocking_number']=$stocking['stocking_number'];
-        $data['record_weight']=$record['record_weight'];
-        $data['record_number']=$record['record_number'];
-        $data['die_number']=$data['stocking_number']-$data['record_number'];
-        $data['die_weight']=$data['stocking_specifacations']-$data['record_weight'];
-
+        foreach ($record as $key => $value) {
+            $cage = $record[$key]['record_cage_id'];
+            if($cage == '0'||$cage==null) {
+                $data[$key]['cage_id'] = '无网箱';
+            }
+            else{
+                $data[$key]['cage_id']=M('cage')->getFieldBycage_id($record[$key]['record_cage_id'],'cage_rowname');
+            }
+            $data[$key]['pool_id']=$record[$key]['record_pool_id'];
+            $data[$key]['fry_id']=M('fry')->getFieldByfry_id($record[$key]['record_fry_id'],'fry_name');
+            $data[$key]['record_number']=$record[$key]['record_number'];
+            $data[$key]['record_weight']=$record[$key]['record_weight'];
+        }
+        foreach($data as $key => $value){
+            $data[$key]['die_number']=$data[$key]['stocking_number']-$data[$key]['record_number'];
+            $data[$key]['die_weight']=$data[$key]['stocking_specifacations']-$data[$key]['record_weight'];
+        }
         return $data;
     }
 

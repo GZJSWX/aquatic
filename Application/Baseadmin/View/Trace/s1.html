@@ -93,19 +93,19 @@
 	<script>
 		function stockingChange(obj) {
 			$('#div1').empty();
-			var start_time=$('#start_time').val();
-			var end_time=$('#end_time').val();
-			var pool_id=$('#pool_id').val();
-			var batch=$('#batch').val();
-			var url="{:U('Baseadmin/Trace/search/pool_id/"+pool_id+"/batch/"+batch+"/start_time/"+start_time+"end_time"+end_time+"')}";
-			$.get(url,function(data,status){
+			var start_time = $('#start_time').val();
+			var end_time = $('#end_time').val();
+			var pool_id = $('#pool_id').val();
+			var batch = $('#batch').val();
+			var url = "{:U('Baseadmin/Trace/search/pool_id/" + pool_id + "/batch/" + batch + "/start_time/" + start_time + "/end_time/" + end_time + "')}";
+			$.get(url, function (data, status) {
+				$.each(data, function (i, item) {
+					$('#div1').append("<tr><td>" + item['pool_id'] + "</td><td>" +item['stocking_batch'] + "</td><td>" + item['cage_id'] + "</td><td>" + item.fry_id + "</td><td>" + item.stocking_specifications + "" +
+							"</td><td>" + item.stocking_number + "</td><td>" + item.record_number + "</td><td>" + item.record_weight + "</td>" +
+							"<td>" + item.die_number + "</td><td>" +item.die_weight + "</td></tr>");
 
-					$('#div1').append("<tr><td>"+ data.pool_id+"</td><td>"+data.stocking_batch+"</td><td>"+data.cage_id+"</td><td>"+ data.fry_id+"</td><td>"+data.stocking_specifications+"" +
-							"</td><td>"+data.stocking_number+"</td><td>"+ data.record_number+"</td><td>"+data.record_weight+"</td>" +
-							"<td>"+data.die_number+"</td><td>"+data.die_weight+"</td></tr>");
 
-
-
+				});
 			});
 		}
 	/*$(document).ready(function(){
