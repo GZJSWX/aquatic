@@ -11,14 +11,13 @@ class StockingModel extends Model{
         strtotime($zero1)<strtotime($zero2)
             $parms['record_pool_id'] = $map['trace_pool_id'];*/
 
-        $map['stocking_batch'] = I('get.batch');
+        $map = I('get.batch');
         $start_time= I('get.start_time');
         $end_time=I('get.end_time');
         /*$map['stocking_finish_time'] = array(array('elt', I('get.end_time')), array('egt', I('get.start_time')));
-        where(strtotime($start_time)<strtotime('stocking_finish_time')&&strtotime($end_time)>strtotime('stocking_finish_time'))->*/
-        $stocking=$this->where($map)->select();
-        /*return $stocking;
-        die;*/
+        where(strtotime($start_time)<strtotime('stocking_start_time')&&strtotime($end_time)>strtotime('stocking_finish_time'))->*/
+        $stocking=$this->where("stocking_batch= $map" );
+
         foreach ($stocking as $key => $value) {
             $data[$key]['stocking_batch']=$stocking[$key]['stocking_batch'];
             $data[$key]['stocking_number']=$stocking[$key]['stocking_number'];
