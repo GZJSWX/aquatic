@@ -378,6 +378,7 @@
 				var stocking_batch=$('#q_stocking_batch').val();
 				var stocking_cage_id=$('#q_stocking_cage_id').val();
 			    var stocking='stocking';
+				/*var url="{:U('Home/Safe/querys')}"+"?name="+stocking+"?stocking_cage_id="+stocking_cage_id;*/
 				/*+"/stocking_start_time/"+stocking_start_time*/
 				var url = "{:U('Home/Safe/querys/name/"+stocking+"/stocking_cage_id/"+stocking_cage_id+"/stocking_fry_id/"+stocking_fry_id+"/stocking_batch/"+stocking_batch+"')}";
 				$('#querytable').empty();

@@ -359,6 +359,9 @@
 		$('#queryRecordBtn').click(function(){
 			var record_type = $("#q_record_type").val();
 			var record_id=$('#q_record_id').val();
+			if(record_id==""){
+				record_id=undefined;
+			}
 			var record_batch=$('#q_record_batch').val();
 			var record_time=$('#q_record_time').val();
 			var record='record';

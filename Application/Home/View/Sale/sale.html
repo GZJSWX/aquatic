@@ -303,6 +303,7 @@
 	$(document).ready(function(){
 		$('#querySaleBtn').click(function(){
 			var sale_id = $("#q_sale_id").val();
+			if(sale_id==""){sale_id=undefined}
 			var sale_record_id=$('#q_sale_record_id').val();
 			var sale_client_name=$('#q_sale_client_name').val();
 			var sale='sale';

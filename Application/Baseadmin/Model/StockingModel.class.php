@@ -5,18 +5,28 @@ class StockingModel extends Model{
 
     public function search_breed()
     {
+        $map=array();
+        $map2=array();
+        $query=array();
+        $query2=array();
+
         /* var_dump($params);die;*/
         /*$map['record_pool_id'] = I('get.pool_id');
         if ($map['record_pool_id'] != null)
         strtotime($zero1)<strtotime($zero2)
             $parms['record_pool_id'] = $map['trace_pool_id'];*/
-
-        $map = I('get.batch');
-        $start_time= I('get.start_time');
-        $end_time=I('get.end_time');
+        $query['stocking_finish_time'] = array(array('elt', I('get.end_time')),array('egt',I('get.start_time')));
+        $map['stocking_batch'] = I('get.batch');
+        if($map['stocking_batch']!=0&&$map['stocking_batch']!=null)
+         $query['stocking_batch']= $map['stocking_batch'];
+        $start_time=strtotime(I('get.start_time'));
+        $end_time=strtotime(I('get.end_time'));
+        $res = $this -> where("stocking_finish_time  >=  $start_time  and stocking_finish_time  <= $end_time ")->select();
         /*$map['stocking_finish_time'] = array(array('elt', I('get.end_time')), array('egt', I('get.start_time')));
         where(strtotime($start_time)<strtotime('stocking_start_time')&&strtotime($end_time)>strtotime('stocking_finish_time'))->*/
-        $stocking=$this->where("stocking_batch= $map" );
+/*        $stocking=$this->query("select * from ap_stocking where strtotime('stocking_finish_time')<=$end_time and strtotime('stocking_finish_time')>=$start_time");*/
+        echo $this->getLastSql();
+        die;
 
         foreach ($stocking as $key => $value) {
             $data[$key]['stocking_batch']=$stocking[$key]['stocking_batch'];
@@ -25,7 +35,11 @@ class StockingModel extends Model{
         }
         $map2['record_batch']=I('get.batch');
         $map2['record_pool_id']=I('get.pool_id');
-        $record=M('record')->where($map2)->select();
+        if($map2['record_batch']!=0&&$map2['record_batch']!=null)
+        $query2['record_batch']=$map2['record_batch'];
+        if($map2['record_pool_id']!=0&&$map2['record_pool_id']!=null)
+        $query2['record_pool_id']=$map2['record_pool_id'];
+        $record=M('record')->where($query2)->select();
 
         foreach ($record as $key => $value) {
             $cage = $record[$key]['record_cage_id'];

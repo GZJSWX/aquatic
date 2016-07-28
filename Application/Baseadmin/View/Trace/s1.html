@@ -96,6 +96,7 @@
 			var start_time = $('#start_time').val();
 			var end_time = $('#end_time').val();
 			var pool_id = $('#pool_id').val();
+			if(pool_id==""){pool_id=undefined;}
 			var batch = $('#batch').val();
 			var url = "{:U('Baseadmin/Trace/search/pool_id/" + pool_id + "/batch/" + batch + "/start_time/" + start_time + "/end_time/" + end_time + "')}";
 			$.get(url, function (data, status) {
@@ -106,7 +107,7 @@
 				});
 			});
 		}
-	/*$(document).ready(function(){
+/*	$(document).ready(function(){
 			$('#queryButtun').click(function(){
 				var start_time=$('#start_time').val();
 				var end_time=$('#end_time').val();
