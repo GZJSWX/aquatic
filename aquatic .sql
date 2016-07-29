@@ -3,21 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
-<<<<<<< HEAD
-<<<<<<< HEAD
--- 生成日期: 2016 �?06 �?15 �?07:44
--- 服务器版本: 5.5.40
--- PHP 版本: 5.5.17
-=======
--- 生成日期: 2016 �?06 �?13 �?22:16
--- 服务器版本: 5.5.47
--- PHP 版本: 5.5.30
->>>>>>> ce30b51d8d5540a38183934943d170fe0ba106d5
-=======
--- 生成日期: 2016 �?07 �?09 �?18:31
--- 服务器版本: 5.5.47
--- PHP 版本: 5.5.30
->>>>>>> 6ea6a5e89bce6024537ffa8d269b029de44ec84d
+-- 生成日期: 2016 年 07 月 29 日 17:18
+-- 服务器版本: 5.5.38
+-- PHP 版本: 5.4.33
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -50,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `ap_base` (
   `base_coordinate` varchar(20) NOT NULL DEFAULT '',
   `base_code` char(5) NOT NULL DEFAULT '',
   PRIMARY KEY (`base_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基地基本信息' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基地基本信息' AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `ap_base`
@@ -59,7 +47,15 @@ CREATE TABLE IF NOT EXISTS `ap_base` (
 INSERT INTO `ap_base` (`base_id`, `base_name`, `base_addr`, `base_source_water`, `base_scale`, `base_contacts`, `base_tel`, `base_time`, `base_coordinate`, `base_code`) VALUES
 (1, '海大沙北基地', '海鸥岛', '海鸥岛', '基地养殖面积1247.5公顷', '苏振球', '13488882222', '2016-02-01 21:13', '116.439.7', '123'),
 (2, '海大实验基地', '实验基地', '实验水库', '基地养殖面积1247.5公顷', '苏振球', '13488882222', '2016-02-06 21:13', '116.439.9', '111'),
-(3, '家的粉丝', '是空间裂缝', '速度', '圣诞节', '圣诞节', '46523156', '2016-07-08 21:48', '213.1', '123');
+(3, '1', '1', '1', '1', '1', '1', '2016-07-09 22:56', '1', '1'),
+(4, '12', '123', 'qwe', '324', '234', '234', '2016-07-09 23:02', '234', 'asd'),
+(5, '1', '1', '1', '1', '1', '1', '2016-07-15 22:22', '1', '123'),
+(6, '1', '1', '1', '1', '1', '1', '2016-07-15 22:25', '1', '123'),
+(7, '1', '1', '', '', '1', '123', '2016-07-15 22:58', '', '1234'),
+(8, '123', '', '', '', '', '123', '2016-07-15 22:59', '', '123千瓦'),
+(9, '1', '', '', '', '', '12345678911', '2016-07-15 23:01', '', '12312'),
+(10, '1', '', '', '', '', 'asdfghjklqw', '2016-07-15 23:02', '', '12312'),
+(11, '1', '', '', '', '', '', '2016-07-16 11:18', '', '123');
 
 -- --------------------------------------------------------
 
@@ -85,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `ap_cage` (
 
 INSERT INTO `ap_cage` (`cage_id`, `cage_rowid`, `cage_rowname`, `cage_number`, `cage_pool_id`, `cage_code`, `cage_row_code`) VALUES
 (1, 1, '30排', 10, 1, '123', '123'),
-(2, 2, '30排', 15, 1, '222', '12'),
+(2, 2, '30排', 15, 1, '2', '12'),
 (6, 3, '13排', 6, 1, NULL, NULL),
 (7, 4, '14排', 10, 1, NULL, NULL),
 (8, 5, '15排', 10, 1, NULL, NULL),
@@ -117,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `ap_feed` (
   `feed_specifications` varchar(20) NOT NULL DEFAULT '',
   `feed_code` char(10) DEFAULT '' COMMENT '编码',
   PRIMARY KEY (`feed_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `ap_feed`
@@ -132,7 +128,8 @@ INSERT INTO `ap_feed` (`feed_id`, `feed_name`, `feed_specifications`, `feed_code
 (7, '黄颡鱼料', '10kg/包', ''),
 (8, '海鲈料', '10kg/包', ''),
 (9, '加州鲈料', '10kg/包', ''),
-(10, '生鱼料', '10kg/包', '');
+(10, '生鱼料', '10kg/包', ''),
+(11, '123', '123', '123');
 
 -- --------------------------------------------------------
 
@@ -168,8 +165,8 @@ INSERT INTO `ap_feeding` (`feeding_id`, `feeding_pool_id`, `feeding_cage_id`, `f
 (5, 1, 1, 1, '26', 7, '2016-02-23 22:34', ''),
 (8, 5, 1, 1, '32', 7, '2016-03-03', ''),
 (9, 1, 1, 1, '12', 7, '2016-03-31', ''),
-(10, 1, 7, 1, '20', 7, '2016-04-19', 'wechat_img/2016/04/19/2fa191046ee60e0e6dd3f821e412'),
-(11, 1, 6, 1, '2', 7, '2016-04-19', 'wechat_img/2016/04/19/0bdc4b3837affa0a54c405e6213c');
+(10, 1, 7, 1, '20', 7, '2016-04-19', 'wechat_img/2016/04/19/659dbc7a3330d74761cafdeb9b7a'),
+(11, 2, 6, 1, '2', 7, '2016-04-19', 'wechat_img/2016/04/19/0bdc4b3837affa0a54c405e6213c');
 
 -- --------------------------------------------------------
 
@@ -189,10 +186,10 @@ CREATE TABLE IF NOT EXISTS `ap_fry` (
 --
 
 INSERT INTO `ap_fry` (`fry_id`, `fry_name`, `fry_code`) VALUES
-(1, '罗非鱼', '0122'),
-(2, '鲫鱼', '0123'),
-(3, '草鱼', '0124'),
-(4, '海鲈', '0125');
+(1, '罗非鱼', '122'),
+(2, '鲫鱼', '123'),
+(3, '草鱼', '456'),
+(4, '海鲈', NULL);
 
 -- --------------------------------------------------------
 
@@ -214,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `ap_indicator` (
   KEY `indicator_pool_id` (`indicator_pool_id`),
   KEY `indicator_cage_id` (`indicator_cage_id`),
   KEY `indicator_member_id` (`indicator_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- 转存表中的数据 `ap_indicator`
@@ -222,7 +219,15 @@ CREATE TABLE IF NOT EXISTS `ap_indicator` (
 
 INSERT INTO `ap_indicator` (`indicator_id`, `indicator_pool_id`, `indicator_cage_id`, `indicator_time`, `indicator_weather`, `indicator_name`, `indicator_value`, `indicator_unit`, `indicator_member_id`) VALUES
 (1, 1, 2, '2016-03-11', '东南风', '风力', '5', '级', 7),
-(2, 1, 13, '2016-03-30', '晴天，东南风', '风力', '3', '级', 7);
+(2, 1, 13, '2016-03-30', '晴天，东南风', '风力', '3', '级', 7),
+(23, NULL, 10, '2016-07-10', 'a', 'a', '1', 'a', 7),
+(25, NULL, 12, '2016-07-10', 'a', 'a', '1', '', 7),
+(26, NULL, 10, '2016-07-10', 'a', 'a', '5', 'a', 7),
+(27, NULL, 10, '2016-07-10', 'a', 'a', '5', 'a', 7),
+(28, NULL, 10, '2016-07-15', '1', '1', '5', '1', 7),
+(29, NULL, 0, '2016-07-04', '1', '1', '5', '1', 7),
+(30, NULL, 0, '2016-07-15', '1', '1', '1', '1', 7),
+(31, NULL, 0, '2016-07-03', '1', '1', '1', '1', 7);
 
 -- --------------------------------------------------------
 
@@ -241,6 +246,7 @@ CREATE TABLE IF NOT EXISTS `ap_medication` (
   `medication_pattern` varchar(50) NOT NULL DEFAULT '',
   `medication_precautions` varchar(100) NOT NULL DEFAULT '',
   `medication_member_id` int(11) DEFAULT '0',
+  `medication_pool_img` varchar(80) NOT NULL,
   PRIMARY KEY (`medication_id`),
   KEY `medication_medicine_id` (`medication_medicine_id`,`medication_pool_id`,`medication_cage_id`),
   KEY `medication_pool_id` (`medication_pool_id`),
@@ -253,13 +259,13 @@ CREATE TABLE IF NOT EXISTS `ap_medication` (
 -- 转存表中的数据 `ap_medication`
 --
 
-INSERT INTO `ap_medication` (`medication_id`, `medication_medicine_id`, `medication_amount`, `medication_pool_id`, `medication_cage_id`, `medication_time`, `medication_reason`, `medication_pattern`, `medication_precautions`, `medication_member_id`) VALUES
-(1, 1, '10瓶', 1, 1, '2016-03-30', '保健', '无', '无', 7),
-(2, 1, 'test', 1, 6, '2016-02-29 13:24', 'test', 't', 't', 7),
-(3, 3, '1袋', 5, 8, '2016-03-18', '保健', '无', '无', 7),
-(4, 1, 'km', 1, 6, '1460652905', '258', 'ajtj', '255', 7),
-(5, 1, '10', 1, 2, '2016-04-19', '生病', '水调', '无', 7),
-(6, 1, '5', 1, 8, '2016-04-19', '', '', '', 7);
+INSERT INTO `ap_medication` (`medication_id`, `medication_medicine_id`, `medication_amount`, `medication_pool_id`, `medication_cage_id`, `medication_time`, `medication_reason`, `medication_pattern`, `medication_precautions`, `medication_member_id`, `medication_pool_img`) VALUES
+(1, 1, '10瓶', 1, 1, '2016-03-30', '保健', '无', '无', 7, ''),
+(2, 1, 'test', 1, 6, '2016-02-29 13:24', 'test', 't', 't', 7, ''),
+(3, 3, '1袋', 5, 8, '2016-03-18', '保健', '无', '无', 7, ''),
+(4, 1, 'km', 1, 6, '1460652905', '258', 'ajtj', '255', 7, ''),
+(5, 1, '10', 1, 2, '2016-04-19', '生病', '水调', '无', 7, 'wechat_img/2016/04/19/c472fc64b28bee7b313616dce02ba1fc.jpg'),
+(6, 1, '5', 1, 8, '2016-04-19', '', '', '', 7, 'wechat_img/2016/04/19/659dbc7a3330d74761cafdeb9b7a0a2d.jpg');
 
 -- --------------------------------------------------------
 
@@ -308,33 +314,98 @@ INSERT INTO `ap_medicine` (`medicine_id`, `medicine_name`, `medicine_use`, `medi
 CREATE TABLE IF NOT EXISTS `ap_member` (
   `member_id` int(11) NOT NULL AUTO_INCREMENT,
   `member_username` varchar(30) NOT NULL DEFAULT '',
-  `member_password` varchar(55) NOT NULL DEFAULT '',
+  `member_password` varchar(100) NOT NULL DEFAULT '',
   `member_role` int(11) NOT NULL COMMENT '角色（1系统管理员2基础管理员3普通用户）',
   `member_base_id` int(11) DEFAULT '0',
   `member_pool_id` int(11) DEFAULT '0',
   `member_permission` int(11) NOT NULL COMMENT '权限控制',
   PRIMARY KEY (`member_id`),
-  UNIQUE KEY `member_username` (`member_username`),
   KEY `member_base_id` (`member_base_id`),
   KEY `member_pool_id` (`member_pool_id`),
   KEY `member_pool_id_2` (`member_pool_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=82 ;
 
 --
 -- 转存表中的数据 `ap_member`
 --
 
 INSERT INTO `ap_member` (`member_id`, `member_username`, `member_password`, `member_role`, `member_base_id`, `member_pool_id`, `member_permission`) VALUES
-(1, 'baseadmin', 'test', 2, 1, 0, 0),
+(1, 'baseadmin', '7de2b903e90d43169d9fa9074ac8e3d1', 2, 1, 0, 0),
 (2, 'superadmin', '47aafdea08632dd73b61a81e5909ea25', 1, 0, 0, 0),
 (3, 'user12', 'test', 3, 1, 2, 0),
 (4, 'baseadmin2', 'test', 2, 2, 0, 0),
-(7, 'user11', 'test', 3, 1, 1, 0),
+(7, 'user11', '3c3571abd4c0c48e2d037b97ea918c83', 3, 1, NULL, 0),
 (8, 'user26', 'test', 3, 2, 6, 0),
-(10, 'superadmin1', '123', 2, 1, 0, 0),
-(11, 'superadmin2', '123', 2, 1, 0, 0),
-(15, 'superadmin111', 'a2309310628434a2bd8d675ee2bac467', 2, 1, 0, 1),
-(17, 'user111', 'a06da7664146a0ccd23dbc0373ad3aaa', 3, 1, 1, 0);
+(10, 'peng', 'test', 2, 0, 0, 0),
+(11, 'peng123', 'test', 3, 1, 0, 0),
+(12, 'peng134', 'testt', 3, 1, 0, 0),
+(15, '789', '78989', 2, 0, 0, 0),
+(16, '789', '546546', 2, 0, 0, 0),
+(17, 'peng789', 'test', 2, 1, 0, 0),
+(18, 'peng789', 'test', 2, 1, 0, 0),
+(19, '789', '123', 2, 1, 0, 0),
+(20, '789', '123', 2, 1, 0, 0),
+(21, '789', '789', 2, 1, 0, 0),
+(22, '789', '789', 2, 1, 0, 0),
+(23, '789', '456', 2, 1, 0, 0),
+(24, '789', '456', 2, 1, 0, 0),
+(25, '123', '123', 2, 1, 0, 0),
+(26, '123', '123', 2, 1, 0, 0),
+(27, '345', '`12', 2, 1, 0, 0),
+(28, '345', '`12', 2, 1, 0, 0),
+(29, '789', '123', 2, 0, 0, 0),
+(30, '789', '123', 2, 0, 0, 0),
+(31, '789', '123', 2, 0, 0, 0),
+(32, '789', '123', 2, 0, 0, 0),
+(33, '123', '123', 2, 0, 0, 0),
+(34, '123', '123', 2, 0, 0, 0),
+(35, '456', '456', 2, 0, 0, 0),
+(36, '456', '456', 2, 0, 0, 0),
+(37, '789', '789', 2, 0, 0, 0),
+(38, '789', '789', 2, 0, 0, 0),
+(39, '789', '789', 2, 0, 0, 0),
+(40, '789', '789', 2, 0, 0, 0),
+(41, '123', '123', 2, 0, 0, 0),
+(42, '123', '123', 2, 0, 0, 0),
+(43, '789', '789', 2, 0, 0, 0),
+(44, '789', '789', 2, 0, 0, 0),
+(45, '123', '123', 2, 0, 0, 0),
+(46, '123', '123', 2, 0, 0, 0),
+(47, '123', '123', 2, 0, 0, 0),
+(48, '123', '123', 2, 0, 0, 0),
+(49, '123', '123', 2, 0, 0, 0),
+(50, '123', '123', 2, 0, 0, 0),
+(51, '456', '456', 2, 0, 0, 0),
+(52, '456', '456', 2, 0, 0, 0),
+(53, '123', '123', 2, 0, 0, 0),
+(54, '123', '123', 2, 0, 0, 0),
+(55, '789', '123', 2, 0, 0, 0),
+(56, '789', '123', 2, 0, 0, 0),
+(57, '789', '789', 2, 0, 0, 0),
+(58, '789', '789', 2, 0, 0, 0),
+(59, '123', '123', 2, 0, 0, 0),
+(60, '123', '123', 2, 0, 0, 0),
+(61, '123', '123', 2, 0, 0, 0),
+(62, '123', '123', 2, 0, 0, 0),
+(63, '123', '123', 2, 0, 0, 0),
+(64, '123', '123', 2, 0, 0, 0),
+(65, '789', '789', 2, 0, 0, 0),
+(66, '789', '789', 2, 0, 0, 0),
+(67, 'abc', '123', 2, 1, 0, 1),
+(68, 'abc', '123', 2, 1, 0, 1),
+(69, '789', '789', 2, 1, 0, 1),
+(70, '789', '789', 2, 1, 0, 1),
+(71, '123', '123', 2, 0, 0, 0),
+(72, '123', '123', 2, 0, 0, 0),
+(73, '123', '123', 2, 0, 0, 0),
+(74, '123', '123', 2, 0, 0, 0),
+(75, '123', '123', 2, 0, 0, 0),
+(76, '123', '123', 2, 0, 0, 0),
+(77, '123', '123', 2, 0, 0, 0),
+(78, '123', '123', 2, 0, 0, 0),
+(79, '978', '789', 2, 1, 0, 0),
+(80, '978', '789', 2, 1, 0, 0),
+(81, '123456', '1e191d851b3b49a248f4ea62f6b06410', 2, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -360,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `ap_patrol` (
   KEY `patrol_member_id` (`patrol_member_id`),
   KEY `patrol_cage_id` (`patrol_cage_id`),
   KEY `patrol_fry_id` (`patrol_fry_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `ap_patrol`
@@ -370,9 +441,11 @@ INSERT INTO `ap_patrol` (`patrol_id`, `patrol_pool_id`, `patrol_cage_id`, `patro
 (1, 1, 0, 2, '10', '5斤', '天气影响', '2016-02-23 22:34', 7, '无', '', ''),
 (2, 1, 1, 1, '1', '1', '不明', '2016-03-18', 7, '无', '', ''),
 (3, 0, 6, 1, '1', '1', '22', '2016-03-31', 7, '', '', ''),
-(4, 1, 0, 3, '562', '565', 'no', '2016-04-15', 7, ' 563', '', '65'),
-(6, 1, 8, 3, '23', '12', '天气', '2016-04-19', 7, ' 无', 'wechat_img/2016/04/19/659dbc7a3330d74761cafdeb9b7a0a2d.jpg', '40.0'),
-(7, 1, 11, 1, '5', '5', '无', '2016-04-19', 7, ' ', 'wechat_img/2016/04/19/e44dfb5819f2c60f965ade9407bd8e64.jpg', '40.0');
+(4, 1, 0, 3, '562', '565', 'no', '2016-04-15', 7, ' 563', '', '123.12121  24.121212'),
+(6, 1, 8, 3, '23', '12', '天气', '2016-04-19', 7, ' 无', 'wechat_img/2016/04/19/659dbc7a3330d74761cafdeb9b7a0a2d.jpg', '123.12121  24.121212'),
+(7, 1, 11, 1, '5', '5', '无', '2016-04-19', 7, ' ', 'wechat_img/2016/04/19/c472fc64b28bee7b313616dce02ba1fc.jpg', '123.12121  24.121212'),
+(8, 2, 0, 1, '12', '123', '123', '2016-07-12', 7, '123213', '', ''),
+(9, 0, 2, 2, '123', '23', '123', '', 7, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -399,7 +472,7 @@ CREATE TABLE IF NOT EXISTS `ap_pool` (
   KEY `pool_base_id_2` (`pool_base_id`),
   KEY `pool_base_id_3` (`pool_base_id`),
   KEY `pool_base_id_4` (`pool_base_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='池塘信息' AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='池塘信息' AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `ap_pool`
@@ -408,8 +481,7 @@ CREATE TABLE IF NOT EXISTS `ap_pool` (
 INSERT INTO `ap_pool` (`pool_id`, `pool_name`, `pool_base_id`, `pool_addr`, `pool_area`, `pool_depth`, `pool_equipment`, `pool_model`, `pool_coordinate`, `pool_time`, `pool_smart_id`, `pool_code`) VALUES
 (1, '11号塘', 1, '11号塘地址', '1000平方米', '610米', '增氧机', '网箱', '123.123.12', '2016-02-06 21:13', 0, '123'),
 (2, '14号塘', 2, '14号塘地址', '1000平方米', '300米', '增氧机', '网箱', '123.123.2', '2016-02-06 21:13', 0, NULL),
-(3, '15号塘', 1, '15号塘地址', '500平方米', '200米', '增氧机', '网箱', '123.123.1', '2016-02-15 20:38', 0, '121'),
-(14, '1', 1, '1', '1', '1', '1', '大塘混养', '1', '2016-06-02 14:55', 0, '1');
+(3, '15号塘', 1, '15号塘地址', '500平方米', '200米', '增氧机', '网箱', '123.123.1', '2016-02-15 20:38', 0, '121');
 
 -- --------------------------------------------------------
 
@@ -440,16 +512,17 @@ CREATE TABLE IF NOT EXISTS `ap_record` (
   KEY `record_transfer_pool_id` (`record_transfer_pool_id`),
   KEY `record_transfer_cage_id` (`record_transfer_cage_id`),
   KEY `record_member_id` (`record_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `ap_record`
 --
 
 INSERT INTO `ap_record` (`record_id`, `record_pool_id`, `record_cage_id`, `record_fry_id`, `record_transfer_pool_id`, `record_transfer_cage_id`, `record_member_id`, `record_batch`, `record_number`, `record_weight`, `record_time`, `record_type`, `record_remark`, `record_transfer_number`, `record_transfer_weight`) VALUES
-(1, 1, 2, 3, 0, 0, 7, '第一批', '66524', '100斤', '3月4日', '销售', '备注test', '', ''),
-(2, 1, 2, 2, 0, 0, 7, '第二批', '100条', '100斤', '16.3.3', '销售', 'test', '', ''),
-(3, 1, 2, 2, 1, 6, 7, '3', '', '', '16.3.3', '转塘', 'test', '100条', '100斤');
+(1, 1, 2, 3, 0, 0, 7, '1', '66524', '100斤', '3月4日', '销售', '备注test', '', ''),
+(2, 1, 2, 2, 0, 0, 7, '2', '100', '100斤', '16.3.3', '销售', 'test', '', ''),
+(3, 1, 2, 2, 1, 6, 7, '3', '', '', '16.3.3', '转塘', 'test', '100条', '100斤'),
+(4, NULL, 1, 1, 0, 0, 7, '4', '12', '12', '2016-07-19', '销售', '123', '', '');
 
 -- --------------------------------------------------------
 
@@ -491,6 +564,7 @@ INSERT INTO `ap_sale` (`sale_id`, `sale_record_id`, `sale_client_name`, `sale_cl
 
 CREATE TABLE IF NOT EXISTS `ap_stocking` (
   `stocking_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stocking_pool_id` int(5) NOT NULL,
   `stocking_batch` int(11) NOT NULL DEFAULT '0' COMMENT '批次',
   `stocking_cage_id` int(11) DEFAULT NULL,
   `stocking_fry_id` int(11) DEFAULT NULL,
@@ -504,40 +578,36 @@ CREATE TABLE IF NOT EXISTS `ap_stocking` (
   KEY `stocking_cage_id` (`stocking_cage_id`,`stocking_fry_id`),
   KEY `stocking_fry_id` (`stocking_fry_id`),
   KEY `stocking_member_id` (`stocking_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- 转存表中的数据 `ap_stocking`
 --
 
-INSERT INTO `ap_stocking` (`stocking_id`, `stocking_batch`, `stocking_cage_id`, `stocking_fry_id`, `stocking_number`, `stocking_specifications`, `stocking_start_time`, `stocking_finish_time`, `stocking_member_id`, `stocking_remark`) VALUES
-(3, 1, 7, 1, 145, '1斤', '2016-02-23 22:30', '2016-02-23 22:30', 7, '无'),
-(4, 2, 2, 2, 100, '1斤', '2016-03-11', '2016-03-17', 7, '无'),
-(5, 3, 1, 1, 23, '12', ' 2016-02-20 15:53', ' 2016-02-20 15:53', 7, ' 2016-02-20 15:53'),
-(6, 4, 1, 1, 100, '100', '2016-02-21 09:42', '2016-02-21 09:42', 7, 'test'),
-(7, 5, 2, 1, 1232, '123', '2016-02-21 09:42', '2016-02-21 09:42', 7, 'test'),
-(10, 6, 2, 2, 0, 't', 't', 't', 7, 't'),
-(11, 0, 1, 1, 0, 't', 't', 't', 7, 'tt'),
-(12, 123, 2, 1, 0, '', '', '', 7, ''),
-(14, 33, 2, 1, 0, '', '', '', 7, ''),
-(15, 22, 1, 1, 0, '', '', '', 7, ''),
-(16, 23, 1, 1, 0, '', '', '', 7, ''),
-(18, 24, 2, 1, 0, '', '', '', 7, ''),
-(19, 3, 2, 2, 100, '100', '2016-03-07', '2016-03-25', 7, 'test'),
-(20, 3, 2, 2, 100, '100', '2016-03-02', '2016-03-16', 7, 'test'),
-(21, 3, 2, 2, 100, '100', '2016-03-02', '2016-03-16', 7, 'test'),
-(22, 3, 6, 3, 100, '100', '2016-03-02', '2016-03-09', 7, 'test'),
-(23, 0, NULL, 1, 0, '', '2016-03-08', '2016-03-23', 7, ''),
-(24, 1111111, NULL, 1, 12, '1', '2016-03-31', '2016-03-31', 7, ''),
-(25, 12, NULL, 3, 2, '12', '2016-07-14', '2016-07-15', 17, '1233'),
-(26, 12, NULL, 2, 21, '1213', '2016-07-14', '2016-07-09', 17, '1235'),
-(27, 45, NULL, 2, 45, '45', '2016-07-08', '2016-10-13', 17, '45'),
-(28, 78, NULL, 2, 45, '23', '2016-07-14', '2016-07-15', 17, '123'),
-(29, 233, NULL, 1, 233, '32', '', '2016-07-21', 17, '22333'),
-(30, 234, NULL, 1, 234, '234', '', '2016-07-29', 17, '54789451'),
-(31, 456, NULL, 2, 456, '456', '', '', 17, '456'),
-(32, 555, NULL, 2, 546, '56', '', '', 17, '45645'),
-(33, 666, NULL, 1, 666, '666', '2016-07-09', '2016-07-15', 17, '666');
+INSERT INTO `ap_stocking` (`stocking_id`, `stocking_pool_id`, `stocking_batch`, `stocking_cage_id`, `stocking_fry_id`, `stocking_number`, `stocking_specifications`, `stocking_start_time`, `stocking_finish_time`, `stocking_member_id`, `stocking_remark`) VALUES
+(3, 1, 1, 7, 1, 145, '1斤', '2016-02-23 22:30', '2016-07-19', 7, '无'),
+(4, 1, 2, 2, 2, 100, '1斤', '2016-03-11', '2016-07-20', 7, '无'),
+(5, 0, 3, 1, 1, 23, '12', ' 2016-02-20 15:53', ' 2016-02-20 15:53', 7, ' 2016-02-20 15:53'),
+(6, 0, 4, 1, 1, 100, '100', '2016-02-21 09:42', '2016-02-21 09:42', 7, 'test'),
+(7, 0, 5, 2, 1, 1232, '123', '2016-02-21 09:42', '2016-02-21 09:42', 7, 'test'),
+(10, 0, 6, 2, 2, 0, 't', '', '2016-07-06', 7, 't'),
+(11, 0, 0, 1, 1, 0, 't', 't', 't', 7, 'tt'),
+(12, 0, 123, 2, 1, 0, '', '', '', 7, ''),
+(14, 0, 33, 2, 1, 0, '', '', '', 7, ''),
+(15, 0, 22, 1, 1, 0, '', '', '', 7, ''),
+(16, 0, 23, 1, 1, 0, '', '', '', 7, ''),
+(18, 0, 24, 2, 1, 0, '', '', '', 7, ''),
+(19, 0, 3, 2, 4, 100, '100', '', '', 7, 'test'),
+(20, 0, 3, 2, 2, 100, '100', '2016-03-02', '2016-03-16', 7, 'test'),
+(21, 0, 3, 2, 2, 100, '100', '2016-03-02', '2016-03-16', 7, 'test'),
+(22, 0, 3, 6, 3, 100, '100', '2016-03-02', '2016-03-09', 7, 'test'),
+(23, 0, 0, NULL, 1, 0, '', '2016-03-08', '2016-03-23', 7, ''),
+(24, 0, 1111111, NULL, 1, 12, '1', '2016-03-31', '2016-03-31', 7, ''),
+(25, 0, 10, NULL, 1, 12, '10', '2016-07-09', '2016-07-09', 7, '10'),
+(26, 0, 4, NULL, 1, 1, '1', '2016-07-06', '2016-07-09', 7, '1'),
+(27, 0, 5, NULL, 4, 1, '5', '2016-07-07', '2016-07-15', 7, '·1'),
+(28, 0, 5, NULL, 1, 1, '1', '2016-07-16', '2016-07-17', 7, '1'),
+(29, 0, 123, NULL, 1, 123, '123', '2016-07-16', '2016-07-17', 7, '123123');
 
 -- --------------------------------------------------------
 
@@ -573,8 +643,8 @@ CREATE TABLE IF NOT EXISTS `ap_trace` (
 --
 
 INSERT INTO `ap_trace` (`trace_id`, `trace_sale_id`, `trace_basename`, `trace_pool_id`, `trace_fry_id`, `trace_member_id`, `trace_is_water`, `trace_is_medicine`, `trace_start_time`, `trace_finish_time`, `trace_client_name`, `trace_tel`, `trace_base_id`) VALUES
-(1, 1, '洪晓波', 1, 2, 7, '水质达标', '用药达标test', '2016-03-01', '2016-03-02', '洪晓峰', '726261', 1),
-(2, 1, '洪晓凤', 1, 2, 7, '是', '是', '2016-03-04', '2016-03-06', '洪晓波', '123456', 1);
+(1, 1, '洪晓波', 1, 2, 7, '水质达标', '用药达标test', '2016-03-01', '2016-07-20', '洪晓峰', '726261', 1),
+(2, 1, '洪晓凤', 1, 2, 7, '是', '是', '2016-03-04', '2016-07-21', '洪晓波', '123456', 1);
 
 --
 -- 限制导出的表
@@ -592,14 +662,6 @@ ALTER TABLE `ap_cage`
 ALTER TABLE `ap_feeding`
   ADD CONSTRAINT `ap_feeding_ibfk_3` FOREIGN KEY (`feeding_feed_id`) REFERENCES `ap_feed` (`feed_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `ap_feeding_ibfk_4` FOREIGN KEY (`feeding_member_id`) REFERENCES `ap_member` (`member_id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- 限制表 `ap_indicator`
---
-ALTER TABLE `ap_indicator`
-  ADD CONSTRAINT `ap_indicator_ibfk_1` FOREIGN KEY (`indicator_pool_id`) REFERENCES `ap_pool` (`pool_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `ap_indicator_ibfk_2` FOREIGN KEY (`indicator_cage_id`) REFERENCES `ap_cage` (`cage_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `ap_indicator_ibfk_3` FOREIGN KEY (`indicator_member_id`) REFERENCES `ap_member` (`member_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- 限制表 `ap_medication`
