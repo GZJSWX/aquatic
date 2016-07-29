@@ -5,9 +5,6 @@ class TraceModel extends Model{
 
 	public function search_breed(){
 
-
-           
-
          /* var_dump($params);die;*/
           $map['record_pool_id'] = I('get.pool_id');
           if($map['record_pool_id']!=null)
@@ -37,9 +34,6 @@ class TraceModel extends Model{
 
 	public function search_batch(){
 
-
-        
-
           //var_dump($params);die;
           $map['stocking_pool_id'] = I('get.pool_id');
           $map['stocking_batch'] = I('get.batch');
@@ -61,8 +55,8 @@ class TraceModel extends Model{
 
 	public function search_sale(){
 	   
-	   if(IS_POST) {
-	   	  $params = I('post.');
+	   if(IS_GET) {
+	   	  $params = I('get.');
 	   	  $map['trace_pool_id'] = $params['pool_id'];
 	   	  $map['trace_base_id'] = $params['base_id'];
 	   	  $map['trace_finish_time'] = array(array('elt', $params['end_time']),array('egt',$params['start_time']));

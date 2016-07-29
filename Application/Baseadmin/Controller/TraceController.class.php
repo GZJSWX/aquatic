@@ -20,8 +20,16 @@ class TraceController extends Controller{
         $this->display($name);
     }
 
-    public function search(){
+    public function search1(){
         $data=D('stocking')->search_breed();
+        $this->ajaxReturn($data);
+    }
+    public function search2(){
+        $data=D('stocking')->search_batch();
+        $this->ajaxReturn($data);
+    }
+    public function search3(){
+        $data=D('trace')->search_sale();
         $this->ajaxReturn($data);
     }
 

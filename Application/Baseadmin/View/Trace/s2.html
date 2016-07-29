@@ -7,39 +7,38 @@
 	      </h3>
 	   </div>
 	   <div class="panel-body">
-   	    
-	   <form action="{:U('Baseadmin/Trace/search', array('name'=>'s2'))}" method="post" role="form">
-		   	<div class="form-group">
-		   	 	<label for="">日期范围</label>
-		   	 	<div class="row">
-		   	 		<div class="col-sm-4">
-		   	 			<input type="date" class='form-control' name="start_time">
-		   	 		</div>
-		   	 		<div class="col-sm-4">
-		   	 		    <input type="date" class='form-control' name="end_time">	
-		   	 		</div>
-		   	 	</div>
-		   	 </div>
-		   	 <div class="form-group">
-		   	 	<div class="row">
-		   	 		<div class="col-sm-8">
-		   	 			<label for="">池塘编号</label>
-		   	 			<input type="text" class='form-control' name="pool_id">
-		   	 		</div>
-		   	 	</div>
-		   	 </div>
-		   	 <div class="form-group">
-		   	 	<div class="row">
-		   	 		<div class="col-sm-8">
-	   	 			 	<label for="">养殖批次</label>
-	   	 				<input type="text" class='form-control' name="batch">
-		   	 		</div>
-		   	 	</div>
-		  
-		   	 </div>
-		   	 <button type="submit" class="btn btn-lg btn-primary" id="search">查询</button>
-		   	 <button class="btn btn-lg btn-info" id="">打印</button>
-	   </form> 
+
+		   <div class="form-group">
+			   <label for="">日期范围</label>
+			   <div class="row">
+				   <div class="col-sm-4">
+					   <input type="date" class='form-control' name="start_time" id="start_time">
+				   </div>
+				   <div class="col-sm-4">
+					   <input type="date" class='form-control' name="end_time" id="end_time">
+				   </div>
+			   </div>
+		   </div>
+		   <div class="form-group">
+			   <div class="row">
+				   <div class="col-sm-8">
+					   <label for="">池塘编号</label>
+					   <input type="text" class='form-control' name="pool_id" id="pool_id">
+				   </div>
+			   </div>
+		   </div>
+		   <div class="form-group">
+			   <div class="row">
+				   <div class="col-sm-8">
+					   <label for="">养殖批次</label>
+					   <input type="text" class='form-control' name="batch" id="batch">
+				   </div>
+			   </div>
+		   </div>
+		   <div class="form-group">
+			   <button type="submit" class="btn btn-lg btn-primary" id="queryButtun" onclick="stockingChange(this)">查询</button>
+			   <button class="btn btn-lg btn-info" id="">打印</button>
+		   </div>
 	   	<table class="table table-bordered table-striped col-sm-12" >
 		     <thead>
 		        <tr>
@@ -52,32 +51,8 @@
 		           <th>使用数量</th>
 		        </tr>
 		     </thead>
-		     <tbody>
-		     	<volist name="stocking" id="stocking">	
-			        <tr>
-			           <td>{$stocking.stocking_batch}</td>
-			           <td>{$stocking.stocking_fry_id}</td>
-			           <td>{$stocking.stocking_cage_id}</td>
-			           <td>{$stocking.stocking_number}</td>
-			           <td>{$stocking.stocking_specifications}</td>
-			           <td>{$stocking.stocking_start_time}</td>
-			           <td>{$stocking.stocking_finish_time}</td>
-			           <td>{$stocking.stocking_remark}</td>
-			        </tr>
-			    </volist> 
-			    <hr>
-			    <volist name="feeding" id="f">	
-			        <tr>
-			           <td>{$stocking.stocking_batch}</td>
-			           <td>{$stocking.stocking_fry_id}</td>
-			        </tr>
-			    </volist> 
-			    <volist name="medication" id="m">	
-			        <tr>
-			           <td>{$stocking.stocking_batch}</td>
-			           <td>{$stocking.stocking_fry_id}</td>
-			        </tr>
-			    </volist> 
+		     <tbody id="div1">
+
 		     </tbody>
  		 </table>
 	   </div>
@@ -96,3 +71,24 @@
 		<li><a href="{:U('Baseadmin/Trace/querys', array('name' => 's3'))}">基地销售报表</a></li>
 	</ul>
 </block>
+<block name="script">
+	<script>
+		function stockingChange(obj) {
+			$('#div1').empty();
+			var start_time = $('#start_time').val();
+			var end_time = $('#end_time').val();
+			var pool_id = $('#pool_id').val();
+			if (pool_id == "") {
+				pool_id = undefined;
+			}
+			var batch = $('#batch').val();
+			var url = "{:U('Baseadmin/Trace/search2/pool_id/" + pool_id + "/batch/" + batch + "/start_time/" + start_time + "/end_time/" + end_time + "')}";
+			$.get(url, function (item, status) {
+
+				$('#div1').append("<tr><td>" + item['pool_id'] + "</td><td>" + item['stocking_batch'] + "</td><td>" + item['cage_id'] + "</td><td>" + item.medicine_id + "</td><td>" + item.medicine_number + "" +
+						"</td><td>" + item.feed_id + "</td><td>" + item.feed_number + "</td></tr>");
+
+			});
+		}
+		</script>
+	</block>

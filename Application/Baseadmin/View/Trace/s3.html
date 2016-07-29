@@ -7,16 +7,15 @@
 	      </h3>
 	   </div>
 	   <div class="panel-body">
-   	    
-	   <form action="{:U('Baseadmin/Trace/search', array('name'=>'s3'))}" id="form" role="form" method="post">
+
 		   	<div class="form-group">
 		   	 	<label for="">日期范围</label>
 		   	 	<div class="row">
 		   	 		<div class="col-sm-4">
-		   	 			<input type="date" class='form-control' name="start_time">
+		   	 			<input type="date" class='form-control' name="start_time" id="start_time">
 		   	 		</div>
 		   	 		<div class="col-sm-4">
-		   	 		    <input type="date" class='form-control' name="end_time">	
+		   	 		    <input type="date" class='form-control' name="end_time" id="end_time">
 		   	 		</div>
 		   	 	</div>
 		   	 </div>
@@ -24,7 +23,7 @@
 		   	 	<div class="row">
 		   	 		<div class="col-sm-8">
 		   	 			<label for="">池塘编号</label>
-		   	 			<input type="text" class='form-control' name="pool_id">
+		   	 			<input type="text" class='form-control' name="pool_id" id="pool_id">
 		   	 		</div>
 		   	 	</div>
 		   	 </div>
@@ -32,13 +31,14 @@
 		   	 	<div class="row">
 		   	 		<div class="col-sm-8">
 	   	 			 	<label for="">基地编号</label>
-	   	 				<input type="text" class='form-control' name="base_id">
+	   	 				<input type="text" class='form-control' name="base_id" id="base_id">
 		   	 		</div>
 		   	 	</div>
 		   	 </div>
-		   	 <button type="submit" class="btn btn-lg btn-primary" id="search">查询</button>
+		   <div class="form-group">
+		   	 <button type="submit" class="btn btn-lg btn-primary" id="search" onclick="saleQuery(this)">查询</button>
 		   	 <button class="btn btn-lg btn-info" id="">打印</button>
-	   </form> <hr>
+	   		</div>
 
 	   	<table class="table table-bordered table-striped col-sm-12" >
 		     <thead>
@@ -54,19 +54,8 @@
 		           
 		        </tr>
 		     </thead>
-		     <tbody>
-		     	<volist name="data" id="data">	
-			        <tr>
-			           <td>{$data.trace_pool_id}</td>
-			           <td>{$data.batch}</td>
-			           <td>{$data.rowid}</td>
-			           <td>{$data.trace_sale_id}</td>
-			           <td>{$data.trace_fry_id}</td>
-			           <td>{$data.number}</td>
-			           <td>{$data.weight}</td>
-			           <td>{$data.univalent}</td>			           
-			        </tr>
-			    </volist> 
+		     <tbody id="div1">
+
 			  
 		     </tbody>
  		 </table>
@@ -87,24 +76,24 @@
 	</ul>
 </block>
 <block name="script"> 
-   // <script>
-   //   $(document).ready(function(){
-   //       $('#search').click(function(){
-             
-   //           var url = $('#form').attr('action');
-   //           var Formattr = $('#form').serialize();
-   //           $.post(url, Formattr, function(data,status){
-             	 
-   //           	 alert('tets');
-   //               if(status == "success") {
-   //                  alert( "查询成功！");
-   //               }else{
-   //               	alert("查询失败！");
-   //               }
+    <script>
+      function saleQuery(){
+			  var start_time = $('#start_time').val();
+			  var end_time = $('#end_time').val();
+			  var pool_id = $('#pool_id').val();
+			  if (pool_id == "") {
+				  pool_id = undefined;
+			  }
+			  var base_id = $('#base_id').val();
+			  var url = "{:U('Baseadmin/Trace/search3/pool_id/" + pool_id + "/base_id/" +base_id+ "/start_time/" + start_time + "/end_time/" + end_time + "')}";
+			  $.get(url, function (data, status) {
+				 $.each(data, function(i, item){
+					 $('#div1').append("<tr><td>"+ item.trace_pool_id+"</td><td>"+item.trace_base_id+"</td><td>"+item.rowid+"</td><td>"+item.trace_sale_id+"</td><td>"+
+							 item.trace_fry_id+"</td><td>"+item.number+"</td><td>"+item.weight+"</td><td>"+item.univalent+"</td></tr>");
+				 });
                  
-   //               setTimeout("window.location.href=\"{:U('Baseadmin/Trace/search', array('name'=>'s3'))}\"",200);	
-   //           });
-   //       });
-   //   });
-   // </script>	
+                 /*setTimeout("window.location.href=\"{:U('Baseadmin/Trace/search', array('name'=>'s3'))}\"",200);*/
+            });
+        }
+    </script>
 </block>

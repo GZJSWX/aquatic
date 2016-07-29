@@ -5,60 +5,49 @@ class StockingModel extends Model{
 
     public function search_breed()
     {
-        $map=array();
-        $map2=array();
-        $query=array();
-        $query2=array();
-
-        /* var_dump($params);die;*/
-        /*$map['record_pool_id'] = I('get.pool_id');
-        if ($map['record_pool_id'] != null)
-        strtotime($zero1)<strtotime($zero2)
-            $parms['record_pool_id'] = $map['trace_pool_id'];*/
-        $query['stocking_finish_time'] = array(array('elt', I('get.end_time')),array('egt',I('get.start_time')));
+        $map['stocking_finish_time'] = array(array('elt', I('get.end_time')),array('egt',I('get.start_time')));
         $map['stocking_batch'] = I('get.batch');
-        if($map['stocking_batch']!=0&&$map['stocking_batch']!=null)
-         $query['stocking_batch']= $map['stocking_batch'];
-        $start_time=strtotime(I('get.start_time'));
-        $end_time=strtotime(I('get.end_time'));
-        $res = $this -> where("stocking_finish_time  >=  $start_time  and stocking_finish_time  <= $end_time ")->select();
-        /*$map['stocking_finish_time'] = array(array('elt', I('get.end_time')), array('egt', I('get.start_time')));
-        where(strtotime($start_time)<strtotime('stocking_start_time')&&strtotime($end_time)>strtotime('stocking_finish_time'))->*/
-/*        $stocking=$this->query("select * from ap_stocking where strtotime('stocking_finish_time')<=$end_time and strtotime('stocking_finish_time')>=$start_time");*/
-        echo $this->getLastSql();
-        die;
-
-        foreach ($stocking as $key => $value) {
-            $data[$key]['stocking_batch']=$stocking[$key]['stocking_batch'];
-            $data[$key]['stocking_number']=$stocking[$key]['stocking_number'];
-            $data[$key]['stocking_specifications']=$stocking[$key]['stocking_specifications'];
-        }
-        $map2['record_batch']=I('get.batch');
-        $map2['record_pool_id']=I('get.pool_id');
-        if($map2['record_batch']!=0&&$map2['record_batch']!=null)
-        $query2['record_batch']=$map2['record_batch'];
-        if($map2['record_pool_id']!=0&&$map2['record_pool_id']!=null)
-        $query2['record_pool_id']=$map2['record_pool_id'];
-        $record=M('record')->where($query2)->select();
-
-        foreach ($record as $key => $value) {
-            $cage = $record[$key]['record_cage_id'];
-            if($cage == '0'||$cage==null) {
-                $data[$key]['cage_id'] = '无网箱';
+        $map['stocking_pool_id']=I('get.pool_id');
+        $map1['record_batch']=I('get.batch');
+        if($stocking = $this->where($map)->find()){
+            if($record=M('record')->where( $map1)->find()) {
+                $data['pool_id'] = $stocking['stocking_pool_id'];
+                $data['stocking_batch'] = $stocking['stocking_batch'];
+                $data['cage_id'] = M('cage')->getFieldBycage_id($stocking['stocking_cage_id'], 'cage_rowid');
+                $data['fry_id'] = M('fry')->getfieldByfry_id($stocking['stocking_fry_id'], 'fry_name');
+                $data['stocking_specifications']=$stocking['stocking_specifications'];
+                $data['stocking_number']=$stocking['stocking_number'];
+                $data['record_number']=$record['record_number'];
+                $data['record_weight']=$record['record_weight'];
+                $data['die_number']=$data['stocking_number']- $data['record_number'];
+                $data['die_weight']=$data['stocking_specifications']- $data['record_weight'];
+                return $data;
             }
-            else{
-                $data[$key]['cage_id']=M('cage')->getFieldBycage_id($record[$key]['record_cage_id'],'cage_rowname');
-            }
-            $data[$key]['pool_id']=$record[$key]['record_pool_id'];
-            $data[$key]['fry_id']=M('fry')->getFieldByfry_id($record[$key]['record_fry_id'],'fry_name');
-            $data[$key]['record_number']=$record[$key]['record_number'];
-            $data[$key]['record_weight']=$record[$key]['record_weight'];
+            else return null;
         }
-        foreach($data as $key => $value){
-            $data[$key]['die_number']=$data[$key]['stocking_number']-$data[$key]['record_number'];
-            $data[$key]['die_weight']=$data[$key]['stocking_specifacations']-$data[$key]['record_weight'];
+        else return null;
+
+    }
+
+    public function search_batch(){
+
+        $map['stocking_finish_time'] = array(array('elt', I('get.end_time')),array('egt',I('get.start_time')));
+        $map['stocking_batch'] = I('get.batch');
+        $map['stocking_pool_id']=I('get.pool_id');
+        if($stocking = $this->where($map)->find()){
+                $data['pool_id']=$stocking['stocking_pool_id'];
+                $data['stocking_batch']=$stocking['stocking_batch'];
+                $data['cage_id'] = M('cage')->getFieldBycage_id($stocking['stocking_cage_id'], 'cage_rowid');
+                $data['medicine_id']=M('medication')->getFieldBymedication_cage_id($stocking['stocking_cage_id'],'medication_medicine_id');
+                $data['medicine_id']=M('medicine')->getFieldBymedicine_id($data['medicine_id'],'medicine_name');
+                $data['medicine_number']=M('medication')->getFieldBymedication_cage_id($stocking['stocking_cage_id'],'medication_amount');
+                $data['feed_id']=M('feeding')->getfieldByfeeding_cage_id($stocking['stocking_cage_id'],'feeding_feed_id');
+                $data['feed_id']=M('feed')->getFieldByfeed_id($data['feed_id'],'feed_name');
+                $data['feed_number']=M('feeding')->getfieldByfeeding_cage_id($stocking['stocking_cage_id'],'feeding_number');
+                return $data;
         }
-        return $data;
+        else return null;
+
     }
 
     public function adds() {
