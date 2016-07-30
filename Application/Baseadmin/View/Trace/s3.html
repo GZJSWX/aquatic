@@ -84,17 +84,19 @@
 			  var start_time = $('#start_time').val();
 			  var end_time = $('#end_time').val();
 			  var pool_id = $('#pool_id').val();
-			  if (pool_id == "") {
-				  pool_id = undefined;
-			  }
 			  var base_id = $('#base_id').val();
+		      if(start_time=="") start_time=0;
+		      if(end_time=="") end_time=0;
+		      if(base_id=="") base_id=0;
 			  var url = "{:U('Baseadmin/Trace/search3/pool_id/" + pool_id + "/base_id/" +base_id+ "/start_time/" + start_time + "/end_time/" + end_time + "')}";
 			  $.get(url, function (data, status) {
-				  if(data==""){
+				  if(data==""||data==null){
 					  alert('数据不存在');
+					  setTimeout("window.location.href=\"{:U('Baseadmin/Trace/querys', array('name' => 's3'))}\"",200);
 				  }
+				  $('#div1').empty();
 				 $.each(data, function(i, item){
-					 $('#div1').append("<tr><td>"+ item.trace_pool_id+"</td><td>"+item.trace_base_id+"</td><td>"+item.rowid+"</td><td>"+item.trace_sale_id+"</td><td>"+
+					 $('#div1').append("<tr><td>"+ item.trace_pool_id+"</td><td>"+item.batch+"</td><td>"+item.rowid+"</td><td>"+item.trace_sale_id+"</td><td>"+
 							 item.trace_fry_id+"</td><td>"+item.number+"</td><td>"+item.weight+"</td><td>"+item.univalent+"</td></tr>");
 				 });
                  

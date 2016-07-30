@@ -53,32 +53,33 @@ class TraceModel extends Model{
           return $data;
 		}
 
-	public function search_sale(){
-	   
-	   if(IS_GET) {
-	   	  $params = I('get.');
-	   	  $test['trace_pool_id'] = $params['pool_id'];
-           if($test['stocking_pool_id']!=0)
-               $map['stocking_pool_id']=$test['stocking_pool_id'];
-	   	  $map['trace_base_id'] = $params['base_id'];
-	   	  $map['trace_finish_time'] = array(array('elt', $params['end_time']),array('egt',$params['start_time']));
-	   	  $data = $this->where($map)->select();
-          foreach ($data as $key => $value) {
-          	 $res = M("sale")->where(array('sale_id' => $value['trace_sale_id']))->find();
-          	 $data[$key]['trace_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['trace_fry_id'],'fry_name');
-          	 $data[$key]['number'] = $res['sale_number'];
-             $data[$key]['weight'] = $res['sale_weight'];
-             $data[$key]['univalent'] = $res['sale_univalent'];
-             $rres = M('record')->where(array('record_id' => $res['sale_record_id']))->find();
-             $data[$key]['batch'] = $rres['record_batch'];
-             $data[$key]['rowid'] = M('cage')->getFieldBycage_id($rres['record_cage_id'], 'cage_rowid');
+	public function search_sale()
+    {
 
-          }
-          return $data;
-          
-	   }else {
-          
+        if (IS_GET) {
+
+            if (I('get.pool_id')!=0)
+                $map['trace_pool_id'] =I('get.pool_id');
+            if (I('get.base_id') != 0)
+                $map['trace_base_id'] = I('get.base_id');
+            if(I('get.start_time')!=0 && I('get.end_time')!=0)
+                $map['trace_finish_time'] = array(array('elt', I('get.end_time')),array('egt',I('get.start_time')));
+            if ($data = $this->where($map)->select()) {
+                foreach ($data as $key => $value) {
+                    $res = M("sale")->where(array('sale_id' => $data[$key]['trace_sale_id']))->find();
+                    $data[$key]['trace_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['trace_fry_id'], 'fry_name');
+                    $data[$key]['number'] = $res['sale_number'];
+                    $data[$key]['weight'] = $res['sale_weight'];
+                    $data[$key]['univalent'] = $res['sale_univalent'];
+                    $rres = M('record')->where(array('record_id' => $res['sale_record_id']))->find();
+                    $data[$key]['batch'] = $rres['record_batch'];
+                    $data[$key]['rowid'] = M('cage')->getFieldBycage_id($rres['record_cage_id'], 'cage_rowid');
+                }
+                return $data;
+
+            } else {
+                return null;
 	   }
-	}
-	
+        }
+    }
 }
