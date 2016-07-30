@@ -25,6 +25,27 @@ class TraceModel extends Model{
             return;
       }
 	}
+    public function querys()
+    {
+        if (IS_GET) {
+            $userInfo = \Org\Util\User::_getUserInfo();
+            $member_id = $userInfo['member_id'];
+            $query['trace_member_id']=$member_id;
+            $params['trace_sale_id'] = I("get.trace_sale_id");
+            $params['trace_fry_id'] = I('get.trace_fry_id');
+
+            if ($params['trace_sale_id'] != 0)
+                $query['trace_sale_id'] = $params['trace_sale_id'];
+            if ($params['trace_fry_id'] != 0)
+                $query['trace_fry_id'] = $params['trace_fry_id'];
+            $data = $this->where($query)->select();
+                foreach ($data as $key => $value) {
+                    $data[$key]['trace_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['trace_fry_id'],'fry_name');
+                    // $data[$key]['trace_sale_id'] = M('sale')->getFieldBysale_id($data[$key]['trace_sale_id'],'sale_client_name');
+                }
+                return $data;
+            }
+    }
 	public function getChoose(){
 
        if(IS_GET) {

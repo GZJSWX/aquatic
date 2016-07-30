@@ -24,43 +24,44 @@ class RecordModel extends Model{
             return;
       }
 	}
-    public function querys() {
-
-        $params['record_id'] = I("get.record_id");
-        $params['record_type']=I('get.record_type');
-        $params['record_batch']=I('get.record_batch');
-        $params['record_time']=I('get.record_time');
-
-        if($params['record_type']!=0)
-            $query['record_type']=$params['record_type'];
-        if($params['record_id']!=null&&$params['record_id']!=0)
-            $query['record_id']=$params['record_id'];
-        if($params['record_batch']!=null&&$params['record_batch']!=0)
-            $query['record_batch']=$params['record_batch'];
-        if($params['record_time']!=null&&$params['record_time']!=0)
-            $query['record_time']=$params['record_time'];
-
-        $data= $this->where($query)->select();
-
-        foreach ($data as $key => $value) {
-
-            $data[$key]['record_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['record_fry_id'],'fry_name');
-            $data[$key]['record_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['record_cage_id'],'cage_rowname');
-            $data[$key]['record_transfer_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['record_transfer_cage_id'],'cage_rowname');
-            $data[$key]['record_transfer_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['record_transfer_pool_id'],'pool_name');
-        }
-        foreach ($data as $key => $value) {
-            $cage = $data[$key]['record_cage_id'];
-            if($cage == '0') {
-                $data[$key]['record_cage_id'] = '无';
+    public function querys()
+    {
+        if (IS_GET) {
+            $userInfo = \Org\Util\User::_getUserInfo();
+            $member_id = $userInfo['member_id'];
+            $query['record_member_id']=$member_id;
+            $params['record_id'] = I("get.record_id");
+            $params['record_type'] = I('get.record_type');
+            $params['record_batch'] = I('get.record_batch');
+            $params['record_time'] = I('get.record_time');
+            if ($params['record_type'] != 0)
+                $query['record_type'] = $params['record_type'];
+            if ($params['record_id'] != null && $params['record_id'] != 0)
+                $query['record_id'] = $params['record_id'];
+            if ($params['record_batch'] != null && $params['record_batch'] != 0)
+                $query['record_batch'] = $params['record_batch'];
+            if ($params['record_time'] != null && $params['record_time'] != 0)
+                $query['record_time'] = $params['record_time'];
+            $data = $this->where($query)->select();
+            foreach ($data as $key => $value) {
+                $data[$key]['record_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['record_fry_id'], 'fry_name');
+                $data[$key]['record_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['record_cage_id'], 'cage_rowname');
+                $data[$key]['record_transfer_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['record_transfer_cage_id'], 'cage_rowname');
+                $data[$key]['record_transfer_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['record_transfer_pool_id'], 'pool_name');
             }
-            $cage = $data[$key]['record_transfer_cage_id'];
-            if($cage == '0') {
-                $data[$key]['record_transfer_cage_id'] = '无';
-            }
+            foreach ($data as $key => $value) {
+                $cage = $data[$key]['record_cage_id'];
+                if ($cage == '0') {
+                    $data[$key]['record_cage_id'] = '无';
+                }
+                $cage = $data[$key]['record_transfer_cage_id'];
+                if ($cage == '0') {
+                    $data[$key]['record_transfer_cage_id'] = '无';
+                }
 
+            }
+            return $data;
         }
-        return $data;
     }
 	public function getChoose(){
 

@@ -7,7 +7,9 @@ class StockingModel extends Model{
     {
         $map['stocking_finish_time'] = array(array('elt', I('get.end_time')),array('egt',I('get.start_time')));
         $map['stocking_batch'] = I('get.batch');
-        $map['stocking_pool_id']=I('get.pool_id');
+        $test['stocking_pool_id']=I('get.pool_id');
+        if($test['stocking_pool_id']!=0)
+            $map['stocking_pool_id']=$test['stocking_pool_id'];
         $map1['record_batch']=I('get.batch');
         if($stocking = $this->where($map)->find()){
             if($record=M('record')->where( $map1)->find()) {
@@ -33,7 +35,9 @@ class StockingModel extends Model{
 
         $map['stocking_finish_time'] = array(array('elt', I('get.end_time')),array('egt',I('get.start_time')));
         $map['stocking_batch'] = I('get.batch');
-        $map['stocking_pool_id']=I('get.pool_id');
+        $test['stocking_pool_id']=I('get.pool_id');
+        if($test['stocking_pool_id']!=0)
+            $map['stocking_pool_id']=$test['stocking_pool_id'];
         if($stocking = $this->where($map)->find()){
                 $data['pool_id']=$stocking['stocking_pool_id'];
                 $data['stocking_batch']=$stocking['stocking_batch'];

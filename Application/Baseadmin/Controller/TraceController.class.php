@@ -16,7 +16,9 @@ class TraceController extends Controller{
     }
 
     public function querys() {
-         $name = I('get.name');
+        $pool_id=D('pool')->getPoolId();
+        $name = I('get.name');
+        $this->assign("pool_id1",$pool_id);
         $this->display($name);
     }
 

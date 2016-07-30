@@ -3,7 +3,7 @@
     <div class="panel panel-info">
 	   <div class="panel-heading">
 	      <h3 class="panel-title">
-	         养殖信息月报
+			  基地销售报表
 	      </h3>
 	   </div>
 	   <div class="panel-body">
@@ -19,14 +19,17 @@
 		   	 		</div>
 		   	 	</div>
 		   	 </div>
-		   	 <div class="form-group">
-		   	 	<div class="row">
-		   	 		<div class="col-sm-8">
-		   	 			<label for="">池塘编号</label>
-		   	 			<input type="text" class='form-control' name="pool_id" id="pool_id">
-		   	 		</div>
-		   	 	</div>
-		   	 </div>
+		   <div class="form-group">
+			   <div class="col-sm-8 row">
+				   <label for="">池塘编号</label>
+				   <select class="form-control" value="" name="pool_id" id="pool_id">
+					   <option value="0">池塘编号</option>
+					   <volist name="pool_id1" id="p">
+						   <option value="{$p.pool_id}">{$p.pool_id}</option>
+					   </volist>
+				   </select>
+			   </div>
+		   </div>
 		   	 <div class="form-group">
 		   	 	<div class="row">
 		   	 		<div class="col-sm-8">
@@ -87,6 +90,9 @@
 			  var base_id = $('#base_id').val();
 			  var url = "{:U('Baseadmin/Trace/search3/pool_id/" + pool_id + "/base_id/" +base_id+ "/start_time/" + start_time + "/end_time/" + end_time + "')}";
 			  $.get(url, function (data, status) {
+				  if(data==""){
+					  alert('数据不存在');
+				  }
 				 $.each(data, function(i, item){
 					 $('#div1').append("<tr><td>"+ item.trace_pool_id+"</td><td>"+item.trace_base_id+"</td><td>"+item.rowid+"</td><td>"+item.trace_sale_id+"</td><td>"+
 							 item.trace_fry_id+"</td><td>"+item.number+"</td><td>"+item.weight+"</td><td>"+item.univalent+"</td></tr>");

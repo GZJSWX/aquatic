@@ -371,6 +371,9 @@
 			$("#div1").empty();
 			$("#div2").remove();
 			$.get(url, function(data,status) {
+				$('#queryModal').modal('hide')
+				if(data=="")
+				alert("查询结果为空!");
 				$.each(data, function(i, item){
 					$('#div1').append("<tr><td>"+ item.record_id+"</td><td>"+item.record_type+"</td><td>"+item.record_time+"</td><td>"+ item.record_batch+"</td><td>"+item.record_fry_id+"" +
 							"</td><td>"+item.record_cage_id+"</td><td>"+ item.record_number+"</td><td>"+item.record_weight+"</td>" +
@@ -378,7 +381,6 @@
 							item.record_transfer_number+"</td><td>"+item.record_transfer_weight+"</td><td>"+item.record_remark+"</td>"+
 							"<td><button class='btn btn-danger' data-toggle='modal' data-target='#modifyRecordModal' value="+item.record_id+" onclick='recordChange(this)'>修改</button></td></tr>");
 				});
-				$('#queryModal').modal('hide')
 			});
 		});
      

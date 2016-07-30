@@ -61,6 +61,7 @@ class SafeController extends Controller{
     public function addBase(){
 
     	$result = D("base")->addBase();
+        $this->ajaxReturn($result);
 
     }
     

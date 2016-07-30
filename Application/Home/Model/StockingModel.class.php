@@ -21,30 +21,38 @@ class StockingModel extends Model{
             return;
     	}
 	}
-    public function querys() {
+    public function querys()
+    {
+        if (IS_GET) {
+            $userInfo = \Org\Util\User::_getUserInfo();
+            $member_id = $userInfo['member_id'];
+            $query['stocking_member_id']=$member_id;
+            $params['stocking_fry_id'] = I("get.stocking_fry_id");
+            $params['stocking_batch'] = I('get.stocking_batch');
+            $params['stocking_cage_id'] = I('stocking_cage_id');
 
-        $params['stocking_fry_id'] = I("get.stocking_fry_id");
-        $params['stocking_batch']=I('get.stocking_batch');
-        $params['stocking_cage_id']=I('stocking_cage_id');
+            if ($params['stocking_fry_id'] != 0)
+                $query['stocking_fry_id'] = $params['stocking_fry_id'];
+            if ($params['stocking_batch'] != null)
+                $query['stocking_batch'] = $params['stocking_batch'];
+            if ($params['stocking_cage_id'] != 0)
+                $query['stocking_cage_id'] = $params['stocking_cage_id'];
+           if( $data = $this->where($query)->order('stocking_start_time desc')->select()) {
+               foreach ($data as $key => $value) {
+                   $cage = $data[$key]['stocking_cage_id'];
+                   if ($cage == '0') {
+                       $data[$key]['stocking_cage_id'] = '无网箱';
+                   }
+                   $data[$key]['stocking_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['stocking_fry_id'], 'fry_name');
+                   $data[$key]['stocking_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['stocking_cage_id'], 'cage_rowname');
+               }
+               return $data;
+           }
+            else return null;
 
-        if($params['stocking_fry_id']!=0)
-            $query['stocking_fry_id']=$params['stocking_fry_id'];
-        if($params['stocking_batch']!=null)
-            $query['stocking_batch']=$params['stocking_batch'];
-        if($params['stocking_cage_id']!=0)
-            $query['stocking_cage_id']=$params['stocking_cage_id'];
-
-            $data= $this->where($query)->order('stocking_start_time desc')->select();
-            foreach ($data as $key => $value) {
-                $cage = $data[$key]['stocking_cage_id'];
-                if($cage == '0') {
-                    $data[$key]['stocking_cage_id'] = '无网箱';
-                }
-                $data[$key]['stocking_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['stocking_fry_id'],'fry_name');
-                $data[$key]['stocking_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['stocking_cage_id'],'cage_rowname');
-            }
-            return $data;
+        }
     }
+
 
 	public function getChoose(){
        if(IS_GET) {
@@ -62,8 +70,7 @@ class StockingModel extends Model{
        }
     }
 	public function get(){
-
-	     $userInfo = \Org\Util\User::_getUserInfo();
+        $userInfo = \Org\Util\User::_getUserInfo();
        $member_id = $userInfo['member_id'];
        $count = $this->where("stocking_member_id = $member_id")->count();
        $Page  = new \Think\Page($count,15);// 实例化分页类 传入总记录数和每页显示的记录数(2)

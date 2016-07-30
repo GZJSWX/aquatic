@@ -321,12 +321,15 @@
 			$("#div1").empty();
 			$("#div2").remove();
 			$.get(url, function(data,status) {
+				$('#queryModal').modal('hide')
+				if(data=="")
+				alert("查询结果为空!");
 				$.each(data, function(i, item){
 					$('#div1').append("<tr><td>"+ item.patrol_pool_id+"</td><td>"+item.patrol_fry_id+"</td><td>"+item.patrol_cage_id+"</td><td>"+ item.patrol_number+"</td><td>"+item.patrol_weight+"" +
 							"</td><td>"+item.patrol_death_reason+"</td><td>"+item.patrol_death_date+"</td><td>"+item.patrol_coordinate+"</td><td><img src='{"+item.patrol_pool_img+"}' alt='' width='180px'></td>" +
 							"<td>"+item.patrol_remark+"</td><td><button class='btn btn-danger' data-toggle='modal' data-target='#modifyFeedingModal' value="+item.patrol_id+" onclick='patrolChange(this)'>修改</button></td></tr>");
 				});
-				$('#queryModal').modal('hide')
+
 			});
 		});
 

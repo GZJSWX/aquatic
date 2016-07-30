@@ -49,19 +49,22 @@ class BaseModel extends Model{
             $time = date('Y-m-d H:i', time());
             $params = I("post.");
             $params['base_time'] = $time;
+            $data['status']=0;
             if ($this->where(array('base_code' => $params['base_code']))->select())
-                echo '基地编码不可重复！';
+                $data['tishi']= '基地编码不可重复！';
             else {
                 if(!(strlen($params['base_tel'])==11&&!preg_match('/\d+/',$params['base_tel'])))
-                    echo '电话为11位且不能为数字';
+                   $data['tishi'] ='电话为11位且不能为数字';
                 else {
                     if (!$this->add($params)) {
-                        echo 'addBase 插入失败';
+                       $data['tishi']= 'addBase 插入失败';
                     } else {
-                        echo 'addBase success';
+                        $data['tishi']= 'addBase success';
+                        $data['status']=1;
                     }
                 }
             }
+            return $data;
         }
 
     }

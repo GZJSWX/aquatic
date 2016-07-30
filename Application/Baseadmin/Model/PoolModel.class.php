@@ -10,7 +10,6 @@ class PoolModel extends Model{
     $userInfo = \Org\Util\User::_getUserInfo();
     $member_base_id = $userInfo['member_base_id'];
 		$data = $this->where("pool_base_id = $member_base_id")->select();
-
     foreach ($data as $key => $value) {
         $data[$key]['pool_base_id'] = M('base')->getFieldByBase_id($value['pool_base_id'],'base_name');
     }
@@ -18,6 +17,13 @@ class PoolModel extends Model{
 		$result['time'] = $time;
 		return $result;
 	}
+
+    public function getPoolId(){
+        $userInfo = \Org\Util\User::_getUserInfo();
+        $member_base_id = $userInfo['member_base_id'];
+        $data = $this->where("pool_base_id= $member_base_id")->field("pool_id")->select();
+        return $data;
+    }
     
     public function addPool(){
 

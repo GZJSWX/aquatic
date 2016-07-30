@@ -57,7 +57,9 @@ class TraceModel extends Model{
 	   
 	   if(IS_GET) {
 	   	  $params = I('get.');
-	   	  $map['trace_pool_id'] = $params['pool_id'];
+	   	  $test['trace_pool_id'] = $params['pool_id'];
+           if($test['stocking_pool_id']!=0)
+               $map['stocking_pool_id']=$test['stocking_pool_id'];
 	   	  $map['trace_base_id'] = $params['base_id'];
 	   	  $map['trace_finish_time'] = array(array('elt', $params['end_time']),array('egt',$params['start_time']));
 	   	  $data = $this->where($map)->select();

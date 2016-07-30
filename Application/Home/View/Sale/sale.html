@@ -312,13 +312,15 @@
 			$("#div1").empty();
 			$("#div2").remove();
 			$.get(url, function(data,status) {
+				$('#queryModal').modal('hide')
+				if(data=="")
+				alert("查询结果为空!");
 				$.each(data, function(i, item){
 					$('#div1').append("<tr><td>"+ item.sale_id+"</td><td>"+item.sale_record_id+"</td><td>"+item.sale_client_name+"</td><td>"+ item.sale_client_tel+"</td><td>"+item.sale_fry_id+"" +
 							"</td><td>"+item.sale_number+"</td><td>"+item.sale_weight+"</td><td>"+item.sale_univalent+"</td><td>"+item.sale_sales+"</td><td>"+
 							item.sale_remark+"</td>" +
 							"<td><button class='btn btn-danger' data-toggle='modal' data-target='#modifySaleModal' value="+item.sale_id+" onclick='saleChange(this)'>修改</button></td></tr>");
 				});
-				$('#queryModal').modal('hide')
 			});
 		});
 	      $('#addSaleBtn').click(function(){

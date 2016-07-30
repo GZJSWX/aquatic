@@ -21,12 +21,17 @@
 		   	 	</div>
 		   	 </div>
 		   	 <div class="form-group">
-		   	 	<div class="row">
+				 <div class="row">
 		   	 		<div class="col-sm-8">
 		   	 			<label for="">池塘编号</label>
-		   	 			<input type="text" class='form-control' name="pool_id" id="pool_id">
+						<select class="form-control" value="" name="pool_id" id="pool_id">
+							<option value="0">池塘编号</option>
+							<volist name="pool_id1" id="p">
+								<option value="{$p.pool_id}">{$p.pool_id}</option>
+							</volist>
+						</select>
 		   	 		</div>
-		   	 	</div>
+				 </div>
 		   	 </div>
 		   	 <div class="form-group">
 		   	 	<div class="row">
@@ -102,7 +107,9 @@
 			var batch = $('#batch').val();
 			var url = "{:U('Baseadmin/Trace/search1/pool_id/" + pool_id + "/batch/" + batch + "/start_time/" + start_time + "/end_time/" + end_time + "')}";
 			$.get(url, function (item, status) {
-
+				if(item==null){
+					alert('数据不存在');
+				}
 				$('#div1').append("<tr><td>" + item['pool_id'] + "</td><td>" + item['stocking_batch'] + "</td><td>" + item['cage_id'] + "</td><td>" + item.fry_id + "</td><td>" + item.stocking_specifications + "" +
 						"</td><td>" + item.stocking_number + "</td><td>" + item.record_number + "</td><td>" + item.record_weight + "</td>" +
 						"<td>" + item.die_number + "</td><td>" + item.die_weight + "</td></tr>");

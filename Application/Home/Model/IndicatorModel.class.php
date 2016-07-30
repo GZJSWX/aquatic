@@ -26,30 +26,26 @@ class IndicatorModel extends Model{
             return;
       }
 	}
-    public function querys() {
-
-        $params['indicator_time'] = I("get.indicator_time");
-
-        if($params['indicator_time']!=0||$params['indicator_time']!=null)
-            $query['indicator_time']=$params['indicator_time'];
-        /*if($params['stocking_cage_id']!=0)
-            $query['stocking_cage_id']=$params['stocking_cage_id'];*/
-
-        $data= $this->where($query)->select();
-
-        foreach ($data as $key => $value) {
-
-            $cage = $data[$key]['indicator_cage_id'];
-            if($cage == '0') {
-                $data[$key]['indicator_cage_id'] = '无网箱';
+    public function querys()
+    {
+        if (IS_GET) {
+            $params['indicator_time'] = I("get.indicator_time");
+            if ($params['indicator_time'] != 0 || $params['indicator_time'] != null)
+                $query['indicator_time'] = $params['indicator_time'];
+            /*if($params['stocking_cage_id']!=0)
+                $query['stocking_cage_id']=$params['stocking_cage_id'];*/
+            $data = $this->where($query)->select();
+            foreach ($data as $key => $value) {
+                $cage = $data[$key]['indicator_cage_id'];
+                if ($cage == '0') {
+                    $data[$key]['indicator_cage_id'] = '无网箱';
+                }
             }
+            foreach ($data as $key => $value) {
+                $data[$key]['indicator_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['indicator_cage_id'], 'cage_rowname');
+            }
+            return $data;
         }
-        foreach ($data as $key => $value) {
-
-            $data[$key]['indicator_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['indicator_cage_id'],'cage_rowname');
-        }
-
-        return $data;
     }
 	public function getChoose(){
 

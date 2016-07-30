@@ -206,14 +206,21 @@
                 var action = $('#addBase_form').attr('action');
                 var Formattr = $('#addBase_form').serialize();
                 $.post(action, Formattr, function (data, status) {
-                 alert(data);
+                 if(data['status']==0){
+                     alert(data['tishi']);
+                 }
+                 if(data['status']==1){
+                     alert(data['tishi']);
+                     setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'base'))}\"",200);
+                 }
                    /* if (status == "success") {
                         alert("添加成功！");
                         setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'base'))}\"",200);
                     } else {
                         alert("添加失败！");
                     }*/
-                    setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'base'))}\"",200);
+
+                    /*setTimeout("window.location.href=\"{:U('Superadmin/Safe/index', array('name' => 'base'))}\"",200);*/
                 });
             });
             $('#modifyBaseBtn').click(function(){

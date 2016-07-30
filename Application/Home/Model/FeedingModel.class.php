@@ -19,35 +19,37 @@ class FeedingModel extends Model{
             return 1;
         }
     }
-    public function querys() {
-
-        $params['feeding_pool_id'] = I("get.feeding_pool_id");
-        $params['feeding_cage_id']=I('get.feeding_cage_id');
-        $params['feeding_feed_id']=I('get.feeding_feed_id');
-        if($params['feeding_pool_id']!=0)
-            $query['feeding_pool_id']=$params['feeding_pool_id'];
-        if( $params['feeding_cage_id']!=0)
-            $query['feeding_cage_id']= $params['feeding_cage_id'];
-        if($params['feeding_feed_id']!=0)
-            $query['feeding_feed_id']=$params['feeding_feed_id'];
-        /*if($params['stocking_cage_id']!=0)
-            $query['stocking_cage_id']=$params['stocking_cage_id'];*/
-        $data= $this->where($query)->select();
-        foreach ($data as $key => $value) {
-
-            $cage = $data[$key]['feeding_cage_id'];
-            if($cage == null || $cage == 0) {
-                $data[$key]['medication_cage_id'] = '无网箱';
+    public function querys()
+    {
+        if (IS_GET) {
+            $userInfo = \Org\Util\User::_getUserInfo();
+            $member_id = $userInfo['member_id'];
+            $query['feeding_member_id']=$member_id;
+            $params['feeding_pool_id'] = I("get.feeding_pool_id");
+            $params['feeding_cage_id'] = I('get.feeding_cage_id');
+            $params['feeding_feed_id'] = I('get.feeding_feed_id');
+            if ($params['feeding_pool_id'] != 0)
+                $query['feeding_pool_id'] = $params['feeding_pool_id'];
+            if ($params['feeding_cage_id'] != 0)
+                $query['feeding_cage_id'] = $params['feeding_cage_id'];
+            if ($params['feeding_feed_id'] != 0)
+                $query['feeding_feed_id'] = $params['feeding_feed_id'];
+            /*if($params['stocking_cage_id']!=0)
+                $query['stocking_cage_id']=$params['stocking_cage_id'];*/
+            $data = $this->where($query)->select();
+            foreach ($data as $key => $value) {
+                $cage = $data[$key]['feeding_cage_id'];
+                if ($cage == null || $cage == 0) {
+                    $data[$key]['medication_cage_id'] = '无网箱';
+                }
+                $data[$key]['feeding_feed_id'] = M('feed')->getFieldByfeed_id($data[$key]['feeding_feed_id'], 'feed_name');
+                $data[$key]['feeding_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['feeding_cage_id'], 'cage_rowname');
+                $data[$key]['feeding_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['feeding_pool_id'], 'pool_name');
+                $data[$key]['feeding_pool_img'] = C('PIC_UPLOADS') . $data[$key]['feeding_pool_img'];
             }
-            $data[$key]['feeding_feed_id'] = M('feed')->getFieldByfeed_id($data[$key]['feeding_feed_id'],'feed_name');
-            $data[$key]['feeding_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['feeding_cage_id'],'cage_rowname');
-            $data[$key]['feeding_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['feeding_pool_id'],'pool_name');
-            $data[$key]['feeding_pool_img'] = C('PIC_UPLOADS').$data[$key]['feeding_pool_img'];
+            return $data;
         }
-
-        return $data;
     }
-
 	public function getChoose(){
 
        if(IS_GET) {

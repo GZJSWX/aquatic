@@ -9,8 +9,7 @@
 	   <div class="panel-body">
 	       <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#addStockingModal">添加</button><br><br>
 		   <button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#queryModal">查询</button><br><br>
-		   <table class="table table-bordered table-striped col-sm-12" id="querytable"></table>
-		   <table class="table table-bordered table-striped col-sm-12" id="div1">
+		   <table class="table table-bordered table-striped col-sm-12" >
 		     <thead>
 		        <tr>
 		           <th>放养批次</th>
@@ -24,8 +23,8 @@
 		           <th>操作</th>
 		        </tr>
 		     </thead>
-			<tbody id="1"></tbody>
-		     <tbody>
+			<tbody id="1">
+
 
 		     	<volist name="stocking" id="stocking">	
 			        <tr>
@@ -381,17 +380,20 @@
 				/*var url="{:U('Home/Safe/querys')}"+"?name="+stocking+"?stocking_cage_id="+stocking_cage_id;*/
 				/*+"/stocking_start_time/"+stocking_start_time*/
 				var url = "{:U('Home/Safe/querys/name/"+stocking+"/stocking_cage_id/"+stocking_cage_id+"/stocking_fry_id/"+stocking_fry_id+"/stocking_batch/"+stocking_batch+"')}";
-				$('#querytable').empty();
-			  	$("#div1").empty();
+				/*$('#querytable').empty();*/
+			  	$("#1").empty();
 				$("#div2").remove();
 				$.get(url, function(data,status) {
-					$('#querytable').append("<thead><tr><th>放养批次</th><th>鱼苗</th><th>网箱</th><th>数量</th><th>规格</th><th>投苗时间</th><th>预计上市时间</th><th>备注</th><th>修改</th></tr> </thead>");
+					$('#queryModal').modal('hide')
+					if(data==null)
+					alert('查询结果为空！');
+				/*	$('#querytable').append("<thead><tr><th>放养批次</th><th>鱼苗</th><th>网箱</th><th>数量</th><th>规格</th><th>投苗时间</th><th>预计上市时间</th><th>备注</th><th>修改</th></tr> </thead>");*/
 					$.each(data, function(i, item){
-						$('#querytable').append("<tr><td>"+ item.stocking_batch+"</td><td>"+item.stocking_fry_id+"</td><td>"+item.stocking_cage_id+"</td><td>"+ item.stocking_number+"</td><td>"+item.stocking_specifications+"" +
+						$('#1').append("<tr><td>"+ item.stocking_batch+"</td><td>"+item.stocking_fry_id+"</td><td>"+item.stocking_cage_id+"</td><td>"+ item.stocking_number+"</td><td>"+item.stocking_specifications+"" +
 								"</td><td>"+item.stocking_start_time+"</td><td>"+ item.stocking_finish_time+"</td><td>"+item.stocking_remark+"</td>" +
 								"<td><button class='btn btn-danger' data-toggle='modal' data-target='#modifyStockingModal' value="+item.stocking_id+" onclick='stockingChange(this)'>修改</button></td></tr>");
 					});
-					$('#queryModal').modal('hide')
+
 				});
 		});
 
