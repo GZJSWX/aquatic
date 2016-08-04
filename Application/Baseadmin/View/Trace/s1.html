@@ -108,7 +108,7 @@
 			var url = "{:U('Baseadmin/Trace/search1/pool_id/" + pool_id + "/batch/" + batch + "/start_time/" + start_time + "/end_time/" + end_time + "')}";
 			$.get(url, function (item, status) {
 				if(item==null){
-					alert('数据不存在');
+					alert('没有符合条件的搜索结果。');
 				}
 				$('#div1').append("<tr><td>" + item['pool_id'] + "</td><td>" + item['stocking_batch'] + "</td><td>" + item['cage_id'] + "</td><td>" + item.fry_id + "</td><td>" + item.stocking_specifications + "" +
 						"</td><td>" + item.stocking_number + "</td><td>" + item.record_number + "</td><td>" + item.record_weight + "</td>" +
