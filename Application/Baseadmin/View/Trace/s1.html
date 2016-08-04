@@ -101,19 +101,24 @@
 			var start_time = $('#start_time').val();
 			var end_time = $('#end_time').val();
 			var pool_id = $('#pool_id').val();
-			if (pool_id == "") {
-				pool_id = undefined;
-			}
 			var batch = $('#batch').val();
+			if (start_time == "") start_time = 0;
+			if (end_time == "") end_time = 0;
+			if (batch == "") batch = 0;
 			var url = "{:U('Baseadmin/Trace/search1/pool_id/" + pool_id + "/batch/" + batch + "/start_time/" + start_time + "/end_time/" + end_time + "')}";
-			$.get(url, function (item, status) {
-				if(item==null){
-					alert('没有符合条件的搜索结果。');
-				}
-				$('#div1').append("<tr><td>" + item['pool_id'] + "</td><td>" + item['stocking_batch'] + "</td><td>" + item['cage_id'] + "</td><td>" + item.fry_id + "</td><td>" + item.stocking_specifications + "" +
-						"</td><td>" + item.stocking_number + "</td><td>" + item.record_number + "</td><td>" + item.record_weight + "</td>" +
-						"<td>" + item.die_number + "</td><td>" + item.die_weight + "</td></tr>");
 
+			$.get(url, function (data, status) {
+				if (data == null) {
+					alert('没有符合条件的搜索结果。');
+					setTimeout("window.location.href=\"{:U('Baseadmin/Trace/querys', array('name' => 's1'))}\"", 200);
+
+				}
+				$.each(data, function (i, item) {
+					$('#div1').append("<tr><td>" + item['pool_id'] + "</td><td>" + item['stocking_batch'] + "</td><td>" + item['cage_id'] + "</td><td>" + item.fry_id + "</td><td>" + item.stocking_specifications + "" +
+							"</td><td>" + item.stocking_number + "</td><td>" + item.record_number + "</td><td>" + item.record_weight + "</td>" +
+							"<td>" + item.die_number + "</td><td>" + item.die_weight + "</td></tr>");
+
+				});
 			});
 		}
 /*	$(document).ready(function(){
