@@ -65,14 +65,14 @@ class IndicatorModel extends Model{
        $member_id = $userInfo['member_id'];
        $count = $this->where("indicator_member_id = $member_id")->count();
 
-       $Page  = new \Think\Page($count,2);// 实例化分页类 传入总记录数和每页显示的记录数(2)
+       $Page  = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(2)
        $Page->setConfig('prev',  '上一页');//上一页
        $Page->setConfig('next',  '下一页');//下一页
        $Page->setConfig('first', '<span aria-hidden="true">首页</span>');//第一页
        $Page->setConfig('last',  '<span aria-hidden="true">尾页</span>');//最后一页
        $Page->setConfig ( 'theme', '<li><a>当前%NOW_PAGE%/%TOTAL_PAGE%</a></li>  %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%' );
        $show = $Page->show();
-       $data = $this->where("indicator_member_id = $member_id")->limit($Page->firstRow.','.$Page->listRows)->select();
+       $data = $this->where("indicator_member_id = $member_id")->order("indicator_time desc")->limit($Page->firstRow.','.$Page->listRows)->select();
        foreach ($data as $key => $value) {
           
           $cage = $data[$key]['indicator_cage_id'];
