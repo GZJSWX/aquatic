@@ -10,6 +10,7 @@ class StockingModel extends Model{
         $map['stocking_batch'] = I('get.batch');
         if(I('get.pool_id')!=0)
         $map['stocking_pool_id']=I('get.pool_id');
+
         if($stocking = $this->where($map)->select()){
             foreach($stocking as $key => $value) {
                 $map1['record_pool_id'] = $stocking[$key]['stocking_pool_id'];
