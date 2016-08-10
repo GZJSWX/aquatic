@@ -34,8 +34,11 @@ class WechatController extends Controller{
         $this->assign('time',$time);
         $this->display();    
   }
-  //测试 未完成
-  public function savePic(){
+
+    /**
+     *微信上传图片
+     */
+    public function savePic(){
         $data['status'] = 0;
         $access_token = $this->getAccessToken();
         $media_id = I('get.serverId');
@@ -48,28 +51,11 @@ class WechatController extends Controller{
           $filename = $this->curl_get_img($url,$to_save); 
 
           $feeding_pool_img = str_replace($img_path, '', $filename);
-            /*if(!empty(filename)){
+            if(!empty($filename)){
                 $data['status'] = 1;
                 $data['pool_img'] = $feeding_pool_img;
-
             }
 
-
-          $img = str_replace($img_path, '', $filename);
-            if(!empty($filename)){
-              $data['status'] = 1;
-                $data['pool_img'] = $img;
-             }
-
-          $feeding_pool_img = str_replace($img_path, '', $filename);
-            //if(!empty(filename)){
-             //  $data['status'] = 1;
-             // $data['pool_img'] = $feeding_pool_img;
-             //}
-
-
-
-            }*/
 
         }
         $this->ajaxReturn($data);

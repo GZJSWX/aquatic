@@ -106,10 +106,12 @@
 			if (end_time == "") end_time = 0;
 			if (batch == "") batch = 0;
 			var url = "{:U('Baseadmin/Trace/search1/pool_id/" + pool_id + "/batch/" + batch + "/start_time/" + start_time + "/end_time/" + end_time + "')}";
+
 			$.get(url, function (data, status) {
 				if (data == null) {
-					alert('数据不存在');
+					alert('没有符合条件的搜索结果。');
 					setTimeout("window.location.href=\"{:U('Baseadmin/Trace/querys', array('name' => 's1'))}\"", 200);
+
 				}
 				$.each(data, function (i, item) {
 					$('#div1').append("<tr><td>" + item['pool_id'] + "</td><td>" + item['stocking_batch'] + "</td><td>" + item['cage_id'] + "</td><td>" + item.fry_id + "</td><td>" + item.stocking_specifications + "" +
