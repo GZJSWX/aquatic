@@ -73,7 +73,7 @@ class StockingModel extends Model{
         $userInfo = \Org\Util\User::_getUserInfo();
        $member_id = $userInfo['member_id'];
        $count = $this->where("stocking_member_id = $member_id")->count();
-       $Page  = new \Think\Page($count,15);// 实例化分页类 传入总记录数和每页显示的记录数(2)
+       $Page  = new \Think\Page($count,15);
        $Page->setConfig('prev',  '上一页');//上一页
        $Page->setConfig('next',  '下一页');//下一页
        $Page->setConfig('first', '<span aria-hidden="true">首页</span>');//第一页
