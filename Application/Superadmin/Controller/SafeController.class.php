@@ -103,8 +103,8 @@ class SafeController extends Controller{
             
             $name = I('get.name',null);
             $time = I('get.time',null);
-
-            $data = "扫描结果\n\n 产品名称:".$name."\n 时  间:".$time;
+            $code = I('get.code',null);
+            $data = "扫描结果\n\n 产品名称:".$name."\n 时  间:".$time."\n 饲料编码:".$code;
             $this->qr($data);
         }else{
             $this->error('生成二维码出错，请重试');
@@ -118,7 +118,8 @@ class SafeController extends Controller{
             $name = I('get.name',null);
             $use = I('get.use',null);
             $time = I('get.time',null);
-            $data = "扫描结果\n\n 产品名称:".$name."\n 作  用:".$use."\n 时  间:".$time;
+            $code = I('get.code',null);
+            $data = "扫描结果\n\n 产品名称:".$name."\n 作  用:".$use."\n 时  间:".$time."\n 药品编码:".$code;
             //dump($data);exit();
             $this->qr($data);
         }else{
@@ -144,8 +145,8 @@ class SafeController extends Controller{
 
     public function showFeedQr(){
         if(IS_GET){
-            //dump($_GET);exit();
-            $data['name'] = I('get.name',null);
+            $data = D('feed')->getChooseFeed();
+            //dump($data);exit();
             $data['time'] = date('Y-m-d');
             $this->ajaxReturn($data,'JSON');
 //            $this->assign('data',$data);

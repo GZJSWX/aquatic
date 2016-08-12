@@ -28,7 +28,7 @@
                         <td>{$feed.feed_specifications}</td>
                         <td>
                             <button class="btn btn-danger" data-toggle="modal" data-target="#modifyFeedModal" id="modifyButton" value="{$feed.feed_id}" onclick="feedChange(this)">修改</button>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#modifyQrModel" id="" value="{$feed.feed_name}" onclick="showFeedQr(this)">二维码</button>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#modifyQrModel" id="" value="{$feed.feed_id}" onclick="showFeedQr(this)">二维码</button>
                         </td>
                     </tr>
                 </volist>
@@ -158,15 +158,17 @@
         function showFeedQr(obj){
             var val = $(obj).attr('value');
             var url = "{:U('Superadmin/Safe/showFeedQr')}";
-            $.get(url, {name:val}, function(data, status){
+            $.get(url, {val:val}, function(data, status){
 
-                var name = data.name;
+                var name = data.feed_name;
                 var time = data.time;
+                var code = data.feed_code;
+                console.log(data);
                 //alert(data);
                 //console.log(data);
                 //var src="{:U('Safe/feedQr',array('name'=>"+data.name+",'time'=>"+data.time+"))}";
                 var url1 = "{:U('Safe/feedQr')}";
-                var src = url1+"?name="+name+"&time="+time;
+                var src = url1+"?name="+name+"&time="+time+"&code="+code;
                 console.log(src);
                 document.getElementById('feedQr').src=src;
 
