@@ -61,7 +61,7 @@
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
     wx.config({
-        debug: false,
+        debug: true,
         appId: '{$signPackage["appId"]}',
         timestamp: '{$signPackage["timestamp"]}',
         nonceStr: '{$signPackage["nonceStr"]}',
@@ -97,9 +97,9 @@
                 success : function(res) { //扫码后获取结果参数赋值给Input var
                  url = res.resultStr; //商品条形码，取","后面的
                 
-                  var n = url.split(",");
-                  $('#feeding_feed_id').val(n[0]);
-                  $('#feeding_feed_name').val(n[1]);
+                  var n = url.split(" ");
+                  $('#feeding_feed_id').val(n[5].split(":")[1]);
+                  $('#feeding_feed_name').val(n[1].split(":")[1]);
                 }
             });
         });

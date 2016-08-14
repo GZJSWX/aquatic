@@ -147,8 +147,8 @@
                 success : function(res) { //扫码后获取结果参数赋值给Input var
                  url = res.resultStr; //商品条形码，取","后面的
                   var n = url.split(",");
-                  $('#medication_medicine_id').val(n[0]);
-                  $('#medication_medicine_name').val(n[1]);
+                  $('#medication_medicine_id').val(n[8].split(":")[1]);
+                  $('#medication_medicine_name').val(n[1].split(":")[1]);
                   if( n.length != 0 ) {
                     cnt ++;
                   }
