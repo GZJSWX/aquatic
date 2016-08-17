@@ -14,6 +14,7 @@
 		        <tr>
 		           <th>放养批次</th>
 		           <th>鱼苗</th>
+				   <th>池塘</th>
 		           <th>网箱</th>
 		           <th>数量</th>
 		           <th>规格</th>
@@ -30,6 +31,7 @@
 			        <tr>
 			           <td>{$stocking.stocking_batch}</td>
 			           <td>{$stocking.stocking_fry_id}</td>
+					   <td>{$stocking.stocking_pool_id}</td>
 			           <td>{$stocking.stocking_cage_id}</td>
 			           <td>{$stocking.stocking_number}</td>
 			           <td>{$stocking.stocking_specifications}</td>
@@ -131,10 +133,7 @@
 		         </div>
 		         <div class="modal-body">
 		            <form action="{:U('Home/Safe/adds', array('name' => 'stocking'))}" id="addStocking_form" role="form" method="post">
-		            	<div class="form-group">
-		            		<label for="">放养批次</label>
-		            		<input type="text" class="form-control" value="" name="stocking_batch" >
-		            	</div>
+
 		            	<div class="form-group">
 		            		<label for="">鱼苗</label>
 		            		<select class="form-control" name="stocking_fry_id" >
@@ -144,7 +143,29 @@
 		            			</volist>
 		            		</select>
 		            	</div>
-                        <if condition = "$pool_data['pool_model'] eq '网箱'">
+                        <!--<if condition = "$pool_data['pool_model'] eq '网箱'">-->
+							<!--<div class="form-group">-->
+								<!--<label for="">网箱</label>-->
+								<!--<select class="form-control" name="stocking_cage_id" >-->
+									<!--<option value="0">请选择网箱</option>-->
+									<!--<volist name="cage" id="ca">-->
+										<!--<option value="{$ca.cage_id}">{$ca.cage_rowname}</option>-->
+									<!--</volist>-->
+								<!--</select>-->
+								<!--</else>-->
+							<!--</div>-->
+						<!--</if>-->
+						<div class="form-group">
+							<label for="">池塘</label>
+							<select class="form-control" name="stocking_pool_id" >
+								<option value="0">请选择池塘</option>
+								<volist name="pool_data" id="po">
+									<option value="{$po.pool_id}">{$po.pool_name}</option>
+								</volist>
+							</select>
+							</else>
+						</div>
+
 						<div class="form-group">
 							<label for="">网箱</label>
 							<select class="form-control" name="stocking_cage_id" >
@@ -155,7 +176,6 @@
 							</select>
 							</else>
 						</div>
-					</if>
 		            	<div class="form-group">
 		            		<label for="">数量</label>
 		            		<input type="text" class="form-control" value="" name="stocking_number" >
@@ -322,12 +342,12 @@
    	  </ul>
 </block>
 <block name="script">
-	<script type="text/javascript" src="__PUBLIC__/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 	<!--<script type="text/javascript" src="__PUBLIC__/js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>-->
 	<script type="text/javascript">
 
 		$('.form_date').datetimepicker({
-			//language:  'fr',
+			language: 'ch',
 			weekStart: 1,
 			todayBtn:  1,
 			autoclose: 1,

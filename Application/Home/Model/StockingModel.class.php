@@ -7,11 +7,19 @@ class StockingModel extends Model{
 	public function adds() {
         
     	if(IS_POST) {
-
+            //dump($_POST);exit();
            $userInfo = \Org\Util\User::_getUserInfo();
            $member_id = $userInfo['member_id'];
            $params = I("post.");
            $params['stocking_member_id'] = $member_id;
+           $cage = M('cage')->getFieldBycage_id($params['stocking_cage_id'], 'cage_rowid');
+            if($cage == null)
+                $cage = "00";
+
+            $pool = M('pool')->getFieldBypool_id($params['stocking_pool_id'], 'pool_code');
+
+            $params['stocking_batch'] = date('Ymd',strtotime($params['stocking_start_time'])).$pool.$cage;
+
            if(! $this->add($params)) {
               return 0;
            }
@@ -88,6 +96,7 @@ class StockingModel extends Model{
        	  	 $data[$key]['stocking_cage_id'] = '无网箱';
        	  }
 
+          $data[$key]['stocking_poop_id'] = M('pool')->getFieldBypool_id($data[$key]['stocking_pool_id'],'pool_name');
           $data[$key]['stocking_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['stocking_fry_id'],'fry_name');
           $data[$key]['stocking_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['stocking_cage_id'],'cage_rowname');
        }  
