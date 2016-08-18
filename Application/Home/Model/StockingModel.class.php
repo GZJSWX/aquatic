@@ -11,7 +11,7 @@ class StockingModel extends Model{
            $userInfo = \Org\Util\User::_getUserInfo();
            $member_id = $userInfo['member_id'];
            $params = I("post.");
-            if($params['stocking_pool_id']==0 || $params['stocking_cage_id'] == 0)
+            if($params['stocking_fry_id']==0 || $params['stocking_pool_id'] == 0)
                 return 2;
            $params['stocking_member_id'] = $member_id;
            $cage = M('cage')->getFieldBycage_id($params['stocking_cage_id'], 'cage_rowid');

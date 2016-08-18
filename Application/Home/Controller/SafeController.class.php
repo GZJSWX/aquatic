@@ -99,7 +99,7 @@ class SafeController extends Controller {
         if($data == 0){
            $this->ajaxReturn(array('code'=>0,'msg'=>'插入失败'));
         }elseif($data == 2){
-           $this->ajaxReturn(array('code'=>0,'msg'=>'鱼塘或网箱不能为空'));
+           $this->ajaxReturn(array('code'=>0,'msg'=>'鱼苗或鱼塘不能为空'));
         } else {
             $this->ajaxReturn(array('code'=>1,'msg'=>'添加成功'));
         }
