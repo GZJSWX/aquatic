@@ -48,6 +48,7 @@ class SafeController extends Controller {
      public function cultivation(){
 
         date_default_timezone_set('prc');$time = date('Y-m-d H:i:s', time());
+         $this->assign('start_time',date('Y-m-d',time()));
         $this->assign('time',$time);
         $name = I('get.name');
 
@@ -97,7 +98,9 @@ class SafeController extends Controller {
         $data = D($name)->adds();
         if($data == 0){
            $this->ajaxReturn(array('code'=>0,'msg'=>'插入失败'));
-        }else {
+        }elseif($data == 2){
+           $this->ajaxReturn(array('code'=>0,'msg'=>'鱼塘或网箱不能为空'));
+        } else {
             $this->ajaxReturn(array('code'=>1,'msg'=>'添加成功'));
         }
      }

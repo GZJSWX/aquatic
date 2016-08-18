@@ -11,6 +11,8 @@ class StockingModel extends Model{
            $userInfo = \Org\Util\User::_getUserInfo();
            $member_id = $userInfo['member_id'];
            $params = I("post.");
+            if($params['stocking_pool_id']==0 || $params['stocking_cage_id'] == 0)
+                return 2;
            $params['stocking_member_id'] = $member_id;
            $cage = M('cage')->getFieldBycage_id($params['stocking_cage_id'], 'cage_rowid');
             if($cage == null)
@@ -88,7 +90,7 @@ class StockingModel extends Model{
        $Page->setConfig('last',  '<span aria-hidden="true">尾页</span>');//最后一页
        $Page->setConfig ( 'theme', '<li><a>当前%NOW_PAGE%/%TOTAL_PAGE%</a></li>  %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%' );
        $show = $Page->show();
-       $data = $this->where("stocking_member_id = $member_id")->limit($Page->firstRow.','.$Page->listRows)->order('stocking_start_time desc')->select();
+       $data = $this->where("stocking_member_id = $member_id")->limit($Page->firstRow.','.$Page->listRows)->order('stocking_id desc')->select();
        foreach ($data as $key => $value) {
        	  
        	  $cage = $data[$key]['stocking_cage_id'];
