@@ -115,7 +115,6 @@ class SafeController extends Controller {
         $this->ajaxReturn($data);
      }
      public function modify() {
-
         $result = D(I('get.name'))->modify();
      }
 

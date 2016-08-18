@@ -47,7 +47,9 @@ class CageModel extends Model{
         //用echo输出 可以在$.post()中的data中读到，可判断数据正确否
     	if(IS_POST) { 
            $data = I('post.');
+
            $id = $data['cage_id'];
+
            if(!($this->where("cage_id = $id")->save($data))) {
                echo 'modifyCageinfo_save wrong';
            }

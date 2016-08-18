@@ -14,7 +14,7 @@ class StockingModel extends Model{
             if($params['stocking_fry_id']==0 || $params['stocking_pool_id'] == 0)
                 return 2;
            $params['stocking_member_id'] = $member_id;
-           $cage = M('cage')->getFieldBycage_id($params['stocking_cage_id'], 'cage_rowid');
+           $cage = M('cage')->getFieldBycage_id($params['stocking_cage_id'], 'cage_row_code');
             if($cage == null)
                 $cage = "00";
 
