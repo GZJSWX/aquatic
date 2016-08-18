@@ -140,12 +140,11 @@
 		            	</div>
 		            	<div class="form-group">
 		            		<label for="">鱼苗</label>
-		            		<select class="form-control" name="sale_fry_id" >
-		            			<option value="0">请选择鱼苗</option>
-		            			<volist name="fry" id="fr">
-		            				<option value="{$fr.fry_id}">{$fr.fry_name}</option>
-		            			</volist>
-		            		</select>
+                            <select class="form-control selectpicker show-tick "name="sale_fry_id" id="sale_fry_id" multiple data-live-search="false">
+                                <volist name="fry" id="fy">
+                                    <option value="{$fy.fry_id}">{$fy.fry_name}</option>
+                                </volist>
+                            </select>
 		            	</div>
                       
 		            	<div class="form-group">
@@ -326,15 +325,18 @@
 	      $('#addSaleBtn').click(function(){
 	             var action = $('#addSale_form').attr('action');
 	             var Formattr = $('#addSale_form').serialize();
-	              
+                 var fry=$('#sale_fry_id').val();
+                 Formattr=Formattr+"&sale_fry_id="+fry;
+                 console.log(Formattr);
+
 	             $.post(action, Formattr, function(data,status) {
-	             	 
+
 	                 if(status == "success") {
 	                    alert( "添加成功！");
 	                 }else{
 	                 	alert("添加失败！");
 	                 }
-	                 setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'sale'))}\"",200);
+	                 //setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'sale'))}\"",200);
 	             });
 	        });
 	      $('#modifySaleBtn').click(function(){

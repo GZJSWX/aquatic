@@ -12,6 +12,7 @@ class SaleModel extends Model{
            $member_id = $userInfo['member_id'];
           // $pool_id   = $userInfo['member_pool_id'];
            $params = I("post.");
+            /*return $params['sale_fry_id'];*/
            $params['sale_member_id'] = $member_id;
            //$params['sale_pool_id'] = $pool_id;
             if(! $this->add($params)) {

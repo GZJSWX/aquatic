@@ -14,6 +14,11 @@ class RecordModel extends Model{
            $params = I("post.");
            $params['record_member_id'] = $member_id;
            $params['record_pool_id'] = $pool_id;
+            $pool = M('pool')->getFieldBypool_id($pool_id, 'pool_code');
+            $cage=M('cage')->getfieldBycage_id($params['record_cage_id'],'cage_rowid');
+            if($cage==null || $cage=="")
+                $cage="00";
+           $params['record_id']=date("Ymd").$pool.$cage;
            if(! $this->add($params)) {
              
               return 0;
