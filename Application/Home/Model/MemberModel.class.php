@@ -44,7 +44,7 @@ class MemberModel extends Model {
                 $userInfo['member_password'] = $password;
                 $userInfo['member_id'] = $data['member_id'];
                 $userInfo['member_base_id'] = $data['member_base_id'];
-                // $userInfo['member_pool_id'] = $data['member_pool_id'];
+                //$userInfo['member_pool_id'] = $data['member_pool_id'];
                 \Org\Util\User::_setUserInfo($userInfo);
               
              }else{

@@ -125,20 +125,38 @@
 		            <form action="{:U('Home/Sale/adds', array('name' => 'record'))}" id="addRecord_form" role="form" method="post">
 		            	<div class="form-group">
 		            		<label for="">出塘类型</label>
-		            		<select class="form-control"name="record_type" id="record_type">
+		            		<select class="form-control"name="record_type" id="record_type" >
 		            			<option value="0">请选择出塘类型</option>
 		            			<option value="销售">销售</option>
 		            			<option value="转塘">转塘</option>
 		            		</select>
 		            	</div>
-		            	<div class="form-group">
-		            		<label for="">出塘编号</label>
-		            		<input type="text" class="form-control" value="" name="record_id" >
-		            	</div>
+                      <!--  <div class="form-group">
+                            <label class="col-sm-3 control-label">客资类型：</label>
+                            <div class="col-sm-4">
+                                <select id="usertype" name="usertype" class="selectpicker show-tick form-control" multiple data-live-search="false">
+                                    <option value="0">苹果</option>
+                                    <option value="1">菠萝</option>
+                                    <option value="2">香蕉</option>
+                                    <option value="3">火龙果</option>
+                                    <option value="4">梨子</option>
+                                    <option value="5">草莓</option>
+                                    <option value="6">哈密瓜</option>
+                                    <option value="7">椰子</option>
+                                    <option value="8">猕猴桃</option>
+                                    <option value="9">桃子</option>
+                                </select>
+                            </div>
+                        </div>-->
+
 		            	
 		            	<div class="form-group">
 		            		<label for="">养殖批次</label>
-		            		<input type="text" class="form-control" value="" name="record_batch" >
+                            <select class="form-control selectpicker show-tick "name="record_batch" id="record_batch" multiple data-live-search="false">
+                                <volist name="batch" id="batch">
+                                    <option value="{$batch.stocking_batch}">{$batch.stocking_batch}</option>
+                                </volist>
+                            </select>
 		            	</div>
 		            	<div class="form-group">
 		            		<label for="">鱼苗</label>
@@ -356,6 +374,12 @@
 
 	}
 	$(document).ready(function(){
+
+        $(window).on('load', function () {
+            $('#record_batch').selectpicker({
+                'selectedText': 'cat'
+            });
+        });
 		$('#queryRecordBtn').click(function(){
 			var record_type = $("#q_record_type").val();
 			var record_id=$('#q_record_id').val();
@@ -425,9 +449,11 @@
 	      $('#addRecordBtn').click(function(){
 	             var action = $('#addRecord_form').attr('action');
 	             var Formattr = $('#addRecord_form').serialize();
-	              
+                 var batch=$('#record_batch').val();
+                 Formattr=Formattr+"&record_batch="+batch;
+                 console.log(Formattr);
 	             $.post(action, Formattr, function(data,status) {
-	             	 
+
 	                 if(status == "success") {
 	                    alert( "添加成功！");
 	                 }else{

@@ -30,7 +30,7 @@ class SaleController extends Controller {
 	}
      
 	public function sale(){
-        
+
         date_default_timezone_set('prc');
         $time = date('Y-m-d H:i', time());
         $this->assign('time',$time);
@@ -39,6 +39,9 @@ class SaleController extends Controller {
         switch ($name) {
              
             case 'record':
+                 $batch=M('stocking')->field('stocking_batch')->select();
+                 //dump($batch);exit;
+                 $this->assign('batch',$batch);
                  $data = $this->record;
                  $this->assign('record',$data['data']);
                  $this->assign('page', $data['page']);
@@ -75,6 +78,8 @@ class SaleController extends Controller {
         
         $name = I('get.name');
         $data = D($name)->adds();
+        $this->ajaxReturn($data);
+
      }
      public function getChoose(){
 
