@@ -77,11 +77,21 @@ class SaleModel extends Model{
        $data = $this->where("sale_member_id = $member_id")->limit($Page->firstRow.','.$Page->listRows)->select();
        
        foreach ($data as $key => $value) {
+          /* $params=$data[$key]['sale_fry_id'];$map['fry_id']  = array('in',$params);
+            $re=M('fry')->where($map)->select('fry_name');
+           if(count($re)>1){
+               $data[$key]['sale_fry_id']="";
+               for($i=0;$i<count($re);$i++){
+                   $data[$key]['sale_fry_id']=$re[$i]."  ";
+               }
+           }
+               else
+               $data[$key]['sale_fry_id']=$re[0];*/
 
             $data[$key]['sale_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['sale_fry_id'],'fry_name');
             // $data[$key]['sale_record_id'] = M('record')->getFieldByrecord_id($data[$key]['sale_record_id'],'record_batch');
        }
-      
+
        $result['page'] = $show;
        $result['data'] = $data;
        return $result;

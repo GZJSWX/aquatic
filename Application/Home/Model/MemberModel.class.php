@@ -36,8 +36,8 @@ class MemberModel extends Model {
              $psw = I("get.member_password");
              $password = md5($psw.$username);
              //dump($password);exit();
-             $role = I('get.member_role');
-             if($data = $this->where(array('member_role' => $role, 'member_username' => $username, 'member_password' => $password))->find()) {
+             //$role = I('get.member_role');
+             if($data = $this->where(array( 'member_username' => $username, 'member_password' => $password))->find()) {
                 
                 $result['status'] = 1;
                 $userInfo['member_username'] = $username;
@@ -50,7 +50,7 @@ class MemberModel extends Model {
              }else{
                  $result['status'] = 0;
              }
-             $result['role'] = $role;
+           $result['role'] = $data['member_role'];
              //echo $this->getLastSql();exit;
              return $result;
          }else {

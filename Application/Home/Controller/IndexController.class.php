@@ -48,7 +48,8 @@ class IndexController extends Controller {
 
         	$params = I('post.');
 	    	$radio = $params['user'];
-	    	redirect(U("Home/User/login/",array('member_role' => $radio,'member_username'=>$params['member_username'], 'member_password'=>$params['member_password'])));
+            /*array('member_role' => $radio,'member_username'=*/
+	    	redirect(U("Home/User/login/",array('member_username'=>$params['member_username'], 'member_password'=>$params['member_password'])));
         }else {
         	echo 'login wrong';
         }
