@@ -120,7 +120,12 @@
 		            	</div>
 		            	<div class="form-group">
 		            		<label for="">指标名称</label>
-		            		<input type="text" class="form-control" value="" name="indicator_name" >
+                            <select class="form-control" name="indicator_name" >
+                                <option value="0">请选择指标名字</option>
+                                <volist name="indication" id="ind">
+                                    <option value="{$ind.indication_id}">{$ind.indication_name}</option>
+                                </volist>
+                            </select>
 		            	</div>
 		            	<div class="form-group">
 		            		<label for="">指标值</label>

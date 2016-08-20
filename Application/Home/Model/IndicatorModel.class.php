@@ -79,6 +79,7 @@ class IndicatorModel extends Model{
           if($cage == '0') {
              $data[$key]['indicator_cage_id'] = '无网箱';
           }
+           $data[$key]['indicator_name']=M('indication')->getfieldByindication_id($data[$key]['indicator_name'],'indication_name');
        }  
        foreach ($data as $key => $value) {
 

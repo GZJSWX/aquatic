@@ -15,7 +15,7 @@ class SafeController extends Controller {
      private  $indicator = array();
      private  $userInfo = array();
      private  $feed     = array();
-
+     private  $indication=array();
      public function _initialize(){
 
           $this->userInfo = \Org\Util\User::_getUserInfo();
@@ -33,6 +33,7 @@ class SafeController extends Controller {
           $this->medicine = D('medicine')->get();
           $this->indicator = D('indicator')->get();
           $this->feed = D('feed')->get();
+          $this->indication=D('indication')->get();
           //要上缓存
           //S($name,$value,$options)
      }
@@ -89,7 +90,7 @@ class SafeController extends Controller {
         $this->assign('cage',$this->cage);
         $this->assign('feed',$this->feed);
         $this->assign('medicine', $this->medicine);
-
+        $this->assign('indication',$this->indication);
         $this->display($name);
      }
 

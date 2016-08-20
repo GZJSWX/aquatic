@@ -300,6 +300,10 @@
 	        });
 	}
 	$(document).ready(function(){
+        window.onload=function(){
+            $('.selectpicker').selectpicker();
+        };
+
 		$('#querySaleBtn').click(function(){
 			var sale_id = $("#q_sale_id").val();
 			if(sale_id==""){sale_id=undefined}
@@ -336,7 +340,7 @@
 	                 }else{
 	                 	alert("添加失败！");
 	                 }
-	                 //setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'sale'))}\"",200);
+	                 setTimeout("window.location.href=\"{:U('Home/Sale/sale', array('name' => 'sale'))}\"",200);
 	             });
 	        });
 	      $('#modifySaleBtn').click(function(){

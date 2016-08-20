@@ -77,25 +77,30 @@ class SaleModel extends Model{
        $data = $this->where("sale_member_id = $member_id")->limit($Page->firstRow.','.$Page->listRows)->select();
        
        foreach ($data as $key => $value) {
-          /* $params=$data[$key]['sale_fry_id'];$map['fry_id']  = array('in',$params);
-            $re=M('fry')->where($map)->select('fry_name');
-           if(count($re)>1){
-               $data[$key]['sale_fry_id']="";
-               for($i=0;$i<count($re);$i++){
-                   $data[$key]['sale_fry_id']=$re[$i]."  ";
-               }
+           $fry=explode(',',$data[$key]['sale_fry_id']);
+           if(count($fry)>1){
+           $data[$key]['sale_fry_id']="";
+           $map['fry_id']  = array('in',$fry);
+            $re=M('fry')->where($map)->field('fry_name')->select();
+               $data[$key]['sale_fry_id']=$re[0]['fry_name'];
+            for($i=1;$i<count($re);$i++){
+                $data[$key]['sale_fry_id']=$data[$key]['sale_fry_id'].",".$re[$i]['fry_name'];
+            }
            }
-               else
-               $data[$key]['sale_fry_id']=$re[0];*/
-
-            $data[$key]['sale_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['sale_fry_id'],'fry_name');
+               else{
+                   $data[$key]['sale_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['sale_fry_id'],'fry_name');
+               }
+            //$data[$key]['sale_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['sale_fry_id'],'fry_name');
             // $data[$key]['sale_record_id'] = M('record')->getFieldByrecord_id($data[$key]['sale_record_id'],'record_batch');
-       }
 
+       }
        $result['page'] = $show;
        $result['data'] = $data;
        return $result;
 	}
+
+
+
   public function modify(){
 
       if(IS_POST) { 
