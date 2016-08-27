@@ -6,6 +6,7 @@
 		<!-- <a href=""><button class="btn btn-success">  修改基地信息</button></a> -->
 		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addPoolModal">       添加池塘
 		</button>
+	    <a class="btn btn-primary btn-lg" href="{:U('Baseadmin/Safe/poolMap')}"> 池塘地图详情 </a>
 		<table class="table table-bordered table-striped col-sm-12" >
 	     <caption>池塘基本信息:</caption>
 		     <thead>
@@ -236,7 +237,7 @@
 
         	 var action= $('#modify_form').attr('action');
         	 var Formattr=$('#modify_form').serialize();
-	         console.log(Formattr);
+
              $.post(action, Formattr,function(data,status) {
                  
                  if(status == "success") {

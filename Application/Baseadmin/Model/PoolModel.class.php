@@ -43,4 +43,27 @@ class PoolModel extends Model{
     		echo 'addPool wrong';
     	}
     }
+
+    public function getPoolAndCageInfo(){
+        $userInfo = \Org\Util\User::_getUserInfo();
+        //获取鱼塘信息
+        $pool = $this->where(array('pool_base_id'=>$userInfo['member_base_id']))->select();
+        foreach($pool as $key => $value){
+            $cage = M('cage')->where(array('cage_pool_id'=>$pool[$key]['pool_id']))->select();
+            $pool[$key]['cageArray'] = $cage;
+        }
+        return $pool;
+    }
+
+    public function addCoordinate($coordinate){
+        $userInfo = \Org\Util\User::_getUserInfo();
+        $result = $this->where(array('pool_base_id'=>$userInfo['member_base_id'],'pool_name'=>$coordinate['typeName']))->setField('pool_coordinate',$coordinate['coordinate']);
+        if($result){
+            $data['coordinate'] = $coordinate['coordinate'];
+            $data['type'] = 0;
+            return $data;
+        }
+        return null;
+    }
+
 }

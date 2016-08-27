@@ -1,0 +1,348 @@
+﻿<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>鱼塘前端调试</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+    <!--[if lt IE 9]>
+    <script src="__PUBLIC__/js/html5.js"></script>
+    <![endif]-->
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="application/javascript" src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+    <!--加载鼠标绘制工具-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <!--加载检索信息窗口-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+
+    <script>
+        (function($){
+            $(window).load(function(){
+
+                $("a[rel='load-content']").click(function(e){
+                    e.preventDefault();
+                    var url=$(this).attr("href");
+                    $.get(url,function(data){
+                        $(".content .mCSB_container").append(data); //load new content inside .mCSB_container
+                        //scroll-to appended content
+                        $(".content").mCustomScrollbar("scrollTo","h2:last");
+                    });
+                });
+
+                $(".content").delegate("a[href='top']","click",function(e){
+                    e.preventDefault();
+                    $(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
+                });
+
+            });
+        })(jQuery);
+    </script>
+
+</head>
+<body>
+<!--header-->
+<header>
+    <h1><a href="{:U('Baseadmin/Safe/index')}"><input type="button" value="返回" class="link_btn"/></a></h1>
+
+    <form action="{:U('Baseadmin/Safe/saveCoordinate')}" id="coordinate_form">
+        <ul class="rt_nav">
+            <section>
+                <input type="text" class="textbox" id="poolOrCage" name="typeName" placeholder="鱼塘或鱼排"/>
+                <input type="hidden" id="dateType" value="" name="type"/>
+                <input type="text" name="coordinate" class="textbox textbox_295" id="t" placeholder="坐标位置"/>
+                <input type="button" value="选中画出的区域" class="group_btn" id="submitCoordinate"/>
+                <input type="reset" value="撤销" class="group_btn1" onclick="clearAll()"/>
+                <input type="button" value="删除" class="group_btn2" id="deleteArea" />
+            </section>
+            <!-- <li><a href="http://www.baidu.com" target="_blank" class="website_icon">站点首页</a></li>
+            <li><a href="#" class="admin_icon">DeathGhost</a></li>
+            <li><a href="#" class="set_icon">账号设置</a></li>
+            <li><a href="login.php" class="quit_icon">安全退出</a></li> -->
+        </ul>
+    </form>
+</header>
+
+<!--aside nav-->
+<aside class="lt_aside_nav content mCustomScrollbar">
+    <h2 id="base">{$base.base_name}</h2>
+    <ul>
+        <volist name="pool" id="vo">
+            <li>
+                <dl>
+                    <dt id="pool" onclick="pushPool(this)" value="{$vo.pool_name}">{$vo.pool_name}</dt>
+                    <!--当前链接则添加class:active-->
+                    <volist name="vo['cageArray']" id="cage">
+                        <dd><span id="cageName" onclick="pushCage(this)" value="{$cage.cage_rowname}">{$cage.cage_rowname}</span></dd>
+                    </volist>
+                </dl>
+            </li>
+        </volist>
+
+
+    </ul>
+    <p class="btm_infor">© 华南农业大学 版权所有</p>
+</aside>
+
+
+
+<section class="rt_wrap content mCustomScrollbar">
+
+    <div id="container"></div>
+
+
+
+    <script type="text/javascript">
+
+        var map = new BMap.Map("container");          // 创建地图实例
+        var point = new BMap.Point(113.537692, 22.934807);  // 创建点坐标
+        map.centerAndZoom(point, 18);                 // 初始化地图，设置中心点坐标和地图级别
+        // map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
+        map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
+        map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+        map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+        map.disableDoubleClickZoom();
+        map.addControl(new BMap.MapTypeControl({anchor:BMAP_ANCHOR_TOP_LEFT}));          //添加地图类型控件
+        map.setMapType(BMAP_SATELLITE_MAP);
+        showAllArea();
+        var overlays = [];
+        var overlaycomplete = function(e){
+            overlays.push(e.overlay);
+        };
+        var styleOptions = {
+            strokeColor:"red",    //边线颜色。
+            fillColor:"red",      //填充颜色。当参数为空时，圆形将没有填充效果。
+            strokeWeight: 3,       //边线的宽度，以像素为单位。
+            strokeOpacity: 0.8,    //边线透明度，取值范围0 - 1。
+            fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+            strokeStyle: 'solid' //边线的样式，solid或dashed。
+        }
+        //实例化鼠标绘制工具
+        var drawingManager = new BMapLib.DrawingManager(map, {
+            isOpen: false, //是否开启绘制模式
+            enableDrawingTool: true, //是否显示工具栏
+            drawingToolOptions: {
+                anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+                offset: new BMap.Size(5, 5), //偏离值
+            },
+            circleOptions: styleOptions, //圆的样式
+            polylineOptions: styleOptions, //线的样式
+            polygonOptions: styleOptions, //多边形的样式
+            rectangleOptions: styleOptions //矩形的样式
+        });
+        //添加鼠标绘制工具监听事件，用于获取绘制结果
+        drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+        function clearAll() {
+            for(var i = 0; i < overlays.length; i++){
+                map.removeOverlay(overlays[i]);
+            }
+            overlays.length = 0
+        }
+
+        //单击或双击获取点击的经纬度
+
+        var timer = null;
+
+        map.addEventListener("click", function (e) {
+            clearTimeout(timer);
+            timer = setTimeout(function() { //在单击事件中添加一个setTimeout()函数，设置单击事件触发的时间间隔
+                document.getElementById("t").value += e.point.lng + ',' + e.point.lat + ';';
+            }, 300);
+
+        });
+
+        map.addEventListener("dblclick", function (e) {
+            clearTimeout(timer);
+            document.getElementById("t").value += e.point.lng + ',' + e.point.lat + ';';
+        });
+
+        function showAllArea(){
+            url = "{:U('Baseadmin/Safe/getAllPool')}";
+            $.get(url, function(data,status){
+
+                for(var i=0; i<data.length;i++){
+                    var p = [];
+                    for(var j=0; j<data[i].split(';').length-1; j++){
+                        var item = data[i].split(';')[j].split(',');
+                        var lng1 = parseFloat(item[0]);
+                        var lat1 = parseFloat(item[1]);
+                        p.push(new BMap.Point(lng1, lat1));
+                    }
+                    var polygon = new BMap.Polygon(p, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+
+                    map.addOverlay(polygon);
+                }
+
+
+            });
+        }
+
+
+        $(function(){
+            $('#base').on('click',function(){
+                map.panTo(new BMap.Point(113.537692, 22.934807));
+                showAllArea();
+            });
+        });
+
+
+        //填充输入框的鱼塘的信息
+        function pushPool(obj) {
+            map.clearOverlays();  //清除地图上所有覆盖物
+            var val = $(obj).attr('value');
+            document.getElementById("dateType").value = 0;
+            document.getElementById("poolOrCage").value = val;
+            //用post方法获取鱼塘坐标值，如果为空，则应提示此鱼塘没有区域标记，如果有则显示在坐标框中，地图自动移到返回值的第一个坐标
+            var url = "{:U('Baseadmin/Safe/getPoolCoordinate/name/"+val+"')}";
+            $.get(url, function(data, status){
+
+                if(!data){
+                    alert("此鱼塘还没标记区域，点击确认进行添加。");
+                    document.getElementById('t').value = '';
+                    map.panTo(new BMap.Point(113.537692, 22.934807));
+                    return;
+                }
+                document.getElementById('t').value = data;
+                var poolAdd = [];
+                    poolAdd = data.split(';');
+                var lng = poolAdd[0].split(',')[0];
+                var lat = poolAdd[0].split(',')[1];
+                map.panTo(new BMap.Point(lng, lat));
+
+                var p = [];
+
+                for(var i=0; i<poolAdd.length-1;i++){
+                    var item = poolAdd[i].split(',');
+                    var lng1 = parseFloat(item[0]);
+                    var lat1 = parseFloat(item[1]);
+                    p.push(new BMap.Point(lng1, lat1));
+                }
+
+                var polygon = new BMap.Polygon(p, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+
+                map.addOverlay(polygon);
+            });
+        }
+
+        //填充输入框的鱼排的信息
+        function pushCage(obj){
+            map.clearOverlays();
+            var val = $(obj).attr('value');
+            document.getElementById("dateType").value = 1;
+            document.getElementById("poolOrCage").value = val;
+
+            var url = "{:U('Baseadmin/Safe/getCageCoordinate/name/"+val+"')}";
+            $.get(url, function(data, status){
+
+                if(!data){
+                    alert("此鱼排还没标记区域，点击确认进行添加。");
+                    document.getElementById('t').value = '';
+                    map.panTo(new BMap.Point(113.537692, 22.934807));
+                    return;
+                }
+                document.getElementById('t').value = data;
+                var poolAdd = [];
+                poolAdd = data.split(';');
+                var lng = poolAdd[0].split(',')[0];
+                var lat = poolAdd[0].split(',')[1];
+                map.panTo(new BMap.Point(lng, lat));
+
+                var p = [];
+
+                for(var i=0; i<poolAdd.length-1;i++){
+                    var item = poolAdd[i].split(',');
+                    var lng1 = parseFloat(item[0]);
+                    var lat1 = parseFloat(item[1]);
+                    p.push(new BMap.Point(lng1, lat1));
+                }
+
+                var polyline = new BMap.Polyline(p, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+
+                map.addOverlay(polyline);
+            });
+        }
+
+        //添加鱼塘或坐标
+        $('#submitCoordinate').click(function(){
+
+            var action= $('#coordinate_form').attr('action');
+            var Formattr=$('#coordinate_form').serialize();
+
+            //判断鱼塘或鱼排的值是否为空，如果空则弹窗提示输入，并结束这个function
+            if(document.getElementById('poolOrCage').value == ''){
+                alert("需先选择鱼塘或鱼排才能添加区域。");
+                return;
+            }
+            if(document.getElementById('t').value == ''){
+                alert("坐标位置不能为空");
+                return;
+            }
+
+            $.post(action, Formattr, function(data,status) {
+
+                if(status == "success") {
+                    alert( "选中区域成功！");
+                }else{
+                    alert("选中区域失败！");
+                }
+                //setTimeout("window.location.href=\"{:U('Baseadmin/Safe/index')}\"",200);
+                //根据返回的数据调用百度地图接口，panTo()到已选好的地址和展示区域
+                var poolAdd = data.coordinate.split(';');
+                var lng = poolAdd[0].split(',')[0];
+                var lat = poolAdd[0].split(',')[1];
+                map.panTo(new BMap.Point(lng, lat));
+
+                var p = [];
+
+                for(var i=0; i<poolAdd.length-1;i++){
+                    var item = poolAdd[i].split(',');
+                    var lng1 = parseFloat(item[0]);
+                    var lat1 = parseFloat(item[1]);
+                    p.push(new BMap.Point(lng1, lat1));
+                }
+
+                if(data.type==0){
+
+                    var polygon = new BMap.Polygon(p, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+
+                    map.addOverlay(polygon);
+                }else{
+                    var polyline = new BMap.Polyline(p, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+
+                    map.addOverlay(polyline);
+                }
+
+            });
+        });
+
+        //删除鱼塘坐标
+        $('#deleteArea').click(function(){
+            var action= "{:U('Baseadmin/Safe/deleteArea')}";
+            var Formattr=$('#coordinate_form').serialize();
+            $.post(action, Formattr, function(data,status) {
+                //由返回的数据是否为空判断是否删除坐标成功，如果失败弹窗提示，确认后什么都不用做，成功后则返回基地坐标
+                if(status == "success") {
+                    alert( "删除区域成功！");
+                    map.panTo(new BMap.Point(113.537692, 22.934807));
+                    return;
+                }else{
+                    alert("删除区域失败！");
+                    return;
+                }
+            });
+        });
+
+        $(function(){
+            $('dt').click(function(){
+                $('dd').toggle(1000);
+            });
+        });
+
+    </script>
+
+</section>
+</body>
+</html>

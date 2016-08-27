@@ -46,4 +46,63 @@ class SafeController extends Controller{
             $this->error('删除失败');
         }
     }
+
+    public function poolMap(){
+        $pool = D('pool')->getPoolAndCageInfo();
+        $base = D('base')->getBaseInfo();
+        $this->assign('pool',$pool);
+        $this->assign('base',$base);
+        $this->display();
+    }
+
+    public function saveCoordinate(){
+        if($_POST){
+            $coordinate = I('post.');
+            if($coordinate['type']==0){
+                $data = D('pool')->addCoordinate($coordinate);
+                $this->ajaxReturn($data);
+            }else{
+                $data = D('cage')->addCoordinate($coordinate);
+                $this->ajaxReturn($data);
+            }
+        }
+    }
+
+    public function getPoolCoordinate(){
+        if($_GET){
+            $name = I('get.name');
+            $userInfo = \Org\Util\User::_getUserInfo();
+            $result = D('pool')->where(array('pool_base_id'=>$userInfo['member_base_id'],'pool_name'=>$name))->getField('pool_coordinate');
+            $this->ajaxReturn($result);
+        }
+        return null;
+    }
+
+    public function getCageCoordinate(){
+        if($_GET){
+            $name = I('get.name');
+            $result = D('cage')->where(array('cage_rowname'=>$name))->getField('cage_coordinate');
+            $this->ajaxReturn($result);
+        }
+        return null;
+    }
+
+    public function getAllPool(){
+        $userInfo = \Org\Util\User::_getUserInfo();
+        $result = D('pool')->where(array('pool_base_id'=>$userInfo['member_base_id']))->getField('pool_coordinate',true);
+        $this->ajaxReturn($result);
+    }
+
+    public function deleteArea(){
+        if($_POST){
+            $name = I('post.typeName');
+            $type = I('post.type');
+            if($type==0){
+                $userInfo = \Org\Util\User::_getUserInfo();
+                D('pool')->where(array('pool_base_id'=>$userInfo['member_base_id'],'pool_name'=>$name))->setField('pool_coordinate',null);
+            }else{
+                D('cage')->where(array('cage_rowname'=>$name))->setField('cage_coordinate',null);
+            }
+        }
+    }
 }
