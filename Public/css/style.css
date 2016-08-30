@@ -49,7 +49,7 @@ h6,p{line-height:1.41;text-align:justify;margin:-.2em 0;word-break:break-all}
 
 /*header*/
 header{background:#19a97b;overflow:hidden;}
-header h1{margin:0;float:left;margin-left:1%;height: 70px;}
+header h1{margin:0;float:left;margin-left:1%;height: 60px;}
 header h1 img{width:auto;max-width:300px;height:70px;}
 header .rt_nav{float:right;overflow:hidden;margin-right:3%;margin-top:12px;}
 header .rt_nav li{float:left;padding:0 25px;text-align:center;border-right:1px #139667 solid;}
@@ -63,7 +63,7 @@ header .rt_nav li .admin_icon:before{content:"U";}
 header .rt_nav li .set_icon:before{content:"S";}
 header .rt_nav li .quit_icon:before{content:"Q";}
 /*aside nav*/
-.lt_aside_nav{width:210px;height:100%;position:absolute;top:70px;left:0;background:#fcfcfc;}
+.lt_aside_nav{width:210px;height:50%;position:absolute;top:60px;left:0;background:#fcfcfc;}
 .lt_aside_nav h2{text-align:center;border-bottom:1px #b6b6b6 solid;margin:0;height:45px;line-height:45px;background:#efefef;cursor:pointer}
 .lt_aside_nav h2 a{display:block;color:#333333;font-size:14px;text-shadow:0 0 2px white;}
 .lt_aside_nav ul{margin-bottom:75px;}
@@ -95,8 +95,8 @@ header .rt_nav li .quit_icon:before{content:"Q";}
 .page_title h2{font-size:15px;font-weight:bold;}
 .page_title .top_rt_btn{display:inline-block;height:30px;line-height:30px;padding:0 15px;border:1px #19a97b solid;border-radius:2px;background:#f8f8f8;color:#19a97b; vertical-align:middle;cursor:pointer;}
 .table{width:100%;}
-.table th{border:1px #d2d2d2 solid;height:40px;line-height:40px;}
-.table td{border:1px #d2d2d2 solid;padding:10px 8px;}
+.table th{border:1px #d2d2d2 solid;height:30px;line-height:30px;  font-size: 14px;}
+.table td{border:1px #d2d2d2 solid;padding:10px 8px;font-size: 14px;}
 .table tr:nth-child(odd){background:#f8f8f8;}
 .table tr:hover{background:#f9f9f9;}
 .table td a{color:#19a97b;margin:0 5px;cursor:pointer;}

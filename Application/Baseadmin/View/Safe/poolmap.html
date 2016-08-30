@@ -67,23 +67,60 @@
 </header>
 
 <!--aside nav-->
-<aside class="lt_aside_nav content mCustomScrollbar">
+<aside class="lt_aside_nav ">
     <h2 id="base">{$base.base_name}</h2>
-    <ul>
-        <volist name="pool" id="vo">
-            <li>
-                <dl>
-                    <dt id="pool" onclick="pushPool(this)" value="{$vo.pool_name}">{$vo.pool_name}</dt>
-                    <!--当前链接则添加class:active-->
-                    <volist name="vo['cageArray']" id="cage">
-                        <dd><span id="cageName" onclick="pushCage(this)" value="{$cage.cage_rowname}">{$cage.cage_rowname}</span></dd>
-                    </volist>
-                </dl>
-            </li>
-        </volist>
+    <div class="mCustomScrollbar">
+
+        <ul>
+            <volist name="pool" id="vo">
+                <li>
+                    <dl>
+                        <dt id="pool" onclick="pushPool(this)" value="{$vo.pool_name}">{$vo.pool_name}</dt>
+                        <!--当前链接则添加class:active-->
+                        <volist name="vo['cageArray']" id="cage">
+                            <dd><span id="cageName" onclick="pushCage(this)" value="{$cage.cage_rowname}">{$cage.cage_rowname}</span></dd>
+                        </volist>
+                    </dl>
+                </li>
+            </volist>
 
 
-    </ul>
+        </ul>
+    </div>
+    <h2>鱼塘信息</h2>
+    <div class="mCustomScrollbar">
+        <table class="table">
+            <tr>
+                <th>变量</th>
+                <th>数值</th>
+            </tr>
+            <tr>
+                <td class="center">名称</td>
+                <td class="center" id="pool_name"></td>
+            </tr>
+            <tr>
+                <td class="center">地址</td>
+                <td class="center" id="pool_add"></td>
+            </tr>
+            <tr>
+                <td class="center">面积</td>
+                <td class="center" id="pool_area"></td>
+            </tr>
+            <tr>
+                <td class="center">水深</td>
+                <td class="center" id="pool_deep"></td>
+            </tr>
+            <tr>
+                <td class="center">设备</td>
+                <td class="center" id="breed_equipment"></td>
+            </tr>
+            <tr>
+                <td class="center">模式</td>
+                <td class="center" id="pattern"></td>
+            </tr>
+        </table>
+    </div>
+
     <p class="btm_infor">© 华南农业大学 版权所有</p>
 </aside>
 
@@ -109,6 +146,7 @@
         map.setMapType(BMAP_SATELLITE_MAP);
         showAllArea();
         var overlays = [];
+        var overlay;
         var overlaycomplete = function(e){
             overlays.push(e.overlay);
         };
@@ -133,9 +171,9 @@
             polygonOptions: styleOptions, //多边形的样式
             rectangleOptions: styleOptions //矩形的样式
         });
-        //添加鼠标绘制工具监听事件，用于获取绘制结果
-        drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+
         function clearAll() {
+            map.clearOverlays();
             for(var i = 0; i < overlays.length; i++){
                 map.removeOverlay(overlays[i]);
             }
@@ -183,6 +221,7 @@
 
         $(function(){
             $('#base').on('click',function(){
+                map.clearOverlays();
                 map.panTo(new BMap.Point(113.537692, 22.934807));
                 showAllArea();
             });
@@ -198,16 +237,16 @@
             //用post方法获取鱼塘坐标值，如果为空，则应提示此鱼塘没有区域标记，如果有则显示在坐标框中，地图自动移到返回值的第一个坐标
             var url = "{:U('Baseadmin/Safe/getPoolCoordinate/name/"+val+"')}";
             $.get(url, function(data, status){
-
+                console.log(data);
                 if(!data){
                     alert("此鱼塘还没标记区域，点击确认进行添加。");
                     document.getElementById('t').value = '';
                     map.panTo(new BMap.Point(113.537692, 22.934807));
                     return;
                 }
-                document.getElementById('t').value = data;
+                document.getElementById('t').value = data['pool_coordinate'];
                 var poolAdd = [];
-                    poolAdd = data.split(';');
+                    poolAdd = data['pool_coordinate'].split(';');
                 var lng = poolAdd[0].split(',')[0];
                 var lat = poolAdd[0].split(',')[1];
                 map.panTo(new BMap.Point(lng, lat));
@@ -222,8 +261,16 @@
                 }
 
                 var polygon = new BMap.Polygon(p, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
-
+                overlay = polygon;
                 map.addOverlay(polygon);
+
+                $('#pool_name').text(data['pool_name']);
+                $('#pool_add').text(data['pool_addr']);
+                $('#pool_area').text(data['pool_area']);
+                $('#pool_deep').text(data['pool_depth']);
+                $('#breed_equipment').text(data['pool_equipment']);
+                $('#pattern').text(data['pool_model']);
+
             });
         }
 
@@ -260,7 +307,7 @@
                 }
 
                 var polyline = new BMap.Polyline(p, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
-
+                overlay = polyline;
                 map.addOverlay(polyline);
             });
         }
@@ -326,6 +373,9 @@
                 //由返回的数据是否为空判断是否删除坐标成功，如果失败弹窗提示，确认后什么都不用做，成功后则返回基地坐标
                 if(status == "success") {
                     alert( "删除区域成功！");
+                    document.getElementById('t').value = '';
+                    map.removeOverlay(overlay);
+                    overlay = null;
                     map.panTo(new BMap.Point(113.537692, 22.934807));
                     return;
                 }else{
@@ -335,11 +385,7 @@
             });
         });
 
-        $(function(){
-            $('dt').click(function(){
-                $('dd').toggle(1000);
-            });
-        });
+        
 
     </script>
 

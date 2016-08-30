@@ -72,7 +72,7 @@ class SafeController extends Controller{
         if($_GET){
             $name = I('get.name');
             $userInfo = \Org\Util\User::_getUserInfo();
-            $result = D('pool')->where(array('pool_base_id'=>$userInfo['member_base_id'],'pool_name'=>$name))->getField('pool_coordinate');
+            $result = D('pool')->where(array('pool_base_id'=>$userInfo['member_base_id'],'pool_name'=>$name))->find();
             $this->ajaxReturn($result);
         }
         return null;
@@ -99,10 +99,11 @@ class SafeController extends Controller{
             $type = I('post.type');
             if($type==0){
                 $userInfo = \Org\Util\User::_getUserInfo();
-                D('pool')->where(array('pool_base_id'=>$userInfo['member_base_id'],'pool_name'=>$name))->setField('pool_coordinate',null);
+                $result = D('pool')->where(array('pool_base_id'=>$userInfo['member_base_id'],'pool_name'=>$name))->setField('pool_coordinate',null);
             }else{
-                D('cage')->where(array('cage_rowname'=>$name))->setField('cage_coordinate',null);
+                $result = D('cage')->where(array('cage_rowname'=>$name))->setField('cage_coordinate',null);
             }
-        }
+            $this->ajaxReturn($result);
+        }return null;
     }
 }
