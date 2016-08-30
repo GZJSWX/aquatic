@@ -1,4 +1,4 @@
-﻿<!DOCTYPE>
+<!DOCTYPE>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -173,7 +173,7 @@
         });
 
         function clearAll() {
-            
+
             map.clearOverlays();
             for(var i = 0; i < overlays.length; i++){
                 map.removeOverlay(overlays[i]);
@@ -238,7 +238,7 @@
             //用post方法获取鱼塘坐标值，如果为空，则应提示此鱼塘没有区域标记，如果有则显示在坐标框中，地图自动移到返回值的第一个坐标
             var url = "{:U('Baseadmin/Safe/getPoolCoordinate/name/"+val+"')}";
             $.get(url, function(data, status){
-                console.log(data);
+
                 if(!data){
                     alert("此鱼塘还没标记区域，点击确认进行添加。");
                     document.getElementById('t').value = '';
@@ -247,7 +247,7 @@
                 }
                 document.getElementById('t').value = data['pool_coordinate'];
                 var poolAdd = [];
-                    poolAdd = data['pool_coordinate'].split(';');
+                poolAdd = data['pool_coordinate'].split(';');
                 var lng = poolAdd[0].split(',')[0];
                 var lat = poolAdd[0].split(',')[1];
                 map.panTo(new BMap.Point(lng, lat));
@@ -386,7 +386,7 @@
             });
         });
 
-        
+
 
     </script>
 
