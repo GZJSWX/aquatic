@@ -239,7 +239,7 @@
             var url = "{:U('Baseadmin/Safe/getPoolCoordinate/name/"+val+"')}";
             $.get(url, function(data, status){
 
-                if(!data){
+                if(!data['pool_coordinate']){
                     alert("此鱼塘还没标记区域，点击确认进行添加。");
                     document.getElementById('t').value = '';
                     map.panTo(new BMap.Point(113.537692, 22.934807));
@@ -336,6 +336,7 @@
                 }else{
                     alert("选中区域失败！");
                 }
+                map.clearOverlays();
                 //setTimeout("window.location.href=\"{:U('Baseadmin/Safe/index')}\"",200);
                 //根据返回的数据调用百度地图接口，panTo()到已选好的地址和展示区域
                 var poolAdd = data.coordinate.split(';');
@@ -368,22 +369,28 @@
 
         //删除鱼塘坐标
         $('#deleteArea').click(function(){
-            var action= "{:U('Baseadmin/Safe/deleteArea')}";
-            var Formattr=$('#coordinate_form').serialize();
-            $.post(action, Formattr, function(data,status) {
-                //由返回的数据是否为空判断是否删除坐标成功，如果失败弹窗提示，确认后什么都不用做，成功后则返回基地坐标
-                if(status == "success") {
-                    alert( "删除区域成功！");
-                    document.getElementById('t').value = '';
-                    map.removeOverlay(overlay);
-                    overlay = null;
-                    map.panTo(new BMap.Point(113.537692, 22.934807));
-                    return;
-                }else{
-                    alert("删除区域失败！");
-                    return;
-                }
-            });
+            if (confirm("你确定取消吗？")) {
+                var action= "{:U('Baseadmin/Safe/deleteArea')}";
+                var Formattr=$('#coordinate_form').serialize();
+                $.post(action, Formattr, function(data,status) {
+                    //由返回的数据是否为空判断是否删除坐标成功，如果失败弹窗提示，确认后什么都不用做，成功后则返回基地坐标
+                    if(status == "success") {
+                        alert( "删除区域成功！");
+                        document.getElementById('t').value = '';
+                        map.removeOverlay(overlay);
+                        overlay = null;
+                        map.panTo(new BMap.Point(113.537692, 22.934807));
+                        return;
+                    }else{
+                        alert("删除区域失败！");
+                        return;
+                    }
+                });
+            }
+            else {
+                return;
+            }
+
         });
 
 
