@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 年 07 月 31 日 19:20
+-- 生成日期: 2016 年 08 月 31 日 22:40
 -- 服务器版本: 5.5.38
 -- PHP 版本: 5.4.33
 
@@ -84,7 +84,7 @@ INSERT INTO `ap_cage` (`cage_id`, `cage_rowid`, `cage_rowname`, `cage_number`, `
 (10, 7, '17排', 10, 1, NULL, NULL),
 (11, 8, '18排', 10, 1, NULL, NULL),
 (12, 9, '19排', 10, 1, NULL, NULL),
-(13, 10, '20排', 10, 1, NULL, NULL),
+(13, 1, '20排', 10, 1, NULL, NULL),
 (14, 11, '21排', 10, 2, NULL, NULL),
 (15, 12, '22排', 10, 2, NULL, NULL),
 (16, 13, '23排', 10, 2, NULL, NULL),
@@ -189,6 +189,27 @@ INSERT INTO `ap_fry` (`fry_id`, `fry_name`, `fry_code`) VALUES
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `ap_indication`
+--
+
+CREATE TABLE IF NOT EXISTS `ap_indication` (
+  `indication_id` int(10) NOT NULL AUTO_INCREMENT,
+  `indication_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`indication_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `ap_indication`
+--
+
+INSERT INTO `ap_indication` (`indication_id`, `indication_name`) VALUES
+(1, '氨'),
+(2, '氮'),
+(3, '亚硝酸盐');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `ap_indicator`
 --
 
@@ -206,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `ap_indicator` (
   KEY `indicator_pool_id` (`indicator_pool_id`),
   KEY `indicator_cage_id` (`indicator_cage_id`),
   KEY `indicator_member_id` (`indicator_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- 转存表中的数据 `ap_indicator`
@@ -223,7 +244,8 @@ INSERT INTO `ap_indicator` (`indicator_id`, `indicator_pool_id`, `indicator_cage
 (29, NULL, 0, '2016-07-04', '1', '1', '5', '1', 7),
 (30, NULL, 0, '2016-07-15', '1', '1', '1', '1', 7),
 (31, NULL, 0, '2016-07-03', '1', '1', '1', '1', 7),
-(32, NULL, 0, '2016-07-23', '西风', '1', '1', '1', 7);
+(32, NULL, 0, '2016-07-23', '西风', '1', '1', '1', 7),
+(33, NULL, 0, '', '', '1', '', '', 7);
 
 -- --------------------------------------------------------
 
@@ -316,9 +338,11 @@ CREATE TABLE IF NOT EXISTS `ap_member` (
   `member_pool_id` int(11) DEFAULT '0',
   `member_permission` int(11) NOT NULL COMMENT '权限控制',
   PRIMARY KEY (`member_id`),
+  UNIQUE KEY `member_username_2` (`member_username`),
   KEY `member_base_id` (`member_base_id`),
   KEY `member_pool_id` (`member_pool_id`),
-  KEY `member_pool_id_2` (`member_pool_id`)
+  KEY `member_pool_id_2` (`member_pool_id`),
+  KEY `member_username` (`member_username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=82 ;
 
 --
@@ -330,77 +354,11 @@ INSERT INTO `ap_member` (`member_id`, `member_username`, `member_password`, `mem
 (2, 'superadmin', '47aafdea08632dd73b61a81e5909ea25', 1, 0, 0, 0),
 (3, 'user12', 'test', 3, 1, 2, 0),
 (4, 'baseadmin2', 'test', 2, 2, 0, 0),
-(7, 'user11', '3c3571abd4c0c48e2d037b97ea918c83', 3, 1, NULL, 0),
+(7, 'user11', '3c3571abd4c0c48e2d037b97ea918c83', 3, 1, 1, 0),
 (8, 'user26', 'test', 3, 2, 6, 0),
 (10, 'peng', 'test', 2, 0, 0, 0),
 (11, 'peng123', 'test', 3, 1, 0, 0),
 (12, 'peng134', 'testt', 3, 1, 0, 0),
-(15, '789', '78989', 2, 0, 0, 0),
-(16, '789', '546546', 2, 0, 0, 0),
-(17, 'peng789', 'test', 2, 1, 0, 0),
-(18, 'peng789', 'test', 2, 1, 0, 0),
-(19, '789', '123', 2, 1, 0, 0),
-(20, '789', '123', 2, 1, 0, 0),
-(21, '789', '789', 2, 1, 0, 0),
-(22, '789', '789', 2, 1, 0, 0),
-(23, '789', '456', 2, 1, 0, 0),
-(24, '789', '456', 2, 1, 0, 0),
-(25, '123', '123', 2, 1, 0, 0),
-(26, '123', '123', 2, 1, 0, 0),
-(27, '345', '`12', 2, 1, 0, 0),
-(28, '345', '`12', 2, 1, 0, 0),
-(29, '789', '123', 2, 0, 0, 0),
-(30, '789', '123', 2, 0, 0, 0),
-(31, '789', '123', 2, 0, 0, 0),
-(32, '789', '123', 2, 0, 0, 0),
-(33, '123', '123', 2, 0, 0, 0),
-(34, '123', '123', 2, 0, 0, 0),
-(35, '456', '456', 2, 0, 0, 0),
-(36, '456', '456', 2, 0, 0, 0),
-(37, '789', '789', 2, 0, 0, 0),
-(38, '789', '789', 2, 0, 0, 0),
-(39, '789', '789', 2, 0, 0, 0),
-(40, '789', '789', 2, 0, 0, 0),
-(41, '123', '123', 2, 0, 0, 0),
-(42, '123', '123', 2, 0, 0, 0),
-(43, '789', '789', 2, 0, 0, 0),
-(44, '789', '789', 2, 0, 0, 0),
-(45, '123', '123', 2, 0, 0, 0),
-(46, '123', '123', 2, 0, 0, 0),
-(47, '123', '123', 2, 0, 0, 0),
-(48, '123', '123', 2, 0, 0, 0),
-(49, '123', '123', 2, 0, 0, 0),
-(50, '123', '123', 2, 0, 0, 0),
-(51, '456', '456', 2, 0, 0, 0),
-(52, '456', '456', 2, 0, 0, 0),
-(53, '123', '123', 2, 0, 0, 0),
-(54, '123', '123', 2, 0, 0, 0),
-(55, '789', '123', 2, 0, 0, 0),
-(56, '789', '123', 2, 0, 0, 0),
-(57, '789', '789', 2, 0, 0, 0),
-(58, '789', '789', 2, 0, 0, 0),
-(59, '123', '123', 2, 0, 0, 0),
-(60, '123', '123', 2, 0, 0, 0),
-(61, '123', '123', 2, 0, 0, 0),
-(62, '123', '123', 2, 0, 0, 0),
-(63, '123', '123', 2, 0, 0, 0),
-(64, '123', '123', 2, 0, 0, 0),
-(65, '789', '789', 2, 0, 0, 0),
-(66, '789', '789', 2, 0, 0, 0),
-(67, 'abc', '123', 2, 1, 0, 1),
-(68, 'abc', '123', 2, 1, 0, 1),
-(69, '789', '789', 2, 1, 0, 1),
-(70, '789', '789', 2, 1, 0, 1),
-(71, '123', '123', 2, 0, 0, 0),
-(72, '123', '123', 2, 0, 0, 0),
-(73, '123', '123', 2, 0, 0, 0),
-(74, '123', '123', 2, 0, 0, 0),
-(75, '123', '123', 2, 0, 0, 0),
-(76, '123', '123', 2, 0, 0, 0),
-(77, '123', '123', 2, 0, 0, 0),
-(78, '123', '123', 2, 0, 0, 0),
-(79, '978', '789', 2, 1, 0, 0),
-(80, '978', '789', 2, 1, 0, 0),
 (81, '123456', '1e191d851b3b49a248f4ea62f6b06410', 2, 1, 0, 1);
 
 -- --------------------------------------------------------
@@ -508,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `ap_record` (
   KEY `record_transfer_pool_id` (`record_transfer_pool_id`),
   KEY `record_transfer_cage_id` (`record_transfer_cage_id`),
   KEY `record_member_id` (`record_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2016081813 ;
 
 --
 -- 转存表中的数据 `ap_record`
@@ -518,7 +476,12 @@ INSERT INTO `ap_record` (`record_id`, `record_pool_id`, `record_cage_id`, `recor
 (1, 1, 2, 3, 0, 0, 7, '1', '66524', '100斤', '3月4日', '销售', '备注test', '', ''),
 (2, 1, 2, 2, 0, 0, 7, '2', '100', '100斤', '16.3.3', '销售', 'test', '', ''),
 (3, 1, 2, 2, 1, 6, 7, '3', '', '', '16.3.3', '转塘', 'test', '100条', '100斤'),
-(4, 3, 1, 1, 0, 0, 7, '1', '12', '12', '2016-07-19', '销售', '123', '', '');
+(4, 3, 1, 1, 0, 0, 7, '1', '12', '12', '2016-07-19', '销售', '123', '', ''),
+(7, NULL, 2, 1, 0, 0, 7, '5', '1', '1', '2016-08-18', '销售', '1', '', ''),
+(201608181, NULL, 1, 1, 0, 0, 7, '6', '1', '2', '2016-08-19', '销售', '1', '', ''),
+(201608182, NULL, 2, 1, 0, 0, 7, '8', '1', '1', '2016-08-18', '销售', '1', '', ''),
+(2016081810, NULL, 13, 1, 0, 0, 7, '1,2,3', '1', '1', '2016-08-18', '销售', '1', '', ''),
+(2016081812, NULL, 15, 1, 0, 0, 7, '5', '11', '11', '2016-08-10', '销售', '1', '', '');
 
 -- --------------------------------------------------------
 
@@ -531,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `ap_sale` (
   `sale_record_id` int(11) DEFAULT '0',
   `sale_client_name` varchar(20) NOT NULL DEFAULT '',
   `sale_client_tel` varchar(20) NOT NULL DEFAULT '',
-  `sale_fry_id` int(11) DEFAULT '0',
+  `sale_fry_id` varchar(50) DEFAULT '0',
   `sale_number` varchar(20) NOT NULL DEFAULT '',
   `sale_weight` varchar(20) NOT NULL DEFAULT '',
   `sale_univalent` varchar(20) NOT NULL DEFAULT '',
@@ -542,15 +505,19 @@ CREATE TABLE IF NOT EXISTS `ap_sale` (
   KEY `sale_record_id` (`sale_record_id`),
   KEY `sale_fry_id` (`sale_fry_id`),
   KEY `sale_member_id` (`sale_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `ap_sale`
 --
 
 INSERT INTO `ap_sale` (`sale_id`, `sale_record_id`, `sale_client_name`, `sale_client_tel`, `sale_fry_id`, `sale_number`, `sale_weight`, `sale_univalent`, `sale_sales`, `sale_member_id`, `sale_remark`) VALUES
-(1, 1, '某农批市场', '612626', 3, '100条', '100斤', '1万', '1000万', 7, '备注test'),
-(2, 1, '客户名称', '客户电话号码', 1, '数量', '重量', '单价', '销售金额', 7, '备注');
+(1, 4, '1', '1', '1', '1', '1', '1', '1', 7, '1'),
+(2, 1, '客户名称', '客户电话号码', '1', '数量', '重量', '单价', '销售金额', 7, '备注'),
+(3, 1, '某农批市场', '612626', '3', '100条', '100斤', '1万', '1000万', 7, '备注test'),
+(6, 201608181, '1', '1', '1', '1', '1', '1', '', 7, ''),
+(8, 2016081810, '2', '2', '2,3,4', '2', '2', '2', '2', 7, '2'),
+(9, 0, '', '', '2,3,4', '', '', '', '', 7, '');
 
 -- --------------------------------------------------------
 
@@ -574,7 +541,7 @@ CREATE TABLE IF NOT EXISTS `ap_stocking` (
   KEY `stocking_cage_id` (`stocking_cage_id`,`stocking_fry_id`),
   KEY `stocking_fry_id` (`stocking_fry_id`),
   KEY `stocking_member_id` (`stocking_member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- 转存表中的数据 `ap_stocking`
@@ -603,7 +570,8 @@ INSERT INTO `ap_stocking` (`stocking_id`, `stocking_pool_id`, `stocking_batch`, 
 (26, 0, 4, NULL, 1, 1, '1', '2016-07-06', '2016-07-09', 7, '1'),
 (27, 0, 5, NULL, 4, 1, '5', '2016-07-07', '2016-07-15', 7, '·1'),
 (28, 0, 5, NULL, 1, 1, '1', '2016-07-16', '2016-07-17', 7, '1'),
-(29, 0, 123, NULL, 1, 123, '123', '2016-07-16', '2016-07-17', 7, '123123');
+(29, 0, 123, NULL, 1, 123, '123', '2016-07-16', '2016-07-17', 7, '123123'),
+(30, 1, 2147483647, 1, 1, 100, '01', '2016-08-18', '2016-08-19', 7, '1');
 
 -- --------------------------------------------------------
 

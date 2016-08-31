@@ -131,4 +131,13 @@ class RecordModel extends Model{
       }
     }
 
+  public function syRecord($cage){
+      $data=$this->where("record_cage_id = '{$cage}'")->find();
+      $data ['record_fry_id'] = M('fry')->getFieldByfry_id($data['record_fry_id'],'fry_name');
+      $data['record_cage_id'] = M('cage')->getFieldBycage_id($data['record_cage_id'],'cage_rowname');
+      $data['record_transfer_cage_id'] = M('cage')->getFieldBycage_id($data['record_transfer_cage_id'],'cage_rowname');
+      $data['record_transfer_pool_id'] = M('pool')->getFieldBypool_id($data['record_transfer_pool_id'],'pool_name');
+      return $data;
+  }
+
 }

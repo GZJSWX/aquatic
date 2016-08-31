@@ -135,5 +135,15 @@ class MedicationModel extends Model{
 
         }
     }
+    public function syMedication($cage){
+        $data=$this->where("medication_cage_id = '{$cage}'")->order('medication_time desc')->select();
+        foreach ($data as $key => $value) {
+            $data[$key]['medication_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['medication_cage_id'],'cage_rowname');
+            $data[$key]['medication_medicine_id'] = M('medicine')->getFieldBymedicine_id($data[$key]['medication_medicine_id'],'medicine_name');
+            $data[$key]['medication_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['medication_pool_id'],'pool_name');
+            $data[$key]['medication_pool_img'] = C('PIC_UPLOADS').$data[$key]['medication_pool_img'];
+        }
+        return $data;
+    }
 
 }

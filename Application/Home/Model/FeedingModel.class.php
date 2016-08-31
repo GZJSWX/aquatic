@@ -110,4 +110,16 @@ class FeedingModel extends Model{
       }
     }
 
+   public function syFeeding($cage){
+       $data=$this->where("feeding_cage_id = '{$cage}'")->order('feeding_time desc')->select();
+       foreach ($data as $key => $value) {
+           $data[$key]['feeding_feed_id'] = M('feed')->getFieldByfeed_id($data[$key]['feeding_feed_id'],'feed_name');
+           $data[$key]['feeding_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['feeding_cage_id'],'cage_rowname');
+           $data[$key]['feeding_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['feeding_pool_id'],'pool_name');
+           $data[$key]['feeding_pool_img'] = C('PIC_UPLOADS').$data[$key]['feeding_pool_img'];
+       }
+       return $data;
+   }
+
+
 }

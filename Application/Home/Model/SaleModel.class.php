@@ -113,5 +113,22 @@ class SaleModel extends Model{
         echo 'wrong';
       }
     }
+    public function sySale($record_id){
+        $data=$this->where("sale_record_id = '{$record_id}'")->find();
+        $fry=explode(',',$data['sale_fry_id']);
+        if(count($fry)>1){
+            $data['sale_fry_id']="";
+            $map['fry_id']  = array('in',$fry);
+            $re=M('fry')->where($map)->field('fry_name')->select();
+            $data['sale_fry_id']=$re[0]['fry_name'];
+            for($i=1;$i<count($re);$i++){
+                $data['sale_fry_id']=$data['sale_fry_id'].",".$re[$i]['fry_name'];
+            }
+        }
+        else{
+            $data['sale_fry_id'] = M('fry')->getFieldByfry_id($data['sale_fry_id'],'fry_name');
+        }
+        return $data;
+    }
 
 }

@@ -95,4 +95,10 @@ class TraceModel extends Model{
       }
     }
 
+  public function syTrace($sale_id){
+      $data=$this->where("trace_sale_id = '{$sale_id}'")->find();
+      $data['trace_fry_id'] = M('fry')->getFieldByfry_id($data['trace_fry_id'],'fry_name');
+      return $data;
+  }
+
 }

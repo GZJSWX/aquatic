@@ -120,4 +120,15 @@ class PatrolModel extends Model{
       }
     }
 
+    public function syPatrol($cage){
+        $data=$this->where("patrol_cage_id = '{$cage}'")->order('patrol_death_date desc')->select();
+        foreach($data as $key =>$value){
+            $data[$key]['patrol_cage_id'] = M('cage')->getFieldBycage_id($data[$key]['patrol_cage_id'],'cage_rowname');
+            $data[$key]['patrol_fry_id'] = M('fry')->getFieldByfry_id($data[$key]['patrol_fry_id'],'fry_name');
+            $data[$key]['patrol_pool_id'] = M('pool')->getFieldBypool_id($data[$key]['patrol_pool_id'],'pool_name');
+            $data[$key]['patrol_pool_img'] = C('PIC_UPLOADS').$data[$key]['patrol_pool_img'];
+        }
+        return $data;
+    }
+
 }
