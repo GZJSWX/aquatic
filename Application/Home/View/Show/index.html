@@ -24,145 +24,223 @@
 <div class="container">
 <div align="center"><h3>溯源表单</h3></div>
     <div class="row">
-        <div class="col-sm-9">
-
-            <h4>溯源信息：</h4>
-            <ol>
-                <li>销售编号:{$trace.trace_sale_id}</li>
-                <li>鱼品种:{$trace.trace_fry_id}</li>
-                <li>水质是否达标:{$trace.trace_is_water}</li>
-                <li>用药是否达标:{$trace.trace_is_medicine}</li>
-                <li>生产开始日期:{$trace.trace_start_time}</li>
-                <li>销售出塘日期:{$trace.trace_finish_time}</li>
-                <li>客户名称:{$trace.trace_client_name}</li>
-                <li>基地联系人:{$trace.trace_basename}</li>
-                <li>基地联系电话:{$trace.trace_tel}</li>
-            </ol>
-            <h4>销售信息：</h4>
-            <ol>
-                <li>销售编号:$sale.sale_id}</li>
-                <li>出塘编号:{$sale.sale_record_id}</li>
-                <li>客户名称:{$sale.sale_client_name}</li>
-                <li>客户电话号码:{$sale.sale_client_tel}</li>
-                <li>鱼品种:{$sale.sale_fry_id}</li>
-                <li>数量:{$sale.sale_number}</li>
-                <li>重量:{$sale.sale_weight}</li>
-                <li>单价:{$sale.sale_univalent}</li>
-                <li>销售金额:{$sale.sale_sales}</li>
-                <li>备注:{$sale.sale_remark}</li>
-            </ol>
-            <h4>出塘信息：</h4>
-            <ol>
-                <li>出塘编号:{$record.record_id}</li>
-                <li>出塘类型:{$record.record_type}</li>
-                <li>出塘日期:{$record.record_time}</li>
-                <li>养殖批次:{$record.record_batch}</li>
-                <li>鱼品种:{$record.record_fry_id}</li>
-                <li>网箱:{$record.record_cage_id}</li>
-                <li>数量:{$record.record_number}</li>
-                <li>重量:{$record.record_weight}</li>
-                <if condition="$record.record_type eq 转塘" >
-                    <li>转入池塘:{$record.record_transfer_pool_id}<li>
-                    <li>转入网箱:{$record.record_transfer_cage_id}<li>
-                    <li>转入数量:{$record.record_transfer_number}<li>
-                    <li>转入重量:{$record.record_transfer_weight}<li>
+        <div class="col-sm-6">
+            <table class="table table-bordered table-striped col-sm-6">
+                <caption>溯源信息:</caption>
+                <tr>
+                    <th>销售编号</th>
+                    <td>{$trace.trace_sale_id}</td>
+                    <th>鱼品种</th>
+                    <td>{$trace.trace_fry_id}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">水质是否达标</th>
+                    <td colspan="2">{$trace.trace_is_water}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">用药是否达标</th>
+                    <td colspan="2">{$trace.trace_is_medicine}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">生产开始日期</th>
+                    <td colspan="2">{$trace.trace_start_time}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">销售出塘日期</th>
+                    <td colspan="2">{$trace.trace_finish_time}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">客户名称</th>
+                    <td colspan="2">{$trace.trace_client_name}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">基地联系人</th>
+                    <td colspan="2">{$trace.trace_basename}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">基地联系电话</th>
+                    <td colspan="2">{$trace.trace_tel}</td>
+                </tr>
+            </table>
+            <table class="table table-bordered table-striped col-sm-6">
+                <caption>销售信息：</caption>
+                <tr>
+                    <th>销售编号:</th>
+                    <td>{$sale.sale_id}</td>
+                    <th>出塘编号:</th>
+                    <td>{$sale.sale_record_id}</td>
+                </tr>
+                <tr>
+                    <th >鱼品种:</th>
+                    <td >{$sale.sale_fry_id}</td>
+                    <th >单价:</th>
+                    <td >{$sale.sale_univalent}</td>
+                </tr>
+                <tr>
+                    <th >数量:</th>
+                    <td >{$sale.sale_number}</td>
+                    <th >重量:</th>
+                    <td >{$sale.sale_weight}</td>
+                </tr>
+                <tr>
+                    <th >销售金额:</th>
+                    <td >{$sale.sale_sales}</td>
+                    <th >客户名称:</th>
+                    <td >{$sale.sale_client_name}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">客户电话号码:</th>
+                    <td colspan="2">{$sale.sale_client_tel}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">备注:</th>
+                    <td colspan="2">{$sale.sale_remark}</td>
+                </tr>
+            </table>
+            <table class="table table-bordered table-striped col-sm-6">
+                <caption>出塘信息：</caption>
+                <tr>
+                    <th>出塘编号:</th>
+                    <td>{$record.record_id}</td>
+                    <th>养殖批次:</th>
+                    <td>{$record.record_batch}</td>
+                </tr>
+                <tr>
+                    <th >鱼品种:</th>
+                    <td >{$record.record_fry_id}</td>
+                    <th >网箱:</th>
+                    <td >{$record.record_cage_id}</td>
+                </tr>
+                <tr>
+                    <th >数量:</th>
+                    <td >{$record.record_number}</td>
+                    <th >重量:</th>
+                    <td >{$record.record_weight}</td>
+                </tr>
+                <if condition="$record.record_type eq 转塘">
+                    <tr>
+                        <th >转入池塘:</th>
+                        <td >{$record.record_transfer_pool_id}</td>
+                        <th >转入网箱:</th>
+                        <td >{$record.record_transfer_cage_id}</td>
+                    </tr>
+                    <tr>
+                        <th >转入数量:</th>
+                        <td >{$record.record_transfer_number}</td>
+                        <th >转入重量:</th>
+                        <td >{$record.record_transfer_weight}</td>
+                    </tr>
                 </if>
-                <li>备注:{$sale.sale_remark}</li>
-            </ol>
-
-
-            <div align="center"><img src="{$patrol[0].patrol_pool_img}" height="290" width="290"></div>
-            <table  class="table table-bordered table-striped col-sm-12">
-                <caption><h4>巡塘信息</h4></caption>
-                <thead>
                 <tr>
-                    <th>序号</th>
-                    <th>池塘</th>
-                    <th>鱼苗</th>
-                    <th>网箱</th>
-                    <th>数量</th>
-                    <th>重量</th>
-                    <th>死亡原因</th>
-                    <th>死亡日期</th>
-                    <th>经纬度</th>
-                    <th>备注</th>
-
+                    <th colspan="2">出塘类型:</th>
+                    <td colspan="2">{$record.record_type}</td>
                 </tr>
-                </thead>
-                <tbody >
-                <volist name="patrol" id="patrol">
-                    <tr>
-                        <td>{$i}</td>
-                        <td>{$patrol.patrol_pool_id}</td>
-                        <td>{$patrol.patrol_fry_id}</td>
-                        <td>{$patrol.patrol_cage_id}</td>
-                        <td>{$patrol.patrol_number}</td>
-                        <td>{$patrol.patrol_weight}</td>
-                        <td>{$patrol.patrol_death_reason}</td>
-                        <td>{$patrol.patrol_death_date}</td>
-                        <td>{$patrol.patrol_coordinate}</td>
-                        <td>{$patrol.patrol_remark}</td>
-                    </tr>
-                </volist>
-                </tbody>
+                <tr>
+                    <th colspan="2">出塘日期:</th>
+                    <td colspan="2">{$record.record_time}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">备注:</th>
+                    <td colspan="2">{$record.remark}</td>
+                </tr>
             </table>
-            <div align="center"><img src="{$feeding[0].feeding_pool_img}" height="290" width="290"></div>
-            <table class="table table-bordered table-striped col-sm-12" >
-                <caption><h4>投料信息</h4></caption>
-                <thead>
+
+           <!-- <div align="center"><img src="{$patrol[0].patrol_pool_img}" height="290" width="290"></div>-->
+            <h4>巡塘信息:</h4>
+            <volist name="patrol" id="patrol">
+            <table class="table table-bordered table-striped col-sm-6">
                 <tr>
-                    <th>序号</th>
-                    <th>池塘</th>
-                    <th>网箱</th>
-                    <th>饲料</th>
-                    <th>投料数量</th>
-                    <th>投料时间</th>
+                    <th>池塘:</th>
+                    <td>{$patrol.patrol_pool_id}</td>
+                    <th>网箱:</th>
+                    <td>{$patrol.patrol_cage_id}</td>
                 </tr>
-                </thead>
-                <tbody >
-                <volist name="feeding" id="feeding">
+                <tr>
+                    <th >鱼苗:</th>
+                    <td >{$patrol.patrol_fry_id}</td>
+                    <th >经纬度:</th>
+                    <td >{$patrol.patrol_coordinate}</td>
+                </tr>
+                <tr>
+                    <th >数量:</th>
+                    <td >{$patrol.patrol_number}</td>
+                    <th >重量:</th>
+                    <td >{$patrol.patrol_weight}</td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">死亡原因:</th>
+                    <td colspan="2">{$patrol.patrol_death_reason}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">死亡日期:</th>
+                    <td colspan="2">{$patrol.patrol_death_date}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">备注:</th>
+                    <td colspan="2">{$patrol.patrol_remark}</td>
+                </tr>
+            </table>
+            </volist>
+
+           <!-- <div align="center"><img src="{$feeding[0].feeding_pool_img}" height="290" width="290"></div>-->
+            <h4>投料信息:</h4>
+            <volist name="feeding" id="feeding">
+                <table class="table table-bordered table-striped col-sm-6">
                     <tr>
-                        <td>{$i}</td>
+                        <th>池塘:</th>
                         <td>{$feeding.feeding_pool_id}</td>
+                        <th>网箱:</th>
                         <td>{$feeding.feeding_cage_id}</td>
-                        <td>{$feeding.feeding_feed_id}</td>
-                        <td>{$feeding.feeding_number}</td>
-                        <td>{$feeding.feeding_time}</td>
                     </tr>
-                </volist>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-striped col-sm-12" >
-                <caption><h4>用药信息</h4></caption>
-                <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>池塘</th>
-                    <th>药品</th>
-                    <th>使用剂量</th>
-                    <th>网箱</th>
-                    <th>用药时间</th>
-                    <th>用药理由</th>
-                    <th>用药方式</th>
-                    <th>注意事项</th>
-                </tr>
-                </thead>
-                <tbody>
-                <volist name="medication" id="medication">
                     <tr>
-                        <td>{$i}</td>
-                        <td>{$medication.medication_pool_id}</td>
-                        <td>{$medication.medication_medicine_id}</td>
-                        <td>{$medication.medication_amount}</td>
-                        <td>{$medication.medication_cage_id}</td>
-                        <td>{$medication.medication_time}</td>
-                        <td>{$medication.medication_reason}</td>
-                        <td>{$medication.medication_pattern}</td>
-                        <td>{$medication.medication_precautions}</td>
+                        <th >饲料:</th>
+                        <td >{$feeding.feeding_feed_id}</td>
+                        <th >投料数量:</th>
+                        <td >{$feeding.feeding_number}</td>
                     </tr>
-                </volist>
-                </tbody>
-            </table>
+                    <tr>
+                        <th colspan="2">投料时间:</th>
+                        <td colspan="2">{$feeding.feeding_time}</td>
+                    </tr>
+                </table>
+            </volist>
+
+            <h4>用药信息:</h4>
+            <volist name="medication" id="medication">
+                <table class="table table-bordered table-striped col-sm-6">
+                    <tr>
+                        <th>池塘:</th>
+                        <td>{$medication.medication_pool_id}</td>
+                        <th>网箱:</th>
+                        <td>{$medication.medication_cage_id}</td>
+                    </tr>
+                    <tr>
+                        <th >药品:</th>
+                        <td >{$medication.medication_medicine_id}</td>
+                        <th >使用剂量:</th>
+                        <td >{$medication.medication_amount}</td>
+                    </tr>
+
+
+                    <tr>
+                        <th colspan="2">用药时间:</th>
+                        <td colspan="2">{$medication.medication_time}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">用药理由:</th>
+                        <td colspan="2">{$medication.medication_reason}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">用药方式:</th>
+                        <td colspan="2">{$medication.medication_pattern}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">注意事项:</th>
+                        <td colspan="2">{$medication.medication_precautions}</td>
+                    </tr>
+                </table>
+            </volist>
         </div>
 
         <div class="col-sm-3">
