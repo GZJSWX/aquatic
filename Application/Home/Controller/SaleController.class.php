@@ -105,7 +105,7 @@ class SaleController extends Controller {
             $time = I('get.time',null);
             $traceCode = I('get.traceCode',null);
 
-            $data = "扫描结果\n No:".$traceCode."\n 名称:".$name."\n 养殖商:".$producers."\n 捕捞时间:".$time."\n 产品重量:".$weight."\n 溯源链接:http://hdsy.scau.edu.cn/home/show/index?no=".$traceCode;
+            $data = "扫描结果\n No:".$traceCode."\n 名称:".$name."\n 养殖商:".$producers."\n 捕捞时间:".$time."\n 产品重量:".$weight."\n 溯源链接:http://hdsy.scau.edu.cn/index.php/home/show?no=".$traceCode;
             $this->qr($data);
         }else{
             $this->error('生成二维码失败，请重试！');
