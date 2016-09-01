@@ -30,36 +30,38 @@
                 <tr>
                     <th>销售编号</th>
                     <td>{$trace.trace_sale_id}</td>
+                </tr>
+                <tr>
                     <th>鱼品种</th>
                     <td>{$trace.trace_fry_id}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">水质是否达标</th>
-                    <td colspan="2">{$trace.trace_is_water}</td>
+                    <th >水质是否达标</th>
+                    <td >{$trace.trace_is_water}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">用药是否达标</th>
-                    <td colspan="2">{$trace.trace_is_medicine}</td>
+                    <th >用药是否达标</th>
+                    <td >{$trace.trace_is_medicine}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">生产开始日期</th>
-                    <td colspan="2">{$trace.trace_start_time}</td>
+                    <th>生产开始日期</th>
+                    <td >{$trace.trace_start_time}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">销售出塘日期</th>
-                    <td colspan="2">{$trace.trace_finish_time}</td>
+                    <th >销售出塘日期</th>
+                    <td >{$trace.trace_finish_time}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">客户名称</th>
-                    <td colspan="2">{$trace.trace_client_name}</td>
+                    <th >客户名称</th>
+                    <td >{$trace.trace_client_name}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">基地联系人</th>
-                    <td colspan="2">{$trace.trace_basename}</td>
+                    <th >基地联系人</th>
+                    <td >{$trace.trace_basename}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">基地联系电话</th>
-                    <td colspan="2">{$trace.trace_tel}</td>
+                    <th >基地联系电话</th>
+                    <td >{$trace.trace_tel}</td>
                 </tr>
             </table>
             <table class="table table-bordered table-striped col-sm-6">
@@ -67,34 +69,42 @@
                 <tr>
                     <th>销售编号:</th>
                     <td>{$sale.sale_id}</td>
+                </tr>
+                <tr>
                     <th>出塘编号:</th>
                     <td>{$sale.sale_record_id}</td>
                 </tr>
                 <tr>
                     <th >鱼品种:</th>
                     <td >{$sale.sale_fry_id}</td>
+                </tr>
+                <tr>
                     <th >单价:</th>
                     <td >{$sale.sale_univalent}</td>
                 </tr>
                 <tr>
                     <th >数量:</th>
                     <td >{$sale.sale_number}</td>
+                </tr>
+                <tr>
                     <th >重量:</th>
                     <td >{$sale.sale_weight}</td>
                 </tr>
                 <tr>
                     <th >销售金额:</th>
                     <td >{$sale.sale_sales}</td>
+                </tr>
+                <tr>
                     <th >客户名称:</th>
                     <td >{$sale.sale_client_name}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">客户电话号码:</th>
-                    <td colspan="2">{$sale.sale_client_tel}</td>
+                    <th>客户电话号码:</th>
+                    <td >{$sale.sale_client_tel}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">备注:</th>
-                    <td colspan="2">{$sale.sale_remark}</td>
+                    <th>备注:</th>
+                    <td>{$sale.sale_remark}</td>
                 </tr>
             </table>
             <table class="table table-bordered table-striped col-sm-6">
@@ -102,18 +112,24 @@
                 <tr>
                     <th>出塘编号:</th>
                     <td>{$record.record_id}</td>
+                </tr>
+                <tr>
                     <th>养殖批次:</th>
                     <td>{$record.record_batch}</td>
                 </tr>
                 <tr>
                     <th >鱼品种:</th>
                     <td >{$record.record_fry_id}</td>
+                </tr>
+                <tr>
                     <th >网箱:</th>
                     <td >{$record.record_cage_id}</td>
                 </tr>
                 <tr>
                     <th >数量:</th>
                     <td >{$record.record_number}</td>
+                </tr>
+                <tr>
                     <th >重量:</th>
                     <td >{$record.record_weight}</td>
                 </tr>
@@ -121,87 +137,101 @@
                     <tr>
                         <th >转入池塘:</th>
                         <td >{$record.record_transfer_pool_id}</td>
+                    </tr>
+                    <tr>
                         <th >转入网箱:</th>
                         <td >{$record.record_transfer_cage_id}</td>
                     </tr>
                     <tr>
                         <th >转入数量:</th>
                         <td >{$record.record_transfer_number}</td>
+                    </tr>
+                    <tr>
                         <th >转入重量:</th>
                         <td >{$record.record_transfer_weight}</td>
                     </tr>
                 </if>
                 <tr>
-                    <th colspan="2">出塘类型:</th>
-                    <td colspan="2">{$record.record_type}</td>
+                    <th>出塘类型:</th>
+                    <td>{$record.record_type}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">出塘日期:</th>
-                    <td colspan="2">{$record.record_time}</td>
+                    <th >出塘日期:</th>
+                    <td >{$record.record_time}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">备注:</th>
-                    <td colspan="2">{$record.remark}</td>
+                    <th>备注:</th>
+                    <td>{$record.remark}</td>
                 </tr>
             </table>
 
-           <!-- <div align="center"><img src="{$patrol[0].patrol_pool_img}" height="290" width="290"></div>-->
+            <div align="center"><img src="{$patrol[0].patrol_pool_img}" height="290" width="290" alt="巡塘照片"></div>
             <h4>巡塘信息:</h4>
             <volist name="patrol" id="patrol">
             <table class="table table-bordered table-striped col-sm-6">
                 <tr>
                     <th>池塘:</th>
                     <td>{$patrol.patrol_pool_id}</td>
+                </tr>
+                <tr>
                     <th>网箱:</th>
                     <td>{$patrol.patrol_cage_id}</td>
                 </tr>
                 <tr>
                     <th >鱼苗:</th>
                     <td >{$patrol.patrol_fry_id}</td>
+                </tr>
+                <tr>
                     <th >经纬度:</th>
                     <td >{$patrol.patrol_coordinate}</td>
                 </tr>
                 <tr>
                     <th >数量:</th>
                     <td >{$patrol.patrol_number}</td>
+                </tr>
+                <tr>
                     <th >重量:</th>
                     <td >{$patrol.patrol_weight}</td>
                 </tr>
 
                 <tr>
-                    <th colspan="2">死亡原因:</th>
-                    <td colspan="2">{$patrol.patrol_death_reason}</td>
+                    <th>死亡原因:</th>
+                    <td>{$patrol.patrol_death_reason}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">死亡日期:</th>
-                    <td colspan="2">{$patrol.patrol_death_date}</td>
+                    <th>死亡日期:</th>
+                    <td>{$patrol.patrol_death_date}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">备注:</th>
-                    <td colspan="2">{$patrol.patrol_remark}</td>
+                    <th>备注:</th>
+                    <td>{$patrol.patrol_remark}</td>
                 </tr>
             </table>
             </volist>
 
-           <!-- <div align="center"><img src="{$feeding[0].feeding_pool_img}" height="290" width="290"></div>-->
+            <div align="center"><img src="{$feeding[0].feeding_pool_img}" height="290" width="290" alt="投料照片"></div>
             <h4>投料信息:</h4>
             <volist name="feeding" id="feeding">
                 <table class="table table-bordered table-striped col-sm-6">
                     <tr>
                         <th>池塘:</th>
                         <td>{$feeding.feeding_pool_id}</td>
+                    </tr>
+                    <tr>
                         <th>网箱:</th>
                         <td>{$feeding.feeding_cage_id}</td>
                     </tr>
                     <tr>
                         <th >饲料:</th>
                         <td >{$feeding.feeding_feed_id}</td>
+                    </tr>
+                    <tr>
                         <th >投料数量:</th>
                         <td >{$feeding.feeding_number}</td>
                     </tr>
                     <tr>
-                        <th colspan="2">投料时间:</th>
-                        <td colspan="2">{$feeding.feeding_time}</td>
+                        <th>投料时间:</th>
+                        <td>{$feeding.feeding_time}</td>
                     </tr>
                 </table>
             </volist>
@@ -212,32 +242,34 @@
                     <tr>
                         <th>池塘:</th>
                         <td>{$medication.medication_pool_id}</td>
+                    </tr>
+                    <tr>
                         <th>网箱:</th>
                         <td>{$medication.medication_cage_id}</td>
                     </tr>
                     <tr>
                         <th >药品:</th>
                         <td >{$medication.medication_medicine_id}</td>
+                    </tr>
+                    <tr>
                         <th >使用剂量:</th>
                         <td >{$medication.medication_amount}</td>
                     </tr>
-
-
                     <tr>
-                        <th colspan="2">用药时间:</th>
-                        <td colspan="2">{$medication.medication_time}</td>
+                        <th>用药时间:</th>
+                        <td>{$medication.medication_time}</td>
                     </tr>
                     <tr>
-                        <th colspan="2">用药理由:</th>
-                        <td colspan="2">{$medication.medication_reason}</td>
+                        <th >用药理由:</th>
+                        <td >{$medication.medication_reason}</td>
                     </tr>
                     <tr>
-                        <th colspan="2">用药方式:</th>
-                        <td colspan="2">{$medication.medication_pattern}</td>
+                        <th >用药方式:</th>
+                        <td >{$medication.medication_pattern}</td>
                     </tr>
                     <tr>
-                        <th colspan="2">注意事项:</th>
-                        <td colspan="2">{$medication.medication_precautions}</td>
+                        <th >注意事项:</th>
+                        <td >{$medication.medication_precautions}</td>
                     </tr>
                 </table>
             </volist>
