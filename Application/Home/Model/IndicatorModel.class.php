@@ -17,7 +17,6 @@ class IndicatorModel extends Model{
            //$params['indicator_time'] = $time;
 
            if(! $this->add($params)) {
-             
               return 0;
            }
             return 1;
@@ -65,7 +64,7 @@ class IndicatorModel extends Model{
        $member_id = $userInfo['member_id'];
        $count = $this->where("indicator_member_id = $member_id")->count();
 
-       $Page  = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(2)
+       $Page  = new \Think\Page($count,8);// 实例化分页类 传入总记录数和每页显示的记录数(2)
        $Page->setConfig('prev',  '上一页');//上一页
        $Page->setConfig('next',  '下一页');//下一页
        $Page->setConfig('first', '<span aria-hidden="true">首页</span>');//第一页
