@@ -46,7 +46,7 @@
                 }
             },
             dataZoom: [{
-                startValue: '2016-01-01'
+                endValue: '2016-01-15 15:36:38'
             }, {
                 type: 'inside'
             }],
@@ -72,7 +72,7 @@
                 }, {
                     gt: 20,
                     lte: 25,
-                    color: '#66FF00'
+                    color: '#00cc00'
                 }, {
                     gt: 25,
                     lte: 28,
@@ -123,10 +123,11 @@
                 }
             }
         });
+        myChart.setOption(option);
     });
 
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+
 </script>
 </body>
 </html>

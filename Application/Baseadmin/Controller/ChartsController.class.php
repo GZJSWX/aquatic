@@ -17,6 +17,10 @@ class ChartsController extends Controller
         $this->display();
     }
 
+    public function showCharts(){
+        $this->display();
+    }
+
     public function getData(){
         $data = D('DeviceOnlineT')->getData();
         //dump($data);exit();
